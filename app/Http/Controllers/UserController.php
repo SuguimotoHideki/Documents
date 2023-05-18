@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rules\Cpf;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use App\Rules\CurrentPassword;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -30,8 +31,10 @@ class UserController extends Controller
     //Show edit form
     public function edit(User $user)
     {
+        $roleList = Role::all();
         return view('auth.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => $roleList
         ]);
     }
 

@@ -51,6 +51,16 @@
                         <span>{{$user->email}}</span>
                     </div>
                 </div>
+                @can('manage any user')
+                <div class="mb-3">
+                    <div>
+                        <span class="fw-bold">Papel:</span>
+                    </div>
+                    <div>
+                        <span>{{$user->getRoles->value('name')}}</span>
+                    </div>
+                </div>
+                @endcan
             </div>
         </div>
     </div>

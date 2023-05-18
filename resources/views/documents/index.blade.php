@@ -37,11 +37,13 @@
                                     <td headers="t2"><a href="/documents/{{$document->id}}">{{$document->title}}</a></td>
                                     <td headers="t3">{{$document->author}}</td>
                                     <td headers="t4">{{$document->keyword}}</td>
+                                    @can('manage document')
                                     <td headers="t5">
                                         <a href="/documents/{{$document->id}}" class="btn btn-primary bg-blue-600 ml-4">View</a>
                                         <a href="/documents/{{$document->id}}/edit" class="btn btn-primary bg-blue-600 ml-4">Edit</a>
                                         <a href="/" class="btn btn-danger bg-red-600">Delete</a>
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </table>

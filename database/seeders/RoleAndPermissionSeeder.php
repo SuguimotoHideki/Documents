@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class PermissionSeeder extends Seeder
+class RoleAndPermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,20 +16,19 @@ class PermissionSeeder extends Seeder
     {
         //Admin permissions
         //Related to users
-        Permission::create(['name' => 'manage users']);
-        Permission::create(['name' => 'delete users']);
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'edit users']);
+        Permission::create(['name' => 'manage any user']);
+        Permission::create(['name' => 'delete any user']);
+        Permission::create(['name' => 'update any user']);
+        Permission::create(['name' => 'create reviewer user']);
 
         //Related to documents
-        Permission::create(['name' => 'manage documents']);
-        Permission::create(['name' => 'delete documents']);
-        Permission::create(['name' => 'create documents']);
-        Permission::create(['name' => 'edit documents']);
+        Permission::create(['name' => 'manage any document']);
+        Permission::create(['name' => 'delete any document']);
+        Permission::create(['name' => 'update any document']);
+        Permission::create(['name' => 'review document']);
 
         //Create roles and assign permissions
-        $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(Permission::all());
-        $role =  Role::create(['name' => 'user']);
+        Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
+        Role::create(['name' => 'user']);
     }
 }

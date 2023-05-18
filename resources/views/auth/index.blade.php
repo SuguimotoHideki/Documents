@@ -29,7 +29,7 @@
                                 <td headers="t2">{{$user->cpf}}</a></td>
                                 <td headers="t3">{{$user->email}}</td>
                                 <td headers="t4">{{$user->phone_number}}</td>
-                                <td headers="t5">{{$user->roles->pluck('name')}}</td>
+                                <td headers="t5">{{$user->getRoles->value('name')}}</td>
                                 <td headers="t6">
                                     <a href="/users/{{$user->id}}" class="btn btn-primary bg-blue-600 ml-4">View</a>
                                     <a href="/users/{{$user->id}}/edit" class="btn btn-primary bg-blue-600 ml-4">Edit</a>

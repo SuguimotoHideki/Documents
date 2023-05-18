@@ -82,6 +82,17 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Papel') }}</label>
+                            <div class="col-md-6">
+                                <select name="" id="" class="form-select">
+                                    @foreach($roles as $role)
+                                        <option value="Something">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
 
                             <div class="col-md-6">

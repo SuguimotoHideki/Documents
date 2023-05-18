@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->hasMany(Document::class, 'user_id');
     }
 
-    public function roles()
+    public function getRoles()
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'role_id', 'model_id');
     }

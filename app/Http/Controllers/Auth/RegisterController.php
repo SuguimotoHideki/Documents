@@ -51,12 +51,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'user_name' => ['required', 'string', 'max:255'],
             'cpf' => ['required', 'string', 'digits:11', 'unique:users', new Cpf],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'user_email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
             'birth_date' => ['required', 'date'],
-            'phone_number' => ['required', 'string', 'digits:11', 'unique:users'],
+            'user_phone_number' => ['required', 'string', 'digits:11', 'unique:users'],
         ]);
     }
 
@@ -69,12 +69,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {   
         $user = User::create([
-            'name' => $data['name'],
+            'user_name' => $data['user_name'],
             'cpf' => $data['cpf'],
-            'email' => $data['email'],
+            'user_email' => $data['user_email'],
             'password' => Hash::make($data['password']),
             'birth_date' => $data['birth_date'],
-            'phone_number' => $data['phone_number']
+            'user_phone_number' => $data['user_phone_number']
         ]);
         $user->assignRole('user');
 

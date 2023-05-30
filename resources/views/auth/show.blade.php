@@ -16,7 +16,7 @@
                         <span class="fw-bold">Nome:</span>
                     </div>
                     <div>
-                        <span>{{$user->name}}</span>
+                        <span>{{$user->user_name}}</span>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -40,7 +40,7 @@
                         <span class="fw-bold">Número de telefone:</span>
                     </div>
                     <div>
-                        <span>{{$user->phone_number}}</span>
+                        <span>{{$user->user_phone_number}}</span>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -48,7 +48,7 @@
                         <span class="fw-bold">Endereço de e-mail:</span>
                     </div>
                     <div>
-                        <span>{{$user->email}}</span>
+                        <span>{{$user->user_email}}</span>
                     </div>
                 </div>
                 @can('manage any user')

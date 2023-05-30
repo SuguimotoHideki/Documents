@@ -12,12 +12,12 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nome completo') }}</label>
+                            <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('Nome completo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ old('user_name') }}" required autocomplete="user_name" autofocus>
 
-                                @error('name')
+                                @error('user_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -54,12 +54,12 @@
                         </div>
 
                         <div class="row mb-3 ">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Endereço de e-mail') }}</label>
+                            <label for="user_email" class="col-md-4 col-form-label text-md-end">{{ __('Endereço de e-mail') }}</label>
 
                             <div class="col-md-6 my-auto">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="user_email" type="user_email" class="form-control @error('user_email') is-invalid @enderror" name="user_email" value="{{ old('user_email') }}" required autocomplete="user_email">
 
-                                @error('email')
+                                @error('user_email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -68,12 +68,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Número de telefone') }}</label>
+                            <label for="user_phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Número de telefone') }}</label>
 
                             <div class="col-md-6 my-auto">
-                                <input id="phone_number" type="text" maxlength="11" placeholder="Digite apenas os números" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number">
+                                <input id="user_phone_number" type="text" maxlength="11" placeholder="Digite apenas os números" class="form-control @error('user_phone_number') is-invalid @enderror" name="user_phone_number" value="{{ old('user_phone_number') }}" required autocomplete="user_phone_number">
 
-                                @error('phone_number')
+                                @error('user_phone_number')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

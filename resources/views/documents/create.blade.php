@@ -60,7 +60,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="keyword" class="col-md-3 col-form-label text-md-center">{{ __('Palavras chave (Separado por vírgula)') }}</label>
-                            <div class="col-md-8">
+                            <div class="col-md-8 my-auto">
                                 <input id="keyword" type="text" class="form-control @error('keyword') is-invalid @enderror" name="keyword" value="{{ old('keyword') }}" placeholder="Exemplo: Saúde, Meio-Ambiente, Doenças, etc" required autocomplete="keyword" autofocus>
 
                                 @error('keyword')
@@ -72,7 +72,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="descriptor" class="col-md-3 col-form-label text-md-center">{{ __('Descritores (Separado por vírgula)') }}</label>
-                            <div class="col-md-8">
+                            <div class="col-md-8 my-auto">
                                 <input id="descriptor" type="text" class="form-control @error('descriptor') is-invalid @enderror" name="descriptor" value="{{ old('descriptor') }}" placeholder="Exemplo: Saúde, Meio-Ambiente, Doenças, etc" required autocomplete="descriptor" autofocus>
 
                                 @error('descriptor')
@@ -84,7 +84,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="document_type" class="col-md-3 col-form-label text-md-center">{{ __('Tipo de documento') }}</label>
-                            <div class="col-md-8">
+                            <div class="col-md-8 my-auto">
                                 <input id="document_type" type="text" class="form-control @error('document_type') is-invalid @enderror" name="document_type" value="{{ old('document_type') }}" required autocomplete="document_type" autofocus>
 
                                 @error('document_type')

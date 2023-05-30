@@ -42,7 +42,7 @@
                         <div class="row mb-3">
                             <label for="birth_date" class="col-md-4 col-form-label text-md-end">{{ __('Data de nascimento') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 my-auto">
                                 <input id="birth_date" type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date', $user->birth_date) }}" required autocomplete="birth_date" autofocus>
 
                                 @error('birth_date')
@@ -56,7 +56,7 @@
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Endereço de e-mail') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 my-auto">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" required autocomplete="email">
 
                                 @error('email')
@@ -70,7 +70,7 @@
                         <div class="row mb-3">
                             <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Número de telefone') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 my-auto">
                                 <input id="phone_number" type="text" maxlength="11" placeholder="Digite apenas os números" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number', $user->phone_number) }}" required autocomplete="phone_number">
 
                                 @error('phone_number')

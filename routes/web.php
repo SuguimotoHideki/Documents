@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,8 +70,8 @@ Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('
 Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('editDocument')->middleware('auth');
 
 //EVENTS
-Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], function()
+Route::group(['middleware' => ['auth']], function()
 {
     Route::get('/events/create', [EventController::class, 'create'])->name('createEvent');
-    
+    Route::post('events', [EventController::class, 'store'])->middleware('auth');
 });

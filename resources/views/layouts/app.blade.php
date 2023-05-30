@@ -43,6 +43,9 @@
                         <li class="nav-item my-auto">
                             <a href="/documents/create" class="nav-link">Publicar documento</a>
                         </li>
+                        <li class="nav-item my-auto">
+                            <a href="/events/create" class="nav-link">Criar evento</a>
+                        </li>
                         @role('admin')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

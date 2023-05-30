@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('website')->nullable();
-            $table->string('email');
-            $table->string('institution');
-            $table->string('sub_events')->nullable();
+            $table->string('event_name')->unique();
+            $table->string('event_email');
+            $table->string('event_website')->nullable();
+            $table->string('organizer');
+            $table->string('organizer_email');
+            $table->string('organizer_website')->nullable();
+            $table->longText('event_information');
+            $table->integer('event_status');
+            $table->longText('paper_topics');
+            $table->longText('paper_tracks');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->date('subscription_deadline');
             $table->date('submission_deadline');
             $table->timestamps();

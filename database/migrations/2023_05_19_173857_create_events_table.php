@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('organizer_email');
             $table->string('organizer_website')->nullable();
             $table->longText('event_information');
-            $table->integer('event_status');
+            $table->string('event_status');
             $table->longText('paper_topics');
             $table->longText('paper_tracks');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('event_start');
+            $table->date('event_end');
             $table->date('subscription_deadline');
             $table->date('submission_deadline');
             $table->timestamps();

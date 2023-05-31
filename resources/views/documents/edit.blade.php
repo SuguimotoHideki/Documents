@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Editar documento') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/documents{{$document->id}}/update" enctype="multipart/form-data">
+                    <form method="POST" action="/documents/{{$document->id}}/update" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row mb-3">

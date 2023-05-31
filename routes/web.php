@@ -73,5 +73,14 @@ Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->n
 Route::group(['middleware' => ['auth']], function()
 {
     Route::get('/events/create', [EventController::class, 'create'])->name('createEvent');
+
     Route::post('events', [EventController::class, 'store'])->middleware('auth');
+    
+    Route::get('/events', [EventController::class, 'index'])->name('indexEvents');
+    
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('showEvent');
+
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('editEvent');
+    
+    Route::put('/events/{event}/update', [EventController::class, 'update']);
 });

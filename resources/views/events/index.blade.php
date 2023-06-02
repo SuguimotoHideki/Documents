@@ -9,11 +9,11 @@
                     <table class="table bg-white">
                         <colgroup>
                             <col width="20%">
-                            <col width="20%">
-                            <col width="20%">
-                            <col width ="10%">
-                            <col width ="10%">
+                            <col width="10%">
+                            <col width="10%">
                             <col width ="20%">
+                            <col width ="20%">
+                            <col width ="10%">
                         </colgroup>
                         <tr>
                             <th id="t1">Evento</th>
@@ -28,8 +28,8 @@
                             <td headers="t1"><a href="events/{{$event->id}}">{{$event->event_name}}</a></td>
                             <td headers="t2">{{$event->event_website}}</td>
                             <td headers="t3">{{$event->event_email}}</td>
-                            <td headers="t4">{{$event->formatDate($event->subscription_deadline)}}</td>
-                            <td headers="t5">{{$event->formatDate($event->submission_deadline)}}</td>
+                            <td headers="t4">{{$event->formatDate($event->subscription_start)}} - {{$event->formatDate($event->subscription_deadline)}}</td>
+                            <td headers="t5">{{$event->formatDate($event->submission_start)}} - {{$event->formatDate($event->submission_deadline)}}</td>
                             <td headers="t6">{{$event->updateStatus($event->event_status)}}</td>
                             @endforeach
                         </tr>

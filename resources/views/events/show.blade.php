@@ -17,16 +17,12 @@
                             <div>{{$event->event_email}}</div>
                         </div>
                         <div class="mt-3">
-                            <div class="fw-bold">Realização:</div>
-                            <div>{{$event->formatDate($event->event_start)}} - {{$event->formatDate($event->event_end)}}</div>
-                        </div>
-                        <div class="mt-3">
                             <div class="fw-bold">Prazo para inscrição:</div>
-                            <div>{{$event->formatDate($event->subscription_deadline)}}</div>
+                            <div>{{$event->formatDate($event->subscription_start)}} - {{$event->formatDate($event->subscription_deadline)}}</div>
                         </div>
                         <div class="mt-3">
                             <div class="fw-bold">Prazo para submissão:</div>
-                            <div>{{$event->formatDate($event->submission_deadline)}}</div>
+                            <div>{{$event->formatDate($event->submission_start)}} - {{$event->formatDate($event->submission_deadline)}}</div>
                         </div>
                     </div>
                     <div class="col-md">

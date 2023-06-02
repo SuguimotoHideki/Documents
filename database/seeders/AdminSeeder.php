@@ -17,6 +17,7 @@ class AdminSeeder extends Seeder
         $admin = User::create([
             'user_name' => 'admin',
             'cpf' => '03698481103',
+            'user_institution' => 'Fiocruz MS',
             'user_email' => 'admin@email.com',
             'password' => Hash::make('P0rt4l*05_set_2022#'),
         ]);

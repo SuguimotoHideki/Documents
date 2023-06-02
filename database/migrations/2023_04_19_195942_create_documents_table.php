@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('author');
             $table->string('advisor');
+            $table->string('document_institution');
             $table->longText('abstract');
             $table->string('keyword');
-            $table->longText('descriptor');
             $table->string('document_type');
             $table->string('document');
             $table->timestamps();

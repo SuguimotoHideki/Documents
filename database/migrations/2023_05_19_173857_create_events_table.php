@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('event_status');
             $table->longText('paper_topics');
             $table->longText('paper_tracks');
-            $table->date('event_start');
-            $table->date('event_end');
+            $table->date('subscription_start');
             $table->date('subscription_deadline');
+            $table->date('submission_start');
             $table->date('submission_deadline');
             $table->timestamps();
         });

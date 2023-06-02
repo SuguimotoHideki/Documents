@@ -47,6 +47,18 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="document_institution" class="col-md-3 col-form-label text-md-center">{{ __('Instituição') }}</label>
+                            <div class="col-md-8">
+                                <input id="document_institution" type="text" class="form-control @error('document_institution') is-invalid @enderror" name="document_institution" value="{{ old('document_institution') }}" required autocomplete="document_institution" autofocus>
+
+                                @error('document_institution')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="abstract" class="col-md-3 col-form-label text-md-center">{{ __('Resumo') }}</label>
                             <div class="col-md-8">
                                 <textarea id="abstract" type="text" class="form-control @error('abstract') is-invalid @enderror" rows="10" name="abstract" required autocomplete="abstract" autofocus>{{ old('abstract') }}</textarea>
@@ -64,18 +76,6 @@
                                 <input id="keyword" type="text" class="form-control @error('keyword') is-invalid @enderror" name="keyword" value="{{ old('keyword') }}" placeholder="Exemplo: Saúde, Meio-Ambiente, Doenças, etc" required autocomplete="keyword" autofocus>
 
                                 @error('keyword')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="descriptor" class="col-md-3 col-form-label text-md-center">{{ __('Descritores (Separado por vírgula)') }}</label>
-                            <div class="col-md-8 my-auto">
-                                <input id="descriptor" type="text" class="form-control @error('descriptor') is-invalid @enderror" name="descriptor" value="{{ old('descriptor') }}" placeholder="Exemplo: Saúde, Meio-Ambiente, Doenças, etc" required autocomplete="descriptor" autofocus>
-
-                                @error('descriptor')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

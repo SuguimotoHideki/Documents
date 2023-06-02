@@ -82,13 +82,16 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Papel') }}</label>
-                            <div class="col-md-6">
-                                <select name="" id="" class="form-select">
-                                    @foreach($roles as $role)
-                                        <option value="Something">{{$role->name}}</option>
-                                    @endforeach
-                                </select>
+                            <label for="user_institution" class="col-md-4 col-form-label text-md-end">{{ __('Instituição') }}</label>
+
+                            <div class="col-md-6 my-auto">
+                                <input id="user_institution" type="text" class="form-control @error('user_institution') is-invalid @enderror" name="user_institution" value="{{ old('user_institution', $user->user_institution) }}" required autocomplete="user_institution">
+
+                                @error('user_institution')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

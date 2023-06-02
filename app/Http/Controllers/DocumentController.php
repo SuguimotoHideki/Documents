@@ -61,7 +61,7 @@ class DocumentController extends Controller
             'advisor' => ['required', 'string'],
             'abstract' => ['required', 'string'],
             'keyword' => ['required', 'string'],
-            'descriptor' => ['required', 'string'],
+            'document_institution' => ['required', 'string'],
             'document_type' => ['required', 'string']
         ]);
 

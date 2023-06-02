@@ -10,7 +10,17 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'user_id', 'author', 'advisor', 'abstract', 'keyword', 'descriptor', 'document_type', 'document'];
+    protected $fillable = [
+        'title',
+        'user_id',
+        'author',
+        'advisor', 
+        'abstract', 
+        'keyword',
+        'document_institution',
+        'document_type',
+        'document',
+    ];
 
     //Defining a relationship with Users
     public function user()

@@ -24,12 +24,16 @@
                     <div>{{$user->getBirthDate()}}</div>
                 </div>
                 <div class="mt-3">
+                    <div class="fw-bold">Endereço de e-mail:</div>
+                    <div>{{$user->user_email}}</div>
+                </div>
+                <div class="mt-3">
                     <div class="fw-bold">Número de telefone:</div>
                     <div>{{$user->user_phone_number}}</div>
                 </div>
                 <div class="mt-3">
-                    <div class="fw-bold">Endereço de e-mail:</div>
-                    <div>{{$user->user_email}}</div>
+                    <div class="fw-bold">Instituição:</div>
+                    <div>{{$user->user_institution}}</div>
                 </div>
                 @can('manage any user')
                 <div class="mt-3">

@@ -15,6 +15,10 @@
                     <div>{{$document->advisor}}</div>
                 </div>
                 <div class="mt-3">
+                    <div class="fw-bold">Instituição:</div>
+                    <div>{{$document->document_institution}}</div>
+                </div>
+                <div class="mt-3">
                     <div class="fw-bold">Data de publicação:</div>
                     <div>{{$document->getCreatedAttribute()}}</div>
                 </div>
@@ -25,10 +29,6 @@
                 <div class="mt-3">
                     <div class="fw-bold">Palavras chave:</div>
                     <x-list-items : wordList="{{$document->keyword}}"/>
-                </div>
-                <div class="mt-3">
-                    <div class="fw-bold">Descritores:</div>
-                    <x-list-items : wordList="{{$document->descriptor}}"/>
                 </div>
                 <div class="mt-3">
                     <div class="fw-bold">Tipo de documento:</div>

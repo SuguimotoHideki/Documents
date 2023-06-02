@@ -53,6 +53,7 @@ class UserController extends Controller
             'user_name' => ['required', 'string', 'max:255'],
             'cpf' => ['required', 'string', 'digits:11', Rule::unique('users', 'cpf')->ignore($user, 'id'), new Cpf],
             'user_email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'user_email')->ignore($user, 'id')],
+            'user_institution' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
             'current_password' => ['required', 'string', 'min:3', new CurrentPassword],
             'user_phone_number' => ['required', 'string', 'digits:11', Rule::unique('users', 'user_phone_number')->ignore($user, 'id')],

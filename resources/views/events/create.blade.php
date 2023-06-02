@@ -118,12 +118,12 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row mb-3" id="event_duration">
-                            <label for="event_start" class="col-md-3 col-form-label text-md-center">{{ __('Início do evento') }}</label>
+                        <div class="row mb-3">
+                            <label for="subscription_start" class="col-md-3 col-form-label text-md-center">{{ __('Inicio das inscrições') }}</label>
                             <div class="col-md-8 my-auto">
-                                <input id="event_start" type="date" class="form-control @error('event_start') is-invalid @enderror" name="event_start" value="{{ old('event_start') }}" required autocomplete="event_start" autofocus>
+                                <input id="subscription_start" type="date" class="form-control @error('subscription_start') is-invalid @enderror" name="subscription_start" value="{{ old('subscription_start') }}" required autocomplete="subscription_start" autofocus>
 
-                                @error('event_start')
+                                @error('subscription_start')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -131,19 +131,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="event_end" class="col-md-3 col-form-label text-md-center">{{ __('Fim do evento') }}</label>
-                            <div class="col-md-8 my-auto">
-                                <input id="event_end" type="date" class="form-control @error('event_end') is-invalid @enderror" name="event_end" value="{{ old('event_end') }}" required autocomplete="event_end" autofocus>
-
-                                @error('event_end')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="subscription_deadline" class="col-md-3 col-form-label text-md-center">{{ __('Prazo para inscrição') }}</label>
+                            <label for="subscription_deadline" class="col-md-3 col-form-label text-md-center">{{ __('Fim das inscrições') }}</label>
                             <div class="col-md-8 my-auto">
                                 <input id="subscription_deadline" type="date" class="form-control @error('subscription_deadline') is-invalid @enderror" name="subscription_deadline" value="{{ old('subscription_deadline') }}" required autocomplete="subscription_deadline" autofocus>
 
@@ -155,7 +143,19 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="submission_deadline" class="col-md-3 col-form-label text-md-center">{{ __('Prazo para submissão') }}</label>
+                            <label for="submission_start" class="col-md-3 col-form-label text-md-center">{{ __('Inicio das submissões') }}</label>
+                            <div class="col-md-8 my-auto">
+                                <input id="submission_start" type="date" class="form-control @error('submission_start') is-invalid @enderror" name="submission_start" value="{{ old('submission_start') }}" required autocomplete="submission_start" autofocus>
+
+                                @error('submission_start')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="submission_deadline" class="col-md-3 col-form-label text-md-center">{{ __('Fim das submissões') }}</label>
                             <div class="col-md-8 my-auto">
                                 <input id="submission_deadline" type="date" class="form-control @error('submission_deadline') is-invalid @enderror" name="submission_deadline" value="{{ old('submission_deadline') }}" required autocomplete="submission_deadline" autofocus>
 

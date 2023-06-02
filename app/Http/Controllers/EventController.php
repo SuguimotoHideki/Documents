@@ -50,10 +50,10 @@ class EventController extends Controller
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
-            'subscription_deadline' => ['required', 'date_format:Y-m-d', 'before:event_start'],
-            'submission_deadline' => ['required', 'date_format:Y-m-d', 'before:event_end'],
-            'event_start' => ['required', 'date_format:Y-m-d', 'before:event_end'],
-            'event_end' => ['required', 'date_format:Y-m-d']
+            'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
+            'subscription_deadline' => ['required', 'date_format:Y-m-d', 'before:submission_start'],
+            'submission_start' => ['required', 'date_format:Y-m-d', 'before:submission_deadline'],
+            'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
 
         $event->update($formFields);
@@ -75,10 +75,10 @@ class EventController extends Controller
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
-            'subscription_deadline' => ['required', 'date_format:Y-m-d', 'before:event_start'],
-            'submission_deadline' => ['required', 'date_format:Y-m-d', 'before:event_end'],
-            'event_start' => ['required', 'date_format:Y-m-d', 'before:event_end'],
-            'event_end' => ['required', 'date_format:Y-m-d']
+            'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
+            'subscription_deadline' => ['required', 'date_format:Y-m-d', 'before:submission_start'],
+            'submission_start' => ['required', 'date_format:Y-m-d', 'before:submission_deadline'],
+            'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
 
         //CHECK STRTOTIME TO FIX THE VALIDATION

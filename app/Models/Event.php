@@ -21,16 +21,18 @@ class Event extends Model
         'organizer', 
         'organizer_email', 
         'organizer_website',
+        'subscription_start',
         'subscription_deadline',
+        'submission_start',
         'submission_deadline',
-        'event_start',
-        'event_end'
     ];
 
     protected static $eventStates = [
         'Em breve',
-        'Registro e Submissão abertas',
-        'Registro e Submissão encerradas',
+        'Registros abertos',
+        'Registros encerrados',
+        'Submissões abertas',
+        'Submissões encerradas',
         'Cancelado',
         'Adiado'
     ];
@@ -65,15 +67,22 @@ class Event extends Model
     {
         $today = Carbon::today();
 
-        if($today > $this->event_start)
+        if($today > $this->subscription_start)
         {
             $this->event_status = self::$eventStates[1];
         }
-        else if($today > $this->event_end)
+        else if($today > $this->subscription_end)
         {
             $this->event_status = self::$eventStates[2];
         }
-
+        else if($today > $this->submission_start)
+        {
+            $this->event_status = self::$eventStates[3];
+        }
+        else if($today > $this->submission_deadline)
+        {
+            $this->event_status = self::$eventStates[4];
+        }
         $this->save();
         return $this->event_status;
     }

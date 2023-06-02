@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="list-group - list-group-flush shadow-sm p-3 mb-5 bg-white">
-                <div class="text-xl uppercase fw-bold">{{$document->title}}</div>
+                <h1 class="fs-3 text-uppercase">{{$document->title}}</h1>
                 <div class="mt-3">
                     <div class="fw-bold">Autor:</div>
                     <div>{{$document->author}}</div>

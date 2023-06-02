@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+            <h1 class='fs-2'>Minhas informações</h1>
             <div class="shadow-sm p-3 mb-5 bg-white">
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
                     <div class="navbar-nav me-auto">

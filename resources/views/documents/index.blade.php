@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+            <h1 class='fs-2'>Minhas submissões</h1>
             @if(count($documents) == 0)
                 <div class="text-center">
                     <p>Não há documentos publicados.</p>
@@ -22,16 +23,23 @@
                                 <col width="30%">
                                 <col width="20%">
                                 <col width ="20%">
+                                @can('manage any document')
                                 <col width ="20%">
+                                @endcan
                             </colgroup>
-                            <tr>
-                                <th id="t1">Data de publicação</th>
-                                <th id="t2">Título</th>
-                                <th id="t3">Autor</th>
-                                <th id="t4">Palavras chave</th>
-                                <th id="t5">Ações</th>
-                            </tr>
-                            @foreach ($documents as $document)
+                            <thead>
+                                <tr>
+                                    <th id="t1">Data de publicação</th>
+                                    <th id="t2">Título</th>
+                                    <th id="t3">Autor</th>
+                                    <th id="t4">Palavras chave</th>
+                                    @can('manage any document')
+                                    <th id="t5">Ações</th>
+                                    @endcan
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($documents as $document)
                                 <tr>
                                     <td headers="t1">{{$document->getCreatedAttribute()}}</td>
                                     <td headers="t2"><a href="/documents/{{$document->id}}">{{$document->title}}</a></td>
@@ -45,7 +53,8 @@
                                     </td>
                                     @endcan
                                 </tr>
-                            @endforeach
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

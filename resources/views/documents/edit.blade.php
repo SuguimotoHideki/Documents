@@ -50,7 +50,7 @@
                         <div class="row mb-3">
                             <label for="document_institution" class="col-md-3 col-form-label text-md-center">{{ __('Instituição') }}</label>
                             <div class="col-md-8">
-                                <input id="document_institution" type="text" class="form-control @error('document_institution') is-invalid @enderror" name="document_institution" value="{{ old('document_institution') }}" required autocomplete="document_institution" autofocus>
+                                <input id="document_institution" type="text" class="form-control @error('document_institution') is-invalid @enderror" name="document_institution" value="{{ old('document_institution', $document->document_institution) }}" required autocomplete="document_institution" autofocus>
 
                                 @error('document_institution')
                                     <span class="invalid-feedback" role="alert">
@@ -98,7 +98,7 @@
                         <div class="row mb-3">
                             <label for="document" class="col-md-3 col-form-label text-md-center">{{ __('Arquivo') }}</label>
                             <div class="col-md-8">
-                                <input id="document" type="file" class="form-control @error('document') is-invalid @enderror" name="document" value="{{ old('document', $document->document) }}" required autocomplete="document" autofocus>
+                                <input id="document" type="file" class="form-control @error('document') is-invalid @enderror" name="document" value="{{ old('document', $document->document) }}" autocomplete="document" autofocus>
 
                                 @error('document')
                                     <span class="invalid-feedback" role="alert">

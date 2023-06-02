@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="list-group - list-group-flush shadow-sm p-3 mb-5 bg-white">
-                <div class="text-xl uppercase fw-bold">{{$event->event_name}}</div>
+                <h1 class="fs-3 text-uppercase">{{$event->event_name}}</h1>
                 <div class="row">
                     <div class="col-md">
                         <div class="mt-3">
@@ -44,6 +44,7 @@
                     <div class="fw-bold">Sobre o evento:</div>
                     <div>{{$event->event_information}}</div>
                 </div>
+                <!--
                 <div class="mt-3">
                     <div class="fw-bold">Tópicos de artigos:</div>
                     <x-list-items : wordList="{{$event->paper_topics}}"/>
@@ -51,7 +52,7 @@
                 <div class="mt-3">
                     <div class="fw-bold">Trilha de artigos:</div>
                     <x-list-items : wordList="{{$event->paper_tracks}}"/>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

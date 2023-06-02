@@ -77,10 +77,37 @@ class DocumentController extends Controller
         return redirect('/')->with('message', "Document published.");
     }
 
+    //Show document edit form
     public function edit(Document $document)
     {
         return view('documents.edit',[
             'document' => $document
         ]);
+    }
+
+    //Uodate document fields
+    public function update(Request $request, Document $document)
+    {
+        $formFields = $request->validate([
+            'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
+            'author' => ['required', 'string'],
+            'advisor' => ['required', 'string'],
+            'abstract' => ['required', 'string'],
+            'keyword' => ['required', 'string'],
+            'document_institution' => ['required', 'string'],
+            'document_type' => ['required', 'string']
+        ]);
+
+        if($request->hasFile('document'))
+        {
+            $formFields['document'] = $request->file('document')->store('documents', 'public');
+            $document->update($formFields);
+        }
+        else
+        {
+            $document->update($request->except('document'));
+        }
+
+        return redirect()->route('showDocument', [$document])->with('message', "Document updated.");
     }
 }

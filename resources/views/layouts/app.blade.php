@@ -37,35 +37,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
+                        @role('user')
                         <li class="nav-item my-auto">
                             <a href="/" class="nav-link">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ ('Documentos') }}
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/documents">
-                                    Meus documentos
-                                </a>
-                                <a class="dropdown-item" href="/documents/create">
-                                    Criar documento
-                                </a>
-                            </div>
+                        <li class="nav-item my-auto">
+                            <a href="/documents" class="nav-link">Minhas submissões</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ ('Eventos') }}
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/events">
-                                    Ver eventos
-                                </a>
-                                <a class="dropdown-item" href="/events/create">
-                                    Criar evento
-                                </a>
-                            </div>
+                        <li class="nav-item my-auto">
+                            <a href="/events" class="nav-link">Minhas inscrições</a>
                         </li>
+                        @endif
                         @role('admin')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -73,13 +55,13 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/documents">
-                                    Documentos
+                                    Gerenciar documentos
                                 </a>
-                                <a class="dropdown-item" href="/roles/create">
-                                    Roles
+                                <a class="dropdown-item" href="/events">
+                                    Gerenciar eventos
                                 </a>
                                 <a class="dropdown-item" href="/users">
-                                    Usuários
+                                    Gerenciar usuários
                                 </a>
                             </div>
                         </li>

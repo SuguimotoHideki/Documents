@@ -29,7 +29,9 @@ Route::get('/welcome', function()
     return view('welcome');
 });
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [EventController::class, 'index'])->name('home')->middleware('auth');
 
 //USERS//
 Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], function()
@@ -68,6 +70,8 @@ Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('
 
 //Show document edit page
 Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('editDocument')->middleware('auth');
+
+Route::put('/documents/{document}/update', [DocumentController::class, 'update'])->middleware('auth');
 
 //EVENTS
 Route::group(['middleware' => ['auth']], function()

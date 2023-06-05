@@ -8,6 +8,14 @@
                 <h1 class="fs-3 text-uppercase">{{$event->event_name}}</h1>
                 <div class="row">
                     <div class="col-md">
+                        <form action="{{ route('eventSubscribe', $event)}}" method="POST">
+                            @csrf
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary bg-blue-600">
+                                    {{ __('Inscrever-se') }}
+                                </button>
+                            </div>
+                        </form>
                         <div class="mt-3">
                             <div class="fw-bold">Site do evento:</div>
                             <div>{{$event->event_website}}</div>

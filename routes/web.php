@@ -87,4 +87,6 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('editEvent');
     
     Route::put('/events/{event}/update', [EventController::class, 'update']);
+
+    Route::post('/events/{event}', [EventController::class, 'subscribe'])->name('eventSubscribe');
 });

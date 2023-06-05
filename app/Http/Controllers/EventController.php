@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
 
 class EventController extends Controller
@@ -36,6 +37,16 @@ class EventController extends Controller
         return view('events.show', [
             'event' => $event
         ]);
+    }
+
+    public function subscribe(Event $event)
+    {
+        $user = Auth::user();
+        $event->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
+
+        $confirmationMessage = ('Inscrito no evento ' . $event->event_name . '.');
+
+        return redirect('/')->with('message', $confirmationMessage);
     }
 
     public function update(Request $request, Event $event)

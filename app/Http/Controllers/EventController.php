@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
+use Illuminate\Database\QueryException;
 
 class EventController extends Controller
 {
@@ -20,6 +22,17 @@ class EventController extends Controller
     {
         return view('events.index', [
             'events' => Event::all()
+        ]);
+    }
+
+    public function subscribedEvents()
+    {
+        $user = Auth::user();
+
+        $subscribbedEvents = $user->events;
+
+        return view('events.index', [
+            'events' => $subscribbedEvents
         ]);
     }
 
@@ -42,9 +55,23 @@ class EventController extends Controller
     public function subscribe(Event $event)
     {
         $user = Auth::user();
-        $event->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
+        try
+        {
+            $event->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
 
-        $confirmationMessage = ('Inscrito no evento ' . $event->event_name . '.');
+            $confirmationMessage = ('Inscrito no evento ' . $event->event_name . '.');
+        }
+        catch(QueryException $error)
+        {
+            if($error->getCode() === '23000')
+            {
+                return redirect('/')->with('error', 'Você já está inscrito neste evento.');
+            }
+            else {
+                // Other database-related error occurred
+                return redirect('/')->with('error', 'Ocorreu um erro ao se inscrever no evento.');
+            }
+        }
 
         return redirect('/')->with('message', $confirmationMessage);
     }

@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'role_id', 'model_id');
     }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
+    }
 }

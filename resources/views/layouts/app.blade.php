@@ -15,12 +15,10 @@
 
     <!-- Scripts -->
     <script src="//unpkg.com/alpinejs" defer></script>
+
     <!-- <script src="https://cdn.tailwindcss.com" defer></script> -->
-    
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-
-
 
 <body>
     <div id="app">
@@ -45,7 +43,7 @@
                             <a href="/documents" class="nav-link">Minhas submissões</a>
                         </li>
                         <li class="nav-item my-auto">
-                            <a href="/events" class="nav-link">Minhas inscrições</a>
+                            <a href="/users/{{Auth::user()->id}}/events/subscribbed" class="nav-link">Minhas inscrições</a>
                         </li>
                         @endif
                         @role('admin')

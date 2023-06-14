@@ -73,9 +73,9 @@ Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->n
 
 Route::put('/documents/{document}/update', [DocumentController::class, 'update'])->middleware('auth');
 
-//EVENTS
 Route::group(['middleware' => ['auth']], function()
 {
+    //EVENTS
     Route::get('/events/create', [EventController::class, 'create'])->name('createEvent');
 
     Route::post('events', [EventController::class, 'store'])->middleware('auth');
@@ -88,5 +88,9 @@ Route::group(['middleware' => ['auth']], function()
     
     Route::put('/events/{event}/update', [EventController::class, 'update']);
 
+    //EVENT USER
+    //Create relationship between event and logged user
     Route::post('/events/{event}', [EventController::class, 'subscribe'])->name('eventSubscribe');
+    //Get events subscribbed by the logged user
+    Route::get('/users/{user}/events/subscribbed', [EventController::class, 'subscribedEvents'])->name('indexSubscribbedEvents');
 });

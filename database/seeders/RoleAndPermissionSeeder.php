@@ -27,6 +27,11 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'update any document']);
         Permission::create(['name' => 'review document']);
 
+        //Related to events
+        Permission::create(['name' => 'manage any event']);
+        Permission::create(['name' => 'delete any event']);
+        Permission::create(['name' => 'update any event']);
+
         //Create roles and assign permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
         Role::create(['name' => 'user']);

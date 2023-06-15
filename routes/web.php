@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth']], function()
     
     Route::put('/events/{event}/update', [EventController::class, 'update']);
 
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent');
     //EVENT USER
     //Create relationship between event and logged user
     Route::post('/events/{event}', [EventController::class, 'subscribe'])->name('eventSubscribe');

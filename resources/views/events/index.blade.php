@@ -23,17 +23,17 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th id="t1">Evento</th>
-                                    <th id="t3">Organizador</th>
-                                    <th id="t2">Status</th>
-                                    <th id="t4">Prazo para inscrição</th>
-                                    <th id="t5">Prazo para submissão</th>
+                                    <th id="t1">@sortablelink('event_name', 'Evento')</th>
+                                    <th id="t3">@sortablelink('organizer', 'Organizador')</th>
+                                    <th id="t2">@sortablelink('event_status', 'Status')</th>
+                                    <th id="t4">@sortablelink('subscription_deadline', 'Prazo para inscrição')</th>
+                                    <th id="t5">@sortablelink('submission_deadline', 'Prazo para submissão')</th>
                                     <th id="t6">Operações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($events as $event)
-                                <tr>
+                                <tr class="align-middle">
                                     <td headers="t1"><a href="/events/{{$event->id}}">{{$event->event_name}}</a></td>
                                     <td headers="t2">{{$event->organizer}}</td>
                                     <td headers="t3">{{$event->updateStatus($event->event_status)}}</td>
@@ -52,14 +52,37 @@
                                                 <a class="dropdown-item" href="/events/{{$event->id}}/edit">
                                                     Editar
                                                 </a>
-            
-                                                <a class="dropdown-item" href="/users/{{Auth::user()->id}}">
+
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">
                                                     Excluir
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
+                                <div class="modal fade" id="eventDeletePrompt{{$event->id}}" tabindex="-1" aria-labelledby="eventDeletePromptLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Excluir evento</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Deseja excluir o evento {{$event->event_name}} ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{{ route('deleteEvent', $event->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-primary">
+                                                    {{ __('Excluir') }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -78,16 +101,16 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th id="t1">Evento</th>
-                                    <th id="t3">Organizador</th>
-                                    <th id="t2">Status</th>
-                                    <th id="t4">Prazo para inscrição</th>
-                                    <th id="t5">Prazo para submissão</th>
+                                    <th id="t1">@sortablelink('event_name', 'Evento')</th>
+                                    <th id="t3">@sortablelink('organizer', 'Organizador')</th>
+                                    <th id="t2">@sortablelink('event_status', 'Status')</th>
+                                    <th id="t4">@sortablelink('subscription_deadline', 'Prazo para inscrição')</th>
+                                    <th id="t5">@sortablelink('submission_deadline', 'Prazo para submissão')</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($events as $event)
-                                <tr>
+                                <tr class="align-middle">
                                     <td headers="t1"><a href="/events/{{$event->id}}">{{$event->event_name}}</a></td>
                                     <td headers="t2">{{$event->organizer}}</td>
                                     <td headers="t3">{{$event->updateStatus($event->event_status)}}</td>

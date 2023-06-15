@@ -6,17 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Kyslik\ColumnSortable\Sortable;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $fillable = [
         'event_name',
         'event_website',
         'event_information',
         'paper_topics',
-        'paper_tracks', 
+        'event_email',
+        'event_status',
+        'organizer', 
+        'organizer_email', 
+        'organizer_website',
+        'subscription_start',
+        'subscription_deadline',
+        'submission_start',
+        'submission_deadline',
+    ];
+
+    public $sortable = [
+        'event_name',
+        'event_website',
+        'event_information',
+        'paper_topics',
         'event_email',
         'event_status',
         'organizer', 

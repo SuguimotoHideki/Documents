@@ -74,7 +74,7 @@ class DocumentController extends Controller
 
         Document::create($formFields);
 
-        return redirect('/')->with('message', "Document published.");
+        return redirect('/')->with('message', "Submissão enviada.");
     }
 
     //Show document edit form
@@ -108,6 +108,6 @@ class DocumentController extends Controller
             $document->update($request->except('document'));
         }
 
-        return redirect()->route('showDocument', [$document])->with('message', "Document updated.");
+        return redirect()->route('showDocument', [$document])->with('message', "Submissão atualizada.");
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
@@ -20,9 +19,8 @@ class EventController extends Controller
     //Returns all events
     public function index()
     {
-        return view('events.index', [
-            'events' => Event::all()
-        ]);
+        $events = Event::sortable()->paginate();
+        return view('events.index', compact('events'));
     }
 
     public function subscribedEvents()
@@ -65,11 +63,11 @@ class EventController extends Controller
         {
             if($error->getCode() === '23000')
             {
-                return redirect('/')->with('error', 'Você já está inscrito neste evento.');
+                return redirect()->back()->with('error', 'Você já está inscrito neste evento.');
             }
             else {
                 // Other database-related error occurred
-                return redirect('/')->with('error', 'Ocorreu um erro ao se inscrever no evento.');
+                return redirect()->back()->with('error', 'Ocorreu um erro ao se inscrever no evento.');
             }
         }
 
@@ -83,7 +81,6 @@ class EventController extends Controller
             'event_website' => ['required', 'string'],
             'event_information' => ['required', 'string'],
             'paper_topics' => ['required', 'string'],
-            'paper_tracks' => ['required', 'string'],
             'event_email' => ['required', 'string'],
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
@@ -97,7 +94,7 @@ class EventController extends Controller
         $event->update($formFields);
 
         //return redirect()->route('showEvent', [$event])->with('message', 'Event update successful');
-        return redirect('/')->with('message', 'Event updated.');
+        return redirect('/')->with('message', 'Evento ' . $event->event_name . ' atualizado.');
     }
 
     //Store event
@@ -108,7 +105,6 @@ class EventController extends Controller
             'event_website' => ['required', 'string'],
             'event_information' => ['required', 'string'],
             'paper_topics' => ['required', 'string'],
-            'paper_tracks' => ['required', 'string'],
             'event_email' => ['required', 'string'],
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
@@ -123,6 +119,13 @@ class EventController extends Controller
         $formFields['event_status'] = Event::getStatus()[0];
 
         Event::create($formFields);
-        return redirect('/')->with('message', 'Event created.');
+        return redirect('/')->with('message', 'Evento ' . $formFields['event_name'] . ' criado.');
+    }
+
+    public function destroy(Event $event)
+    {
+        $event->delete();
+
+        return redirect('/')->with('message', 'Evento ' . $event->event_name . ' removido.');
     }
 }

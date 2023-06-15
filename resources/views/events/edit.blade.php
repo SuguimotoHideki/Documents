@@ -108,18 +108,6 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="paper_tracks" class="col-md-3 col-form-label text-md-center">{{ __('Trilhas de artigo (Separado por vírgula)') }}</label>
-                            <div class="col-md-8 my-auto">
-                                <input id="paper_tracks" type="text" class="form-control @error('paper_tracks') is-invalid @enderror" name="paper_tracks" value="{{ old('paper_tracks', $event->paper_tracks) }}" placeholder="Exemplo: Saúde, Meio-Ambiente, Doenças, etc" required autocomplete="paper_tracks" autofocus>
-
-                                @error('paper_tracks')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label for="subscription_start" class="col-md-3 col-form-label text-md-center">{{ __('Inicio das inscrições') }}</label>
                             <div class="col-md-8 my-auto">
                                 <input id="subscription_start" type="date" class="form-control @error('subscription_start') is-invalid @enderror" name="subscription_start" value="{{ old('subscription_start', $event->subscription_start) }}" required autocomplete="subscription_start" autofocus>
@@ -168,10 +156,10 @@
                             </div>
                         </div>
                         <div class="justify-content-center text-center">
-                            <button type="submit" class="btn btn-primary bg-blue-600">
-                                {{ __('Publicar') }}
+                            <button type="submit" class="btn btn-primary bg-blue-600 me-2">
+                                {{ __('Salvar') }}
                             </button>
-                            <div class="btn">
+                            <div class="btn ms-2">
                                 <a href="/" class="text-black ml-4">Voltar</a>
                             </div>
                         </div>

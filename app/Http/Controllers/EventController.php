@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
@@ -27,9 +28,9 @@ class EventController extends Controller
     {
         $user = Auth::user();
 
-        $subscribbedEvents = $user->events;
-
-        return view('events.index', [
+        $subscribbedEvents = $user->events()->sortable()->paginate();
+        
+        return view('events.indexSubscribbed', [
             'events' => $subscribbedEvents
         ]);
     }
@@ -57,7 +58,7 @@ class EventController extends Controller
         {
             $event->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
 
-            $confirmationMessage = ('Inscrito no evento ' . $event->event_name . '.');
+            return redirect()->route('indexSubscribbedEvents', ['user' => $user])->with('message', 'Inscrito no evento ' . $event->event_name . '.');
         }
         catch(QueryException $error)
         {
@@ -70,8 +71,6 @@ class EventController extends Controller
                 return redirect()->back()->with('error', 'Ocorreu um erro ao se inscrever no evento.');
             }
         }
-
-        return redirect('/')->with('message', $confirmationMessage);
     }
 
     public function update(Request $request, Event $event)

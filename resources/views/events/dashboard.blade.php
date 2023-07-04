@@ -4,7 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <h1 class='fs-2'>Gerenciar eventos</h1>
+            <div class="row mb-3">
+                <h1 class='fs-2 col'>Gerenciar eventos</h1>
+                <div class="col">
+                    <a href="{{route('createEvent')}}" class="btn btn-primary btn-lg float-end">Criar evento</a>
+                </div>
+            </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table bg-white">

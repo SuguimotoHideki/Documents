@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], fun
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('editProfile');
 
     //Submit edited user information to update
-    Route::put('/users/{user}/update', [UserController::class, 'update']);
+    Route::put('/users/{user}/update', [UserController::class, 'update'])->name('updateProfile');
 
     //Show user password change page
     Route::get('/users/{user}/edit-password', [UserController::class, 'editPassword'])->name('editPassword');
@@ -49,11 +49,11 @@ Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], fun
     Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword']);
 
     //Show single user
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('showUser')->middleware('auth', 'id_or_permission');
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('showUser');
 });
 
 //Show all users
-Route::get('/users', [UserController::class, 'index'])->name('indexUsers')->middleware('auth', 'can:manage any user');
+Route::get('/manage/users', [UserController::class, 'index'])->name('manageUsers')->middleware('auth', 'can:manage any user');
 
 //DOCUMENTS//
 //Show document form view
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth']], function()
 
     Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('editEvent');
     
-    Route::put('/events/{event}/update', [EventController::class, 'update']);
+    Route::put('/events/{event}/update', [EventController::class, 'update'])->name('updateEvent');
 
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent');
     //EVENT USER

@@ -69,7 +69,7 @@
                                 <a class="dropdown-item" href="{{ route('manageEvent') }}">
                                     Gerenciar eventos
                                 </a>
-                                <a class="dropdown-item" href="/users">
+                                <a class="dropdown-item" href="{{ route('manageUsers') }}">
                                     Gerenciar usuários
                                 </a>
                             </div>

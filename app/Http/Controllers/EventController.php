@@ -20,7 +20,7 @@ class EventController extends Controller
     //Returns all events
     public function index()
     {
-        $events = Event::sortable()->paginate();
+        $events = Event::where('event_published', true)->sortable()->paginate();
         return view('events.index', compact('events'));
     }
 
@@ -110,7 +110,7 @@ class EventController extends Controller
         $event->update($formFields);
 
         //return redirect()->route('showEvent', [$event])->with('message', 'Event update successful');
-        return redirect()->route('manageEvent')->with('message', 'Evento ' . $event->event_name . ' atualizado.');
+        return redirect()->route('showEvent', $event->id)->with('message', 'Evento ' . $event->event_name . ' atualizado.');
     }
 
     //Store event

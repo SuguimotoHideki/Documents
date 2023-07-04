@@ -172,18 +172,48 @@
                                 <small class="form-text text-muted">Tornar o evento visível para usuários</small>
                             </div>
                         </div>
-                        <div class="justify-content-center text-center">
-                            <button type="submit" class="btn btn-primary bg-blue-600 me-2">
-                                {{ __('Salvar') }}
-                            </button>
-                            <div class="btn ms-2">
-                                <a href="/" class="text-black ml-4">Voltar</a>
+                        <div class="modal fade" id="editPrompt" tabindex="-1" aria-labelledby="editPromptLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{{$event->event_name}}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Deseja confirmar as alterações em {{$event->event_name}} ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <form action="{{ route('updateEvent', $event)}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Salvar') }}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col d-grid gap-2 col-5 mx-auto">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
+                                Salvar
+                            </button>
+                        </div>
+                        <div class="col d-grid gap-2 col-5 mx-auto">
+                            <a href="{{ route('showEvent', $event)}}" class="btn btn-outline-dark">
+                                Voltar
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

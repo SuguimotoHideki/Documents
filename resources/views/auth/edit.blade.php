@@ -6,11 +6,10 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Editar Informações') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="/users/{{$user->id}}/update">
-                        @csrf
-                        @method('PUT')
+                <form method="POST" action="/users/{{$user->id}}/update">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body">
                         <div class="row mb-3">
                             <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('Nome completo') }}</label>
 
@@ -109,17 +108,22 @@
                                <small class="form-text text-muted">Confirme sua senha para salvar as alterações</small>
                             </div>
                         </div>
-
-                        <div class="justify-content-center text-center">
-                            <button type="submit" class="btn btn-primary bg-blue-600">
-                                {{ __('Salvar alterações') }}
-                            </button>
-                            <div class="btn">
-                                <a href="/users/{{$user->id}}" class="text-black ml-4">Voltar</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col d-grid gap-2 col-5 mx-auto">
+                                <button type="submit" class="btn btn-success">
+                                    {{ __('Salvar alterações') }}
+                                </button>
+                            </div>
+                            <div class="col d-grid gap-2 col-5 mx-auto">
+                                <a href="{{ route('showUser', $user)}}" class="btn btn-outline-dark">
+                                    Voltar
+                                </a>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

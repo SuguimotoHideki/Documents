@@ -46,16 +46,21 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
-                        <div class="justify-content-center text-center">
-                            <button type="submit" class="btn btn-primary bg-blue-600">
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col d-grid gap-2 col-5 mx-auto">
+                            <button type="submit" class="btn btn-success">
                                 {{ __('Atualizar senha') }}
                             </button>
-                            <div class="btn">
-                                <a href="/users/{{$user->id}}" class="text-black ml-4">Voltar</a>
-                            </div>
                         </div>
-                    </form>
+                        <div class="col d-grid gap-2 col-5 mx-auto">
+                            <a href="{{ route('showUser', $user)}}" class="btn btn-outline-dark">
+                                Voltar
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

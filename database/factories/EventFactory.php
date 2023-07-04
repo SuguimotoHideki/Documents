@@ -23,7 +23,7 @@ class EventFactory extends Factory
             'event_information' => Str::random(100),
             'paper_topics' => implode(', ', [Str::random(30), Str::random(30), Str::random(30)]),
             'event_email' => fake()->companyEmail(),
-            'event_status' => 0,
+            'event_published' => false,
             'organizer' => fake()->company(),
             'organizer_email' => fake()->companyEmail(),
             'organizer_website' => fake()->url(),

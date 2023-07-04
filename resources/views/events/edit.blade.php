@@ -132,7 +132,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="submission_start" class="col-md-3 col-form-label text-md-center">{{ __('Inicio das inscrições') }}</label>
+                            <label for="submission_start" class="col-md-3 col-form-label text-md-center">{{ __('Inicio das submissões') }}</label>
                             <div class="col-md-8 my-auto">
                                 <input id="submission_start" type="date" class="form-control @error('submission_start') is-invalid @enderror" name="submission_start" value="{{ old('submission_start', $event->submission_start) }}" required autocomplete="submission_start" autofocus>
 
@@ -144,7 +144,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="submission_deadline" class="col-md-3 col-form-label text-md-center">{{ __('Prazo para submissão') }}</label>
+                            <label for="submission_deadline" class="col-md-3 col-form-label text-md-center">{{ __('Fim das submissões') }}</label>
                             <div class="col-md-8 my-auto">
                                 <input id="submission_deadline" type="date" class="form-control @error('submission_deadline') is-invalid @enderror" name="submission_deadline" value="{{ old('submission_deadline', $event->submission_deadline) }}" required autocomplete="submission_deadline" autofocus>
 
@@ -153,6 +153,23 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="event_status" class="col-md-3 col-form-label text-md-center">{{ __('Status do evento') }}</label>
+                            <div class="col-md-8 my-auto">
+                                <select name="event_status" id="event_status" class="col-md-12 my-auto">
+                                    <option value="Em breve" {{ $event->event_status === 'Em breve' ? 'selected' : '' }}>Em breve</option>
+                                    <option value="Adiado" {{ $event->event_status === 'Adiado' ? 'selected' : '' }}>Adiado</option>
+                                    <option value="Cancelado" {{ $event->event_status === 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="event_published" class="col-md-3 col-form-label text-md-center">{{ __('Evento publicado') }}</label>
+                            <div class="col-md-8 my-auto">
+                                <input id="event_published" type="checkbox" name="event_published" value='1' @checked(old('1', $event->event_published )) autofocus>
+                                <small class="form-text text-muted">Tornar o evento visível para usuários</small>
                             </div>
                         </div>
                         <div class="justify-content-center text-center">

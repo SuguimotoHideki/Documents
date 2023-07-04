@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('events', [EventController::class, 'store'])->middleware('auth');
     
     Route::get('/events', [EventController::class, 'index'])->name('indexEvents');
+
+    Route::get('/manage/events', [EventController::class, 'dashboard'])->name('manageEvent');
     
     Route::get('/events/{event}', [EventController::class, 'show'])->name('showEvent');
 

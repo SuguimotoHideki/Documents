@@ -24,6 +24,7 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+    //Returns events subscribbed by the user
     public function subscribedEvents()
     {
         $user = Auth::user();
@@ -33,6 +34,13 @@ class EventController extends Controller
         return view('events.indexSubscribbed', [
             'events' => $subscribbedEvents
         ]);
+    }
+
+    //Returns event management page
+    public function dashboard()
+    {
+        $events = Event::sortable()->paginate();
+        return view('events.dashboard', compact('events'));
     }
 
     //Returns event edit form
@@ -82,6 +90,7 @@ class EventController extends Controller
             'paper_topics' => ['required', 'string'],
             'event_email' => ['required', 'string'],
             'organizer' => ['required', 'string'],
+            'event_status' => ['required', Rule::in(Event::$eventStatuses)],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
             'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
@@ -90,10 +99,18 @@ class EventController extends Controller
             'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
 
+        if($request->has('event_published'))    
+        {
+            $formFields['event_published'] = 1;
+            //dd($formFields);
+        }
+        else
+            {$formFields['event_published'] = 0;}
+
         $event->update($formFields);
 
         //return redirect()->route('showEvent', [$event])->with('message', 'Event update successful');
-        return redirect('/')->with('message', 'Evento ' . $event->event_name . ' atualizado.');
+        return redirect()->route('manageEvent')->with('message', 'Evento ' . $event->event_name . ' atualizado.');
     }
 
     //Store event
@@ -105,6 +122,7 @@ class EventController extends Controller
             'event_information' => ['required', 'string'],
             'paper_topics' => ['required', 'string'],
             'event_email' => ['required', 'string'],
+            'event_published' => false,
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
@@ -113,9 +131,6 @@ class EventController extends Controller
             'submission_start' => ['required', 'date_format:Y-m-d', 'before:submission_deadline'],
             'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
-
-        //CHECK STRTOTIME TO FIX THE VALIDATION
-        $formFields['event_status'] = Event::getStatus()[0];
 
         Event::create($formFields);
         return redirect('/')->with('message', 'Evento ' . $formFields['event_name'] . ' criado.');

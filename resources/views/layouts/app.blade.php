@@ -66,7 +66,7 @@
                                 <a class="dropdown-item" href="/documents">
                                     Gerenciar documentos
                                 </a>
-                                <a class="dropdown-item" href="/events">
+                                <a class="dropdown-item" href="{{ route('manageEvent') }}">
                                     Gerenciar eventos
                                 </a>
                                 <a class="dropdown-item" href="/users">

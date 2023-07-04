@@ -6,11 +6,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="card-body">
                         <div class="row mb-3">
                             <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('Nome completo') }}</label>
 
@@ -116,16 +114,22 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary bg-blue-600">
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col d-grid gap-2 col-5 mx-auto">
+                                <button type="submit" class="btn btn-success">
                                     {{ __('Register') }}
                                 </button>
                             </div>
+                            <div class="col d-grid gap-2 col-5 mx-auto">
+                                <a href="{{ route('login') }}" class="btn btn-outline-dark">
+                                    {{ __('Cancel') }}
+                                </a>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

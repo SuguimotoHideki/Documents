@@ -6,10 +6,9 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">{{ __('Publicar evento') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="/events">
-                        @csrf
+                <form method="POST" action="/events">
+                    @csrf
+                    <div class="card-body">
                         <div class="row mb-3">
                             <label for="event_name" class="col-md-3 col-form-label text-md-center">{{ __('Nome do evento') }}</label>
                             <div class="col-md-8">
@@ -154,16 +153,22 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="justify-content-center text-center">
-                            <button type="submit" class="btn btn-primary bg-blue-600">
-                                {{ __('Publicar') }}
-                            </button>
-                            <div class="btn">
-                                <a href="/" class="text-black ml-4">Voltar</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col d-grid gap-2 col-5 mx-auto">
+                                <button type="submit" class="btn btn-success">
+                                    {{ __('Publicar') }}
+                                </button>
+                            </div>
+                            <div class="col d-grid gap-2 col-5 mx-auto">
+                                <a href="{{ route('manageEvent')}}" class="btn btn-outline-dark">
+                                    Voltar
+                                </a>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

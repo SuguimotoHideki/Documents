@@ -30,6 +30,7 @@ class Event extends Model
     ];
 
     public $sortable = [
+        'id',
         'event_name',
         'event_website',
         'event_information',

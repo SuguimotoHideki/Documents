@@ -7,48 +7,48 @@
             <div class="row mb-3">
                 <h1 class='fs-2 col'>Gerenciar eventos</h1>
                 <div class="col">
-                    <a href="{{route('createEvent')}}" class="btn btn-primary btn-lg float-end">Criar evento</a>
+                    <a href="{{route('createEvent')}}" class="btn btn-success float-end">Criar evento</a>
                 </div>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table bg-white">
                         <colgroup>
+                            <col width="5%">
+                            <col width="20%">
                             <col width="15%">
                             <col width="15%">
-                            <col width="15%">
-                            <col width ="10%">
-                            <col width ="10%">
                             <col width ="15%">
-                            <col width ="10%">
+                            <col width ="15%">
+                            <col width ="15%">
                         </colgroup>
                         <thead>
                             <tr class="align-middle">
-                                <th id="t1">@sortablelink('event_name', 'Evento')</th>
-                                <th id="t2">@sortablelink('event_email', 'Email do evento')</th>
-                                <th id="t3">@sortablelink('organizer', 'Organizador')</th>
-                                <th id="t4">@sortablelink('event_published', 'Publicação')</th>
-                                <th id="t4">@sortablelink('event_status', 'Status')</th>
-                                <th id="t5">@sortablelink('subscription_deadline', 'Prazo para inscrição')</th>
-                                <th id="t6">Operações</th>
+                                <th id="t1">@sortablelink('id', 'ID')</th>
+                                <th id="t2">@sortablelink('event_name', 'Evento')</th>
+                                <th id="t3">@sortablelink('event_email', 'Email do evento')</th>
+                                <th id="t4">@sortablelink('organizer', 'Organizador')</th>
+                                <th id="t5">@sortablelink('event_published', 'Publicação')</th>
+                                <th id="t6">@sortablelink('event_status', 'Status')</th>
+                                <th id="t7">Operações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($events as $event)
                             <tr class="align-middle" style="height: 4rem">
-                                <td headers="t1"><a href="/events/{{$event->id}}">{{$event->event_name}}</a></td>
-                                <td headers="t2">{{$event->event_email}}</td>
-                                <td headers="t3">{{$event->organizer}}</td>
-                                <td headers="t4">
+                                <td headers="t1"><a href="/events/{{$event->id}}">{{$event->id}}</td>
+                                <td headers="t2"><a href="/events/{{$event->id}}">{{$event->event_name}}</a></td>
+                                <td headers="t3">{{$event->event_email}}</td>
+                                <td headers="t4">{{$event->organizer}}</td>
+                                <td headers="t5">
                                     @if($event->event_published === 1)
                                         Publicado
                                     @else
                                         Não publicado
                                     @endif
                                 </td>
-                                <td headers="t4">{{$event->updateStatus($event->event_status)}}</td>
-                                <td headers="t5">{{$event->formatDate($event->subscription_start)}} - {{$event->formatDate($event->subscription_deadline)}}</td>
-                                <td headers="t6">
+                                <td headers="t6">{{$event->updateStatus($event->event_status)}}</td>
+                                <td headers="t7">
                                     <div class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Operações

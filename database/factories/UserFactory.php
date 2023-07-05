@@ -24,10 +24,9 @@ class UserFactory extends Factory
             'cpf' => substr(str_shuffle(str_repeat('0123456789', ceil(11 / 10))), 0, 11),
             'birth_date' => fake()->date(),
             'user_phone_number' => fake()->phoneNumber(),
-            'user_institution' => Str::random(15),
+            'user_institution' => fake()->company(),
             'user_email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            //'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'password' => Hash::make('123'), // password
             'remember_token' => Str::random(10),
         ];

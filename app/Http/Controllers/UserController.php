@@ -23,8 +23,11 @@ class UserController extends Controller
     //Returns all users
     public function index()
     {
+        $users = User::where('id', '!=', 1)
+        ->sortable()
+        ->paginate();
         return view('auth.index',[
-            'users' => User::all()->except([1]),
+            'users' => $users
         ]);
     }
 

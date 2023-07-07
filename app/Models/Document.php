@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\CoAuthor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Document extends Model
 {
@@ -14,7 +16,6 @@ class Document extends Model
         'title',
         'user_id',
         'author',
-        'advisor', 
         'abstract', 
         'keyword',
         'document_institution',
@@ -26,6 +27,11 @@ class Document extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function co_authors(): BelongsToMany
+    {
+        return $this->belongsToMany(CoAuthor::class, 'co_author_documents', 'co_author', 'document');
     }
 
     //Get creation date time

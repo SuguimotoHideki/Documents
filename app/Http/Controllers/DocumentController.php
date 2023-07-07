@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoAuthor;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
 
 class DocumentController extends Controller
 {
@@ -55,15 +58,27 @@ class DocumentController extends Controller
     //Store document
     public function store(Request $request)
     {
-        $formFields = $request->validate([
+        dd($request);
+        $validationRules = [
             'title' => ['required', 'string', Rule::unique('documents', 'title')],
-            'author' => ['required', 'string'],
-            'advisor' => ['required', 'string'],
             'abstract' => ['required', 'string'],
             'keyword' => ['required', 'string'],
             'document_institution' => ['required', 'string'],
             'document_type' => ['required', 'string']
-        ]);
+        ];
+
+        for($i=1; $i<=8; ++$i)
+        {
+            $authorName = "author_{$i}_name";
+            $authorEmail = "author_{$i}_email";
+            $validationRules[$authorName] = ['nullable', 'string'];
+            $validationRules[$authorEmail] = ['nullable', 'string'];
+        }
+
+        //dd($validationRules);
+            $formFields = $request->validate($validationRules);
+
+            //dd($formFields, $validationRules);
 
         if($request->hasFile('document'))
         {
@@ -72,7 +87,23 @@ class DocumentController extends Controller
 
         $formFields['user_id'] = auth()->id();
 
-        Document::create($formFields);
+        Document::create([
+            'title' => $formFields['title'],
+            'abstract' => $formFields['abstract'],
+            'keyword' => $formFields['keyword'],
+            'document_institution' => $formFields['document_institution'],
+            'document_type' => $formFields['document_type'],
+            'document' => $formFields['document'],
+            'user_id' => $formFields['user_id']
+        ]);
+        /*for($i=1; $i<=8; ++$i)
+        {
+            CoAuthor::create([
+                'name' => $formFields['author_{$i}_name'],
+                'last_name' => $formFields['author_{$i}_name'],
+                'email' => $formFields['author_{$i}_email'],
+            ]);
+        }*/
 
         return redirect('/')->with('message', "Submissão enviada.");
     }
@@ -91,7 +122,6 @@ class DocumentController extends Controller
         $formFields = $request->validate([
             'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
             'author' => ['required', 'string'],
-            'advisor' => ['required', 'string'],
             'abstract' => ['required', 'string'],
             'keyword' => ['required', 'string'],
             'document_institution' => ['required', 'string'],

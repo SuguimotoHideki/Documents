@@ -199,12 +199,12 @@
                 </div>
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col d-grid gap-2 col-5 mx-auto">
+                        <div class="d-grid col-5 mx-auto">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
                                 Salvar
                             </button>
                         </div>
-                        <div class="col d-grid gap-2 col-5 mx-auto">
+                        <div class="d-grid col-5 mx-auto">
                             <a href="{{ route('showEvent', $event)}}" class="btn btn-outline-dark">
                                 Voltar
                             </a>

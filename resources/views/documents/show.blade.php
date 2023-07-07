@@ -11,10 +11,6 @@
                     <div>{{$document->author}}</div>
                 </div>
                 <div class="mt-3">
-                    <div class="fw-bold">Orientador:</div>
-                    <div>{{$document->advisor}}</div>
-                </div>
-                <div class="mt-3">
                     <div class="fw-bold">Instituição:</div>
                     <div>{{$document->document_institution}}</div>
                 </div>

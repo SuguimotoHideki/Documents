@@ -36,18 +36,6 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="advisor" class="col-md-3 col-form-label text-md-center">{{ __('Orientador') }}</label>
-                            <div class="col-md-8">
-                                <input id="advisor" type="text" class="form-control @error('advisor') is-invalid @enderror" name="advisor" value="{{ old('advisor', $document->advisor) }}" required autocomplete="advisor" autofocus>
-
-                                @error('advisor')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label for="document_institution" class="col-md-3 col-form-label text-md-center">{{ __('Instituição') }}</label>
                             <div class="col-md-8">
                                 <input id="document_institution" type="text" class="form-control @error('document_institution') is-invalid @enderror" name="document_institution" value="{{ old('document_institution', $document->document_institution) }}" required autocomplete="document_institution" autofocus>

@@ -123,6 +123,7 @@
         <x-flash-message />
         <main class="py-4">
             @yield('content')
+            @yield('page-script')
         </main>
     </div>
 </body>

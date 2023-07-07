@@ -117,12 +117,12 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col d-grid gap-2 col-5 mx-auto">
+                            <div class="d-grid col-5 mx-auto">
                                 <button type="submit" class="btn btn-success">
                                     {{ __('Register') }}
                                 </button>
                             </div>
-                            <div class="col d-grid gap-2 col-5 mx-auto">
+                            <div class="d-grid col-5 mx-auto">
                                 <a href="{{ route('login') }}" class="btn btn-outline-dark">
                                     {{ __('Cancel') }}
                                 </a>

@@ -156,12 +156,12 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col d-grid gap-2 col-5 mx-auto">
+                            <div class="d-grid col-5 mx-auto">
                                 <button type="submit" class="btn btn-success">
                                     {{ __('Publicar') }}
                                 </button>
                             </div>
-                            <div class="col d-grid gap-2 col-5 mx-auto">
+                            <div class="d-grid col-5 mx-auto">
                                 <a href="{{ route('manageEvent')}}" class="btn btn-outline-dark">
                                     Voltar
                                 </a>

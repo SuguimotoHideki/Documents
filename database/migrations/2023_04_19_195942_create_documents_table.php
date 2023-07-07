@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
             $table->string('title')->unique();
             $table->string('author');
-            $table->string('advisor');
             $table->string('document_institution');
             $table->longText('abstract');
             $table->string('keyword');

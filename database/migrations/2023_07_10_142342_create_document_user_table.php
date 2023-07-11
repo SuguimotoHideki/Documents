@@ -11,22 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('co_authors_documents', function (Blueprint $table) {
+        Schema::create('document_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('document_id');
-            $table->unsignedBigInteger('co_author_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('document_id')
             ->references('id')
             ->on('documents')
             ->onDelete('cascade');
 
-            $table->foreign('co_author_id')
+
+            $table->foreign('user_id')
             ->references('id')
-            ->on('co_authors')
+            ->on('users')
             ->onDelete('cascade');
 
-            $table->unique(['co_author_id', 'document_id']);
+            $table->unique(['document_id', 'user_id']);
 
             $table->timestamps();
         });
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('co_authors_documents');
+        Schema::dropIfExists('document_user');
     }
 };

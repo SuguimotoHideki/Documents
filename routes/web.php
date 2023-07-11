@@ -56,22 +56,30 @@ Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], fun
 Route::get('/manage/users', [UserController::class, 'index'])->name('manageUsers')->middleware('auth', 'can:manage any user');
 
 //DOCUMENTS//
-//Show document form view
-Route::get('/documents/create', [DocumentController::class, 'create'])->name('createDocument')->middleware('auth');
+Route::group(['middleware' => ['auth']], function()
+{
+    //Show document form view
+    Route::get('/documents/create', [DocumentController::class, 'create'])->name('createDocument');
 
-//Publish document
-Route::post('documents', [DocumentController::class, 'store'])->middleware('auth');
+    //Publish document
+    Route::post('documents', [DocumentController::class, 'store']);
 
-//Show all documents
-Route::get('/documents', [DocumentController::class, 'index'])->name('indexDocuments');
+    //Show all documents
+    Route::get('/documents', [DocumentController::class, 'index'])->name('indexDocuments');
 
-//Show single document
-Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('showDocument')->middleware('auth');
+    //Show single document
+    Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('showDocument');
 
-//Show document edit page
-Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('editDocument')->middleware('auth');
+    //Show document edit page
+    Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('editDocument');
 
-Route::put('/documents/{document}/update', [DocumentController::class, 'update'])->middleware('auth');
+    //Update document
+    Route::put('/documents/{document}/update', [DocumentController::class, 'update']);
+
+    //User document
+    //Get documents submitted by the user
+    Route::get('/users/{user}/documents/submitted', [DocumentController::class, 'userSubmission'])->name('indexSubmittedDocuments');
+});
 
 Route::group(['middleware' => ['auth']], function()
 {
@@ -91,6 +99,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::put('/events/{event}/update', [EventController::class, 'update'])->name('updateEvent');
 
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent');
+
     //EVENT USER
     //Create relationship between event and logged user
     Route::post('/events/{event}', [EventController::class, 'subscribe'])->name('eventSubscribe');

@@ -7,9 +7,6 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
-use Spatie\Permission\Models\Role;
-use Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
 
 class DocumentController extends Controller
 {
@@ -49,6 +46,18 @@ class DocumentController extends Controller
         ]);
     }
 
+    //Returns user submissions
+    public function userSubmission()
+    {
+        $user = Auth::user();
+
+        $submissions = $user->documents()->sortable()->paginate();
+
+        return view('documents.indexSubmitted', [
+            'documents' => $submissions
+        ]);
+    }
+
     //Returns document form view
     public function create()
     {
@@ -58,54 +67,54 @@ class DocumentController extends Controller
     //Store document
     public function store(Request $request)
     {
-        dd($request);
         $validationRules = [
             'title' => ['required', 'string', Rule::unique('documents', 'title')],
-            'abstract' => ['required', 'string'],
+            'abstract' => ['required', 'min:100'],
             'keyword' => ['required', 'string'],
             'document_institution' => ['required', 'string'],
             'document_type' => ['required', 'string']
         ];
 
-        for($i=1; $i<=8; ++$i)
+        for($i=2; $i<=8; ++$i)
         {
             $authorName = "author_{$i}_name";
             $authorEmail = "author_{$i}_email";
-            $validationRules[$authorName] = ['nullable', 'string'];
-            $validationRules[$authorEmail] = ['nullable', 'string'];
+            $validationRules[$authorName] = ['nullable', 'string', 'required_with:' . $authorEmail];
+            $validationRules[$authorEmail] = ['nullable', 'string', 'required_with:' . $authorName];
         }
 
-        //dd($validationRules);
-            $formFields = $request->validate($validationRules);
-
-            //dd($formFields, $validationRules);
+        $formFields = $request->validate($validationRules);
 
         if($request->hasFile('document'))
         {
             $formFields['document'] = $request->file('document')->store('documents', 'public');
         }
 
-        $formFields['user_id'] = auth()->id();
-
-        Document::create([
+        $document = Document::create([
             'title' => $formFields['title'],
             'abstract' => $formFields['abstract'],
             'keyword' => $formFields['keyword'],
             'document_institution' => $formFields['document_institution'],
             'document_type' => $formFields['document_type'],
             'document' => $formFields['document'],
-            'user_id' => $formFields['user_id']
         ]);
-        /*for($i=1; $i<=8; ++$i)
-        {
-            CoAuthor::create([
-                'name' => $formFields['author_{$i}_name'],
-                'last_name' => $formFields['author_{$i}_name'],
-                'email' => $formFields['author_{$i}_email'],
-            ]);
-        }*/
 
-        return redirect('/')->with('message', "Submissão enviada.");
+        for($i=2; $i<=8; ++$i)
+        {
+            if($formFields["author_{$i}_name"] !== null && $formFields["author_{$i}_email"] !== null)
+            {
+                CoAuthor::create([
+                    'name' => $formFields["author_{$i}_name"],
+                    'email' => $formFields["author_{$i}_email"],
+                ]);
+            }
+        }
+
+        $user = Auth::user();
+
+        $document->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
+
+        return redirect()->route('indexSubmittedDocuments', ['user' => $user])->with('message', 'Submissão enviada.');
     }
 
     //Show document edit form

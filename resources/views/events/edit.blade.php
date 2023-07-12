@@ -201,7 +201,7 @@
                     <div class="row">
                         <div class="d-grid col-5 mx-auto">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
-                                Salvar
+                                {{ __('Salvar alterações') }}
                             </button>
                         </div>
                         <div class="d-grid col-5 mx-auto">

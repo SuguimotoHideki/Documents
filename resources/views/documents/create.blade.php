@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">{{ __('Publicar documento') }}</div>
+                <div class="card-header">{{ __('Submeter documento') }}</div>
                 <form method="POST" action="/documents" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
@@ -77,146 +77,28 @@
                                         <input type="text" class="form-control" value="{{ Auth()->getUser()->user_email }}" placeholder="Email" required disabled autofocus>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_2_name" type="text" class="form-control @error('author_2_name') is-invalid @enderror author_2_name" name="author_2_name" value="{{ old('author_2_name') }}" placeholder="Nome completo" autocomplete="author_2_name">
-                                
-                                        @error('author_2_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                @for ($i = 0; $i < 7; $i++)
+                                    <div class="row mb-3">
+                                        <div class="col my-auto">
+                                            <input id="author_{{$i}}_name" type="text" class="form-control @error('author_' . $i . '_name') is-invalid @enderror author_{{$i}}_name" name="author_{{$i}}_name" value="{{ old('author_' . $i . '_name') }}" placeholder="Nome completo" autocomplete="author_{{$i}}_name">
+                                    
+                                            @error('author_{{$i}}_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col my-auto">
+                                            <input id="author_{{$i}}_email" type="text" class="form-control @error('author_' . $i . '_email') is-invalid @enderror author_{{$i}}_email" name="author_{{$i}}_email" value="{{ old('author_' . $i . '_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_{{$i}}_email">
+                                    
+                                            @error('author_{{$i}}_email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="col my-auto">
-                                        <input id="author_2_email" type="text" class="form-control @error('author_2_email') is-invalid @enderror author_2_email" name="author_2_email" value="{{ old('author_2_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_2_email">
-                                
-                                        @error('author_2_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_3_name" type="text" class="form-control @error('author_3_name') is-invalid @enderror author_3_name" name="author_3_name" value="{{ old('author_3_name') }}" placeholder="Nome completo" autocomplete="author_3_name">
-                                
-                                        @error('author_3_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col my-auto">
-                                        <input id="author_3_email" type="text" class="form-control @error('author_3_email') is-invalid @enderror author_3_email" name="author_3_email" value="{{ old('author_3_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_3_email">
-                                
-                                        @error('author_3_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_4_name" type="text" class="form-control @error('author_4_name') is-invalid @enderror author_4_name" name="author_4_name" value="{{ old('author_4_name') }}" placeholder="Nome completo" autocomplete="author_4_name">
-                                
-                                        @error('author_4_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col my-auto">
-                                        <input id="author_4_email" type="text" class="form-control @error('author_4_email') is-invalid @enderror author_4_email" name="author_4_email" value="{{ old('author_4_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_4_email">
-                                
-                                        @error('author_4_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_5_name" type="text" class="form-control @error('author_5_name') is-invalid @enderror author_5_name" name="author_5_name" value="{{ old('author_5_name') }}" placeholder="Nome completo" autocomplete="author_5_name">
-                                
-                                        @error('author_5_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col my-auto">
-                                        <input id="author_5_email" type="text" class="form-control @error('author_5_email') is-invalid @enderror author_5_email" name="author_5_email" value="{{ old('author_5_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_5_email">
-                                
-                                        @error('author_5_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_6_name" type="text" class="form-control @error('author_6_name') is-invalid @enderror author_6_name" name="author_6_name" value="{{ old('author_6_name') }}" placeholder="Nome completo" autocomplete="author_6_name">
-                                
-                                        @error('author_6_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col my-auto">
-                                        <input id="author_6_email" type="text" class="form-control @error('author_6_email') is-invalid @enderror author_6_email" name="author_6_email" value="{{ old('author_6_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_6_email">
-                                
-                                        @error('author_6_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_7_name" type="text" class="form-control @error('author_7_name') is-invalid @enderror author_7_name" name="author_7_name" value="{{ old('author_7_name') }}" placeholder="Nome completo" autocomplete="author_7_name">
-                                
-                                        @error('author_7_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col my-auto">
-                                        <input id="author_7_email" type="text" class="form-control @error('author_7_email') is-invalid @enderror author_7_email" name="author_7_email" value="{{ old('author_7_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_7_email">
-                                
-                                        @error('author_7_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col my-auto">
-                                        <input id="author_8_name" type="text" class="form-control @error('author_8_name') is-invalid @enderror author_8_name" name="author_8_name" value="{{ old('author_8_name') }}" placeholder="Nome completo" autocomplete="author_8_name">
-                                
-                                        @error('author_8_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col my-auto">
-                                        <input id="author_8_email" type="text" class="form-control @error('author_8_email') is-invalid @enderror author_8_email" name="author_8_email" value="{{ old('author_8_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_8_email">
-                                
-                                        @error('author_8_email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+                                @endfor
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -236,16 +118,16 @@
 
                         </div>
                         <div class="row mb-3">
-                            <label for="document_type" class="col-md-2 col-form-label text-md-center">
+                            <label for="document_type" class="col-md-2 col-form-label text-md-center text-break">
                                 {{ __('Tipo de documento') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
                                 <select name="document_type" id="document_type" class="col-md-12 my-auto" required>
-                                    <option value="" disbled selected>Escolha uma opção</option>
-                                    <option value="Artigo">Artigo</option>
-                                    <option value="Resumo">Resumo</option>
-                                    <option value="TCC">TCC</option>
+                                    <option value="" disabled selected>Escolha uma opção</option>
+                                    <option value="Artigo" {{old ('document_type') == 'Artigo' ? 'selected' : ''}}>Artigo</option>
+                                    <option value="Resumo" {{old ('document_type') == 'Resumo' ? 'selected' : ''}}>Resumo</option>
+                                    <option value="TCC" {{old ('document_type') == 'TCC' ? 'selected' : ''}}>TCC</option>
                                 </select>
                             </div>
                             @error('document_type')

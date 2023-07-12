@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Document;
 
 class CoAuthor extends Model
 {
     use HasFactory;
     protected $fillable = [
         'name',
-        'email',
-        'document_id'
+        'email'
     ];
 
     public function documents()

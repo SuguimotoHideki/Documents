@@ -53,9 +53,9 @@ class Document extends Model
         return $this->belongsToMany(User::class, 'document_user', 'document_id', 'user_id');
     }
 
-    public function co_authors(): BelongsToMany
+    public function coAuthors(): BelongsToMany
     {
-        return $this->belongsToMany(CoAuthor::class, 'co_author_documents', 'co_author_id', 'document_id');
+        return $this->belongsToMany(CoAuthor::class, 'co_authors_documents', 'document_id', 'co_author_id');
     }
 
     //Get creation date time

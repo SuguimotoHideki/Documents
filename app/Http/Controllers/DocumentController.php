@@ -75,7 +75,7 @@ class DocumentController extends Controller
             'document_type' => ['required', 'string']
         ];
 
-        for($i=2; $i<=8; ++$i)
+        for($i=0; $i<7; ++$i)
         {
             $authorName = "author_{$i}_name";
             $authorEmail = "author_{$i}_email";
@@ -90,31 +90,51 @@ class DocumentController extends Controller
             $formFields['document'] = $request->file('document')->store('documents', 'public');
         }
 
-        $document = Document::create([
-            'title' => $formFields['title'],
-            'abstract' => $formFields['abstract'],
-            'keyword' => $formFields['keyword'],
-            'document_institution' => $formFields['document_institution'],
-            'document_type' => $formFields['document_type'],
-            'document' => $formFields['document'],
-        ]);
-
-        for($i=2; $i<=8; ++$i)
+        try
         {
-            if($formFields["author_{$i}_name"] !== null && $formFields["author_{$i}_email"] !== null)
-            {
-                CoAuthor::create([
-                    'name' => $formFields["author_{$i}_name"],
-                    'email' => $formFields["author_{$i}_email"],
-                ]);
-            }
+            $document = Document::create([
+                'title' => $formFields['title'],
+                'abstract' => $formFields['abstract'],
+                'keyword' => $formFields['keyword'],
+                'document_institution' => $formFields['document_institution'],
+                'document_type' => $formFields['document_type'],
+                'document' => $formFields['document'],
+            ]);
+    
+            $this->createCoAuthors($formFields, $document);
+            $this->assignUser($document);
+    
+            return redirect()->route('indexSubmittedDocuments', ['user' => Auth::user()])->with('message', 'Submissão enviada.');
         }
+        catch(\Exception $e)
+        {
+            $document->delete();
+            return back()->with('error', 'Ocorreu um erro ao criar a submissão. Por favor, tente novamente.');
+        }
+    }
 
+    //Assign document to authenticated user
+    private function assignUser(Document $document)
+    {
         $user = Auth::user();
 
         $document->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
+    }
 
-        return redirect()->route('indexSubmittedDocuments', ['user' => $user])->with('message', 'Submissão enviada.');
+    //Create and assign co-authors
+    private function createCoAuthors($formFields, Document $document)
+    {
+        for($i=0; $i < 7; ++$i)
+        {
+            if($formFields["author_{$i}_name"] !== null && $formFields["author_{$i}_email"] !== null)
+            {
+                $coAuthor = CoAuthor::firstOrCreate([
+                    'email' => $formFields["author_{$i}_email"],
+                    'name' => $formFields["author_{$i}_name"],
+                ]);
+                $document->coAuthors()->attach($coAuthor->id, ['created_at' => now(), 'updated_at' => now()]);
+            }
+        }
     }
 
     //Show document edit form

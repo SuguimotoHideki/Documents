@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('editDocument');
 
     //Update document
-    Route::put('/documents/{document}/update', [DocumentController::class, 'update']);
+    Route::put('/documents/{document}/update', [DocumentController::class, 'update'])->name('updateDocument');
 
     //User document
     //Get documents submitted by the user

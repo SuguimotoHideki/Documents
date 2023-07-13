@@ -93,37 +93,69 @@
                                 @enderror
                             </div>
                         </div>
+                        @can('update any user', Auth::user())
+                            <div class="row mb-3">
+                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
 
-                        <div class="row mb-3">
-                            <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="current-password" type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" required autocomplete="new-password">
-
-                                @error('current_password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                               <small class="form-text text-muted">Confirme sua senha para salvar as alterações</small>
+                                <div class="col-md-6">
+                                    <input id="current-password" type="password" class="form-control" name="current_password" disabled>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="row mb-3">
+                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="current-password" type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" required autocomplete="new-password">
+
+                                    @error('current_password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                <small class="form-text text-muted">Confirme sua senha para salvar as alterações</small>
+                                </div>
+                            </div>
+                        @endcan
                     </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="d-grid col-5 mx-auto">
-                                <button type="submit" class="btn btn-success">
-                                    {{ __('Salvar alterações') }}
-                                </button>
-                            </div>
-                            <div class="d-grid col-5 mx-auto">
-                                <a href="{{ route('showUser', $user)}}" class="btn btn-outline-dark">
-                                    Voltar
-                                </a>
+                    <div class="modal fade" id="editPrompt" tabindex="-1" aria-labelledby="editPromptLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Salvar alterações</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Deseja confirmar as alterações ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <form action="{{ route('updateProfile', $user)}}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Salvar') }}
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="d-grid col-5 mx-auto">
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
+                                {{ __('Salvar alterações') }}
+                            </button>
+                        </div>
+                        <div class="d-grid col-5 mx-auto">
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-dark">
+                                Voltar
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

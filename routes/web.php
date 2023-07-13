@@ -84,21 +84,21 @@ Route::group(['middleware' => ['auth']], function()
 Route::group(['middleware' => ['auth']], function()
 {
     //EVENTS
-    Route::get('/events/create', [EventController::class, 'create'])->name('createEvent');
+    Route::get('/events/create', [EventController::class, 'create'])->name('createEvent')->middleware('can:manage any event');
 
-    Route::post('events', [EventController::class, 'store'])->middleware('auth');
+    Route::post('events', [EventController::class, 'store'])->middleware('auth')->middleware('can:manage any event');
     
     Route::get('/events', [EventController::class, 'index'])->name('indexEvents');
 
-    Route::get('/manage/events', [EventController::class, 'dashboard'])->name('manageEvent');
+    Route::get('/manage/events', [EventController::class, 'dashboard'])->name('manageEvent')->middleware('can:manage any event');
     
     Route::get('/events/{event}', [EventController::class, 'show'])->name('showEvent');
 
-    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('editEvent');
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('editEvent')->middleware('can:update any event');
     
-    Route::put('/events/{event}/update', [EventController::class, 'update'])->name('updateEvent');
+    Route::put('/events/{event}/update', [EventController::class, 'update'])->name('updateEvent')->middleware('can:update any event');
 
-    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent')->middleware('can:delete any event');
 
     //EVENT USER
     //Create relationship between event and logged user

@@ -36,8 +36,8 @@
                         <tbody>
                             @foreach($events as $event)
                             <tr class="align-middle" style="height: 4rem">
-                                <td headers="t1"><a href="/events/{{$event->id}}">{{$event->id}}</td>
-                                <td headers="t2"><a href="/events/{{$event->id}}">{{$event->event_name}}</a></td>
+                                <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->id}}</td>
+                                <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                 <td headers="t3">{{$event->event_email}}</td>
                                 <td headers="t4">{{$event->organizer}}</td>
                                 <td headers="t5">
@@ -54,11 +54,11 @@
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="/events/{{$event->id}}">
+                                            <a class="dropdown-item" href="{{route('showEvent', $event)}}">
                                                 Visualizar
                                             </a>
 
-                                            <a class="dropdown-item" href="/events/{{$event->id}}/edit">
+                                            <a class="dropdown-item" href="{{route('editEvent', $event)}}">
                                                 Editar
                                             </a>
 

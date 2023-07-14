@@ -4,60 +4,70 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <h1 class='fs-2'>Minhas submissões</h1>
-            @if(count($documents) == 0)
+            <h1 class='fs-2 col'>Gerenciar submissões</h1>
+            @if($documents->count() === 0)
                 <div class="text-center">
-                    <p>Não há documentos publicados.</p>
-                    <a href="/documents/create">
-                        <button type="submit" class="btn btn-primary bg-blue-600 mt-4">
-                            {{ __('Publicar Documento') }}
-                        </button>
-                    </a>
+                    <p>Ainda não há submissões.</p>
                 </div>
             @else
                 <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                     <div class="table-responsive">
                         <table class="table bg-white">
                             <colgroup>
-                                <col width="10%">
-                                <col width="30%">
+                                <col width="5%">
                                 <col width="20%">
-                                <col width ="20%">
-                                @can('manage any document')
-                                <col width ="20%">
-                                @endcan
+                                <col width="15%">
+                                <col width ="15%">
+                                <col width ="15%">
+                                <col width ="15%">
+                                <col width ="15%">
                             </colgroup>
                             <thead>
-                                <tr>
-                                    <th id="t1">Data de publicação</th>
-                                    <th id="t2">Título</th>
-                                    <th id="t3">Autor</th>
-                                    <th id="t4">Palavras chave</th>
-                                    @can('manage any document')
-                                    <th id="t5">Ações</th>
-                                    @endcan
+                                <tr class="align-middle">
+                                    <th id="t1">@sortablelink('id', 'ID')</th>
+                                    <th id="t2">@sortablelink('title', 'Título')</th>
+                                    <th id="t3">@sortablelink(Auth::user()->user_name, 'Autor correspondente')</th>
+                                    <th id="t4">@sortablelink('document_type', 'Tipo')</th>
+                                    <th id="t5">@sortablelink('created_at', 'Criado em')</th>
+                                    <th id="t6">@sortablelink('updated_at', 'Atualizado em')</th>
+                                    <th id="t7">Operações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($documents as $document)
-                                <tr>
-                                    <td headers="t1">{{$document->getCreatedAttribute()}}</td>
-                                    <td headers="t2"><a href="/documents/{{$document->id}}">{{$document->title}}</a></td>
-                                    <td headers="t3">{{$document->author}}</td>
-                                    <td headers="t4">{{$document->keyword}}</td>
-                                    @can('manage any document')
-                                    <td headers="t5">
-                                        <a href="/documents/{{$document->id}}" class="btn btn-primary bg-blue-600 ml-4">View</a>
-                                        <a href="/documents/{{$document->id}}/edit" class="btn btn-primary bg-blue-600 ml-4">Edit</a>
-                                        <a href="/" class="btn btn-danger bg-red-600">Delete</a>
+                                @foreach($documents as $document)
+                                <tr class="align-middle">
+                                    <td headers="t1"><a href="{{route('showDocument', $document)}}">{{$document->id}}</a></td>
+                                    <td headers="t2"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
+                                    <td headers="t3">{{Auth::user()->user_name}}</td>
+                                    <td headers="t4">{{$document->document_type}}</td>
+                                    <td headers="t5">{{$document->formatDate($document->created_at)}}</td>
+                                    <td headers="t6">{{$document->formatDate($document->updated_at)}}</td>
+                                    <td headers="t7">
+                                        <div class="nav-item dropdown">
+                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                Operações
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{route('showDocument', $document)}}">
+                                                    Visualizar
+                                                </a>
+    
+                                                <a class="dropdown-item" href="{{route('editDocument', $document)}}">
+                                                    Editar
+                                                </a>
+    
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$document}}">
+                                                    Excluir
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
-                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> 
             @endif
         </div>
     </div>

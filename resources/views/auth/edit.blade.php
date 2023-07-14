@@ -11,7 +11,9 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="row mb-3">
-                            <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('Nome completo') }}</label>
+                            <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('Nome completo') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6">
                                 <input id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ old('user_name', $user->user_name) }}" required autocomplete="user_name" autofocus>
@@ -25,7 +27,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="cpf" class="col-md-4 col-form-label text-md-end">{{ __('CPF') }}</label>
+                            <label for="cpf" class="col-md-4 col-form-label text-md-end">{{ __('CPF') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6">
                                 <input id="cpf" type="text" maxlength="11" placeholder="Digite apenas os números" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf', $user->cpf) }}" required autocomplete="cpf" autofocus>
@@ -39,7 +43,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="birth_date" class="col-md-4 col-form-label text-md-end">{{ __('Data de nascimento') }}</label>
+                            <label for="birth_date" class="col-md-4 col-form-label text-md-end">{{ __('Data de nascimento') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6 my-auto">
                                 <input id="birth_date" type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date', $user->birth_date) }}" required autocomplete="birth_date" autofocus>
@@ -53,7 +59,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="user_email" class="col-md-4 col-form-label text-md-end">{{ __('Endereço de e-mail') }}</label>
+                            <label for="user_email" class="col-md-4 col-form-label text-md-end">{{ __('Endereço de e-mail') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6 my-auto">
                                 <input id="user_email" type="user_email" class="form-control @error('user_email') is-invalid @enderror" name="user_email" value="{{ old('user_email', $user->user_email) }}" required autocomplete="user_email">
@@ -67,7 +75,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="user_phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Número de telefone') }}</label>
+                            <label for="user_phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Número de telefone') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6 my-auto">
                                 <input id="user_phone_number" type="text" maxlength="11" placeholder="Digite apenas os números" class="form-control @error('user_phone_number') is-invalid @enderror" name="user_phone_number" value="{{ old('user_phone_number', $user->user_phone_number) }}" required autocomplete="user_phone_number">
@@ -81,7 +91,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="user_institution" class="col-md-4 col-form-label text-md-end">{{ __('Instituição') }}</label>
+                            <label for="user_institution" class="col-md-4 col-form-label text-md-end">{{ __('Instituição') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6 my-auto">
                                 <input id="user_institution" type="text" class="form-control @error('user_institution') is-invalid @enderror" name="user_institution" value="{{ old('user_institution', $user->user_institution) }}" required autocomplete="user_institution">
@@ -95,7 +107,9 @@
                         </div>
                         @can('update any user', Auth::user())
                             <div class="row mb-3">
-                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
+                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                                 <div class="col-md-6">
                                     <input id="current-password" type="password" class="form-control" name="current_password" disabled>
@@ -103,7 +117,9 @@
                             </div>
                         @else
                             <div class="row mb-3">
-                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
+                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                                 <div class="col-md-6">
                                     <input id="current-password" type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" required autocomplete="new-password">
@@ -130,7 +146,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <form action="{{ route('updateProfile', $user)}}" method="POST">
+                                    <form action="{{ route('updateUser', $user)}}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit" class="btn btn-primary">

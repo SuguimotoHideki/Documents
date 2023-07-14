@@ -150,7 +150,6 @@ class DocumentController extends Controller
     {
         $formFields = $request->validate([
             'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
-            'author' => ['required', 'string'],
             'abstract' => ['required', 'string'],
             'keyword' => ['required', 'string'],
             'document_institution' => ['required', 'string'],

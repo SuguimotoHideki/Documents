@@ -46,11 +46,17 @@
         </div>
         <div class="col-md-3">
             <div class="shadow-sm p-3 mb-3 bg-white">
-                <div>
-                    <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-regular fa-clock"></i> Enviado em:</h2>
-                    <div class="mt-2">{{$document->formatDate($document->created_at)}}</div>
-                </div>
+                <h2 class="fs-5 fw-bold mt-3">
+                    <i class="fa-regular fa-clock"></i> Enviado em:</h2>
+                <div class="mt-2">{{$document->formatDate($document->created_at)}}</div>
+                <h2 class="fs-5 fw-bold mt-3">
+                    <i class="fa-regular fa-clock"></i> Atualizado em:</h2>
+                <div class="mt-2">{{$document->formatDate($document->updated_at)}}</div>
+            </div>
+            <div class="shadow-sm p-3 mb-3 bg-white">
+                <h2 class="fs-5 fw-bold mt-3">
+                    <i class="fa-regular fa-file"></i> Visualizar arquivo:</h2>
+                <div class="mt-2"><a href="/storage/{{$document->document}}">Clique aqui para abrir o arquivo</a></div>
             </div>
         </div>
     </div>

@@ -37,10 +37,10 @@ Route::get('/', [EventController::class, 'index'])->name('home')->middleware('au
 Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], function()
 {
     //Show user edit page
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('editProfile');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('editUser');
 
     //Submit edited user information to update
-    Route::put('/users/{user}/update', [UserController::class, 'update'])->name('updateProfile');
+    Route::put('/users/{user}/update', [UserController::class, 'update'])->name('updateUser');
 
     //Show user password change page
     Route::get('/users/{user}/edit-password', [UserController::class, 'editPassword'])->name('editPassword');
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('documents', [DocumentController::class, 'store']);
 
     //Show all documents
-    Route::get('/documents', [DocumentController::class, 'index'])->name('indexDocuments');
+    Route::get('/manage/documents', [DocumentController::class, 'index'])->name('manageDocuments');
 
     //Show single document
     Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('showDocument');
@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function()
     
     Route::get('/events', [EventController::class, 'index'])->name('indexEvents');
 
-    Route::get('/manage/events', [EventController::class, 'dashboard'])->name('manageEvent')->middleware('can:manage any event');
+    Route::get('/manage/events', [EventController::class, 'dashboard'])->name('manageEvents')->middleware('can:manage any event');
     
     Route::get('/events/{event}', [EventController::class, 'show'])->name('showEvent');
 

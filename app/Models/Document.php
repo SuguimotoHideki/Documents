@@ -17,7 +17,6 @@ class Document extends Model
     protected $fillable = [
         'title',
         'user_id',
-        'author',
         'abstract', 
         'keyword',
         'document_institution',
@@ -26,9 +25,9 @@ class Document extends Model
     ];
 
     public $sortable = [
+        'id',
         'title',
         'user_id',
-        'author',
         'abstract', 
         'keyword',
         'document_institution',

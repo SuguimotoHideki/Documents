@@ -27,7 +27,7 @@
                         <tbody>
                             @foreach($events as $event)
                             <tr class="align-middle" style="height:4rem">
-                                <td headers="t1"><a href="/events/{{$event->id}}">{{$event->event_name}}</a></td>
+                                <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                 <td headers="t5">{{$event->event_email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
                                 <td headers="t4">{{$event->updateStatus($event->event_status)}}</td>

@@ -63,10 +63,10 @@
                                 {{ ('Administração') }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/documents">
+                                <a class="dropdown-item" href="{{route('manageDocuments')}}">
                                     Gerenciar documentos
                                 </a>
-                                <a class="dropdown-item" href="{{ route('manageEvent') }}">
+                                <a class="dropdown-item" href="{{ route('manageEvents') }}">
                                     Gerenciar eventos
                                 </a>
                                 <a class="dropdown-item" href="{{ route('manageUsers') }}">

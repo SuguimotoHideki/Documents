@@ -15,7 +15,7 @@
             @if($documents->count() === 0)
                 <div class="text-center">
                     <p>Ainda não há submissões.</p>
-                    <a href="/documents/create">
+                    <a href="{{route('createDocument')}}">
                         <button type="submit" class="btn btn-success bg-blue-600 mt-4">
                             {{ __('Submeter documento') }}
                         </button>
@@ -38,7 +38,7 @@
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('id', 'ID')</th>
                                     <th id="t2">@sortablelink('title', 'Título')</th>
-                                    <th id="t3">@sortablelink('author', 'Autor correspondente')</th>
+                                    <th id="t3">@sortablelink(Auth::user()->user_name, 'Autor correspondente')</th>
                                     <th id="t4">@sortablelink('document_institution', 'Instituição')</th>
                                     <th id="t5">@sortablelink('document_type', 'Tipo')</th>
                                     <th id="t6">@sortablelink('created_at', 'Criado em')</th>

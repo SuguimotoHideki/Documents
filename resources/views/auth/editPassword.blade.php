@@ -13,7 +13,9 @@
                         @method('PUT')
                         @can('update any user', Auth::user())
                             <div class="row mb-3">
-                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha atual') }}</label>
+                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha atual') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                                 <div class="col-md-6">
                                     <input id="current-password" type="password" class="form-control" name="current_password" disabled>
@@ -21,7 +23,9 @@
                             </div>
                         @else
                             <div class="row mb-3">
-                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha atual') }}</label>
+                                <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha atual') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                                 <div class="col-md-6">
                                     <input id="current-password" type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" required autocomplete="new-password">
@@ -35,7 +39,9 @@
                             </div>
                         @endcan
                         <div class="row mb-3">
-                            <label for="new-password" class="col-md-4 col-form-label text-md-end">{{ __('Nova senha') }}</label>
+                            <label for="new-password" class="col-md-4 col-form-label text-md-end">{{ __('Nova senha') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6">
                                 <input id="new-password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -49,7 +55,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirme a nova senha') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirme a nova senha') }}
+                                <span style="color: red">*</span>
+                            </label>
 
                             <div class="col-md-6 my-auto">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">

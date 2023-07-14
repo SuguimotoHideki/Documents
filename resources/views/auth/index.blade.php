@@ -31,8 +31,8 @@
                         <tbody>
                             @foreach ($users as $user)
                             <tr class="align-middle" style="height: 4rem">
-                                <td headers="t1"><a href="/users/{{$user->id}}">{{$user->id}}</td>
-                                <td headers="t2"><a href="/users/{{$user->id}}">{{$user->user_name}}</td>
+                                <td headers="t1"><a href="{{ route('showUser', $user)}}">{{$user->id}}</td>
+                                <td headers="t2"><a href="{{ route('showUser', $user)}}">{{$user->user_name}}</td>
                                 <td headers="t3">{{$user->cpf}}</a></td>
                                 <td headers="t4">{{$user->user_email}}</td>
                                 <td headers="t5">{{$user->user_phone_number}}</td>
@@ -43,11 +43,11 @@
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="/users/{{$user->id}}">
+                                            <a class="dropdown-item" href="{{ route('showUser', $user)}}">
                                                 Visualizar
                                             </a>
 
-                                            <a class="dropdown-item" href="/users/{{$user->id}}/edit">
+                                            <a class="dropdown-item" href="{{ route('editUser', $user)}}">
                                                 Editar
                                             </a>
 

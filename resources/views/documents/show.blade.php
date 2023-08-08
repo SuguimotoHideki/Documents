@@ -26,7 +26,7 @@
                             <ul class="mb-0">
                                 <li>{{$document->users()->first()->user_name}} (Correspondente)</li>
                                 @foreach ($document->coAuthors as $coAuthor)
-                                    <li>{{$coAuthor->name}}</li>
+                                    <li>{{$coAuthor->formatName($coAuthor->name)}}</li>
                                 @endforeach
                             </ul>
                         </div>

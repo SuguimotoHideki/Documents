@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('document_id');
             $table->unsignedBigInteger('co_author_id');
+            $table->integer('number');
 
             $table->foreign('document_id')
             ->references('id')

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CoAuthor;
 use App\Models\Document;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Actions\CreateCoAuthor;
+use App\Actions\UpdateCoAuthor;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
@@ -65,7 +67,7 @@ class DocumentController extends Controller
     }
 
     //Store document
-    public function store(Request $request)
+    public function store(Request $request, CreateCoAuthor $action)
     {
         $validationRules = [
             'title' => ['required', 'string', Rule::unique('documents', 'title')],
@@ -75,14 +77,6 @@ class DocumentController extends Controller
             'document_type' => ['required', 'string']
         ];
 
-        for($i=0; $i<7; ++$i)
-        {
-            $authorName = "author_{$i}_name";
-            $authorEmail = "author_{$i}_email";
-            $validationRules[$authorName] = ['nullable', 'string', 'required_with:' . $authorEmail];
-            $validationRules[$authorEmail] = ['nullable', 'string', 'required_with:' . $authorName];
-        }
-
         $formFields = $request->validate($validationRules);
 
         if($request->hasFile('document'))
@@ -90,8 +84,10 @@ class DocumentController extends Controller
             $formFields['document'] = $request->file('document')->store('documents', 'public');
         }
 
-        try
-        {
+        $user = Auth::user();
+        $redirect = null;
+
+        DB::transaction(function() use ($action, $request, $formFields, $user, &$redirect){
             $document = Document::create([
                 'title' => $formFields['title'],
                 'abstract' => $formFields['abstract'],
@@ -100,41 +96,13 @@ class DocumentController extends Controller
                 'document_type' => $formFields['document_type'],
                 'document' => $formFields['document'],
             ]);
-    
-            $this->createCoAuthors($formFields, $document);
-            $this->assignUser($document);
-    
-            return redirect()->route('indexSubmittedDocuments', ['user' => Auth::user()])->with('message', 'Submissão enviada.');
-        }
-        catch(\Exception $e)
-        {
-            $document->delete();
-            return back()->with('error', 'Ocorreu um erro ao criar a submissão. Por favor, tente novamente.');
-        }
-    }
 
-    //Assign document to authenticated user
-    private function assignUser(Document $document)
-    {
-        $user = Auth::user();
+            $document->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
 
-        $document->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
-    }
+            $redirect = $action->handle($request, $document);
+        });
 
-    //Create and assign co-authors
-    private function createCoAuthors($formFields, Document $document)
-    {
-        for($i=0; $i < 7; ++$i)
-        {
-            if($formFields["author_{$i}_name"] !== null && $formFields["author_{$i}_email"] !== null)
-            {
-                $coAuthor = CoAuthor::firstOrCreate([
-                    'email' => $formFields["author_{$i}_email"],
-                    'name' => $formFields["author_{$i}_name"],
-                ]);
-                $document->coAuthors()->attach($coAuthor->id, ['created_at' => now(), 'updated_at' => now()]);
-            }
-        }
+        return $redirect;
     }
 
     //Show document edit form
@@ -146,8 +114,9 @@ class DocumentController extends Controller
     }
 
     //Uodate document fields
-    public function update(Request $request, Document $document)
+    public function update(Request $request, Document $document, UpdateCoAuthor $action)
     {
+
         $formFields = $request->validate([
             'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
             'abstract' => ['required', 'string'],
@@ -166,6 +135,6 @@ class DocumentController extends Controller
             $document->update($request->except('document'));
         }
 
-        return redirect()->route('showDocument', [$document])->with('message', "Submissão atualizada.");
+        return $action->handle($request, $document);
     }
 }

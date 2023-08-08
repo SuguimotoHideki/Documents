@@ -82,18 +82,18 @@
                                     @if($i < $document->coAuthors()->count())
                                         <div class="row mb-3">
                                             <div class="col my-auto">
-                                                <input id="author_{{$i}}_name" type="text" class="form-control @error('author_' . $i . '_name') is-invalid @enderror author_{{$i}}_name" name="author_{{$i}}_name" value="{{ $document->coAuthors[$i]->name }}" placeholder="Nome completo" autocomplete="author_{{$i}}_name">
+                                                <input id="author_{{$i}}_name" type="text" class="form-control @error('author_' . $i . '_name') is-invalid @enderror author_{{$i}}_name" name="author_{{$i}}_name" value="{{ old('author_' . $i . '_name', $document->coAuthors[$i]->name) }}" placeholder="Nome completo" autocomplete="author_{{$i}}_name">
                                         
-                                                @error('author_{{$i}}_name')
+                                                @error('author_' . $i . '_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
                                             <div class="col my-auto">
-                                                <input id="author_{{$i}}_email" type="text" class="form-control @error('author_' . $i . '_email') is-invalid @enderror author_{{$i}}_email" name="author_{{$i}}_email" value="{{ $document->coAuthors[$i]->email }}" placeholder="Ex: email@exemplo.com" autocomplete="author_{{$i}}_email">
+                                                <input id="author_{{$i}}_email" type="text" class="form-control @error('author_' . $i . '_email') is-invalid @enderror author_{{$i}}_email" name="author_{{$i}}_email" value="{{ old('author_' . $i . '_email', $document->coAuthors[$i]->email) }}" placeholder="Ex: email@exemplo.com" autocomplete="author_{{$i}}_email">
                                         
-                                                @error('author_{{$i}}_email')
+                                                @error('author_' . $i . '_email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -105,7 +105,7 @@
                                             <div class="col my-auto">
                                                 <input id="author_{{$i}}_name" type="text" class="form-control @error('author_' . $i . '_name') is-invalid @enderror author_{{$i}}_name" name="author_{{$i}}_name" value="{{ old('author_' . $i . '_name') }}" placeholder="Nome completo" autocomplete="author_{{$i}}_name">
                                         
-                                                @error('author_{{$i}}_name')
+                                                @error('author_' . $i . '_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -114,7 +114,7 @@
                                             <div class="col my-auto">
                                                 <input id="author_{{$i}}_email" type="text" class="form-control @error('author_' . $i . '_email') is-invalid @enderror author_{{$i}}_email" name="author_{{$i}}_email" value="{{ old('author_' . $i . '_email') }}" placeholder="Ex: email@exemplo.com" autocomplete="author_{{$i}}_email">
                                         
-                                                @error('author_{{$i}}_email')
+                                                @error('author_' . $i . '_email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

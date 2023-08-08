@@ -16,8 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('user_id');
 
-            $table->unique(['event_id', 'user_id']);
-
             $table->foreign('event_id')
             ->references('id')
             ->on('events');
@@ -25,6 +23,8 @@ return new class extends Migration
             $table->foreign('user_id')
             ->references('id')
             ->on('users');
+
+            $table->unique(['event_id', 'user_id']);
 
             $table->timestamps();
         });

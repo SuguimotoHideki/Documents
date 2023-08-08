@@ -54,7 +54,7 @@ class Document extends Model
 
     public function coAuthors(): BelongsToMany
     {
-        return $this->belongsToMany(CoAuthor::class, 'co_authors_documents', 'document_id', 'co_author_id');
+        return $this->belongsToMany(CoAuthor::class, 'co_authors_documents', 'document_id', 'co_author_id')->withPivot('number')->orderByPivot('number', 'asc');
     }
 
     //Get creation date time

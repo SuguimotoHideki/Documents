@@ -54,6 +54,10 @@
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a href="{{ route('indexSubscribers', $event)}}" class="dropdown-item">
+                                                Ver inscrições
+                                            </a>
+
                                             <a class="dropdown-item" href="{{route('showEvent', $event)}}">
                                                 Visualizar
                                             </a>
@@ -84,7 +88,7 @@
                                         <form action="{{ route('deleteEvent', $event->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-danger">
                                                 {{ __('Excluir') }}
                                             </button>
                                         </form>

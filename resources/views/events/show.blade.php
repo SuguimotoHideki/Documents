@@ -3,12 +3,30 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">{{$event->event_name}}</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">{{$event->event_name}}</h1>
+            </div>
+            <div class="col-md-4 float-right">
+                <a href="{{ url()->previous()}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Página anterior</a>
+
+            </div>
+        </div>
+
         <div class="col-md-9">
             <div class="shadow-sm p-3 mb-5 bg-white">
+                @if($event->hasUser())
+                    <div class="row">
+                        <div class="text-muted">Inscrição nº: {{$event->subscriptionData(Auth::user())['id']}}</div>
+                        <div class="text-muted">Inscrito em: {{$event->subscriptionData(Auth::user())['created_at']}}</div>
+                    </div>
+                @endif
                 @can('manage any event')
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
                     <div class="navbar-nav me-auto">
+                        <a href="{{route('indexSubscribers', $event->id)}}" class="nav-item nav-link">Ver inscrições</a>
                         <a href="{{ route('editEvent', $event->id)}}" class="nav-item nav-link">Editar evento</a>
                         <button class="nav-item nav-link btn" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">Excluir evento</button>
                     </div>
@@ -38,9 +56,24 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">
-                        Inscrever-se
-                    </button>
+                    @if($event->hasUser())
+                        <div class="row">
+                            <div class="d-grid col-4 mx-auto">
+                                <button type="button" class="btn btn-dark" disabled>
+                                    Inscrito
+                                </button>
+                            </div>
+                            <div class="d-grid col-4 mx-auto">
+                                <a href="{{route('createDocument')}}" class="btn btn-primary">
+                                    Submeter artigo
+                                </a>
+                            </div>
+                        </div>
+                    @else
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">
+                            Inscrever-se
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -118,7 +151,7 @@
             <form action="{{ route('deleteEvent', $event->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-danger">
                     {{ __('Excluir') }}
                 </button>
             </form>

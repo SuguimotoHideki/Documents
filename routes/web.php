@@ -103,6 +103,10 @@ Route::group(['middleware' => ['auth']], function()
     //EVENT USER
     //Create relationship between event and logged user
     Route::post('/events/{event}', [EventController::class, 'subscribe'])->name('eventSubscribe');
-    //Get events subscribbed by the logged user
-    Route::get('/users/{user}/events/subscribbed', [EventController::class, 'subscribedEvents'])->name('indexSubscribbedEvents');
+    //Cancel user's subscription
+    Route::post('/events/{event}/cancel-subscription', [EventController::class, 'cancelSubscription'])->name('cancelSubscription');
+    //Get events subscribed by the logged user
+    Route::get('/users/{user}/events/subscribed', [EventController::class, 'subscribedEvents'])->name('indexSubscribedEvents');
+    //Get event's subscribers
+    Route::get('/manage/events/{event}/subscribers', [EventController::class, 'subscribedUsers'])->name('indexSubscribers')->middleware('can:manage any event');
 });

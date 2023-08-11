@@ -24,15 +24,46 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
-    //Returns events subscribbed by the user
-    public function subscribedEvents()
+    //Returns events subscribed by the user
+    public function subscribedEvents(Request $request, User $user)
     {
-        $user = Auth::user();
+        $column = $request['sort'];
+        $direction = $request['direction'];
 
-        $subscribbedEvents = $user->events()->sortable()->paginate();
+        if($column !== null && $direction !== null)
+        {
+            $subscribedEvents = $user->events()->orderBy($column, $direction)->paginate();
+        }
+        else
+        {
+            $subscribedEvents = $user->events()->sortable()->paginate();
+        }
         
-        return view('events.indexSubscribbed', [
-            'events' => $subscribbedEvents
+        return view('events.indexSubscribed', [
+            'events' => $subscribedEvents,
+            'user' => $user
+        ]);
+    }
+
+    public function subscribedUsers(Event $event, Request $request)
+    {
+        $column = $request['sort'];
+        $direction = $request['direction'];
+
+        if($column !== null && $direction !== null)
+        {
+            $subscribers = $event->users()->orderBy($column, $direction)->paginate();
+        }
+        else
+        {
+            $subscribers = $event->users()->sortable()->paginate();
+        }
+
+        //dd($event, $subscribers);
+
+        return view('events.indexSubscribers', [
+            'event' => $event,
+            'users' => $subscribers
         ]);
     }
 
@@ -66,7 +97,7 @@ class EventController extends Controller
         {
             $event->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
 
-            return redirect()->route('indexSubscribbedEvents', ['user' => $user])->with('message', 'Inscrito no evento ' . $event->event_name . '.');
+            return redirect()->route('indexSubscribedEvents', ['user' => $user])->with('message', 'Inscrito no evento ' . $event->event_name . '.');
         }
         catch(QueryException $error)
         {
@@ -79,6 +110,15 @@ class EventController extends Controller
                 return redirect()->back()->with('error', 'Ocorreu um erro ao se inscrever no evento.');
             }
         }
+    }
+
+    public function cancelSubscription(Request $request)
+    {
+        $event = Event::find($request['event']);
+
+        $event->users()->detach($request['user']);
+
+        return redirect()->back()->with('message', 'Inscrição removida.');
     }
 
     public function update(Request $request, Event $event)

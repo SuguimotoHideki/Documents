@@ -12,6 +12,7 @@
             <div class="shadow-sm p-3 mb-5 bg-white">
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
                     <div class="navbar-nav me-auto">
+                        <a href="{{route('indexSubscribedEvents', $user)}}" class="nav-item nav-link">Ver inscrições</a>
                         <a href="{{route('editUser', $user)}}" class="nav-item nav-link">Editar Informações</a>
                         <a href="{{route('editPassword', $user)}}" class="nav-item nav-link">Alterar Senha</a>
                     </div>

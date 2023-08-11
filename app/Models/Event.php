@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Event extends Model
 {
@@ -73,6 +75,18 @@ class Event extends Model
         }
     }
 
+    public function formatDateTime($date)
+    {
+        if(strtotime($date))
+        {
+            return Carbon::parse($date)->format('d/m/Y - G:i:s');
+        }
+        else
+        {
+            return('Invalid date');
+        }
+    }
+
     /**
      * Updates the status depending on the set dates
      */
@@ -120,6 +134,32 @@ class Event extends Model
         }
         
         return $this->event_status;
+    }
+
+    public function hasUser()
+    {
+        return $this->users()
+        ->where('user_id', Auth::user()->id)
+        ->exists();
+    }
+
+    public function subscriptionData(User $user)
+    {
+        $subscription = DB::table('event_user')
+        ->where('event_id', $this->id)
+        ->where('user_id', $user->id);
+
+        $data = [
+            'id' => $subscription->value('id'),
+            'created_at' => $this->formatDateTime($subscription->value('created_at')),
+        ];
+
+        return $data;
+    }
+
+    public function subscriptionCount()
+    {
+        return $this->users()->count();
     }
 
     public function users(): BelongsToMany

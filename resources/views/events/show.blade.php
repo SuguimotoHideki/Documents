@@ -64,7 +64,7 @@
                                 </button>
                             </div>
                             <div class="d-grid col-4 mx-auto">
-                                <a href="{{route('createDocument')}}" class="btn btn-primary">
+                                <a href="{{route('createDocument', $event)}}" class="btn btn-primary">
                                     Submeter artigo
                                 </a>
                             </div>

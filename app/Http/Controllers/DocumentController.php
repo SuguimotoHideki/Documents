@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Actions\CreateCoAuthor;
 use App\Actions\UpdateCoAuthor;
 use Illuminate\Validation\Rule;
+use App\Actions\CreateSubmission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,26 +50,26 @@ class DocumentController extends Controller
         ]);
     }
 
-    //Returns user submissions
+    /*//Returns user submissions
     public function userSubmission()
     {
         $user = Auth::user();
 
         $submissions = $user->documents()->sortable()->paginate();
 
-        return view('documents.indexSubmitted', [
+        return view('submissions.index', [
             'documents' => $submissions
         ]);
-    }
+    }*/
 
     //Returns document form view
-    public function create()
+    public function create(Event $event)
     {
-        return view('documents.create');
+        return view('documents.create', compact('event'));
     }
 
-    //Store document
-    public function store(Request $request, CreateCoAuthor $action)
+    //Stores document
+    public function store(Request $request, CreateCoAuthor $coAction, CreateSubmission $subAction)
     {
         $validationRules = [
             'title' => ['required', 'string', Rule::unique('documents', 'title')],
@@ -84,10 +86,14 @@ class DocumentController extends Controller
             $formFields['document'] = $request->file('document')->store('documents', 'public');
         }
 
-        $user = Auth::user();
+        //Retrieves the current user and the event
         $redirect = null;
+        $user = Auth::user();
+        $event = Event::findOrFail($request['event_id']);
 
-        DB::transaction(function() use ($action, $request, $formFields, $user, &$redirect){
+        //Creates new document instance, co-authors and submission instance.
+        //Creates entries in the pivot tables between users, events, documents, and co-authors
+        DB::transaction(function() use ($coAction, $subAction, $request, $formFields, $event, $user, &$redirect){
             $document = Document::create([
                 'title' => $formFields['title'],
                 'abstract' => $formFields['abstract'],
@@ -97,9 +103,9 @@ class DocumentController extends Controller
                 'document' => $formFields['document'],
             ]);
 
-            $document->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
+            $subAction->handle($document, $event, $user);
 
-            $redirect = $action->handle($request, $document);
+            $redirect = $coAction->handle($request, $document, $user, $event);
         });
 
         return $redirect;

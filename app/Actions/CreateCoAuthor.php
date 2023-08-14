@@ -2,6 +2,8 @@
 
 namespace App\Actions;
 
+use App\Models\User;
+use App\Models\Event;
 use App\Models\CoAuthor;
 use App\Models\Document;
 use Illuminate\Http\Request;
@@ -11,10 +13,8 @@ use Illuminate\Validation\ValidationException;
 
 class CreateCoAuthor extends Controller
 {
-    public function handle(Request $request, Document $document)
+    public function handle(Request $request, Document $document, User $user, Event $event)
     {
-        $user = $document->users()->first();
-
         $coAuthors[] = [
             'name' => $user->user_name,
             'email' => $user->user_email
@@ -46,13 +46,13 @@ class CreateCoAuthor extends Controller
                     throw(ValidationException::withMessages([
                         "author_{$i}_name" => "Co-autor já registrado.",
                         "author_{$i}_email" => "Co-autor já registrado."
-                    ]))->redirectTo(route('createDocument'));
+                    ]))->redirectTo(route('createDocument', $event));
                 }
 
                 $document->coAuthors()->attach($coAuthor->id, ['number' => $i+1, 'created_at' => now(), 'updated_at' => now()]);
             }
         }
 
-        return redirect()->route('indexSubmittedDocuments', ['user' => Auth::user()])->with('message', 'Submissão enviada.');
+        return redirect()->route('indexSubmissions', ['user' => Auth::user()])->with('message', 'Submissão enviada.');
     }
 }

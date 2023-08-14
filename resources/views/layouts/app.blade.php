@@ -48,7 +48,7 @@
                             <a href="/" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item my-auto">
-                            <a href="{{ route('indexSubmittedDocuments', Auth::user())}}" class="nav-link">Minhas submissões</a>
+                            <a href="{{ route('indexSubmissions', Auth::user())}}" class="nav-link">Minhas submissões</a>
                         </li>
                         <li class="nav-item my-auto">
                             <a href="/users/{{Auth::user()->id}}/events/subscribed" class="nav-link">Minhas inscrições</a>

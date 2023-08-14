@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">{{ __('Submeter documento') }}</div>
-                <form method="POST" action="/documents" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('storeDocument')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="row mb-5 justify-content-md-center">
@@ -151,6 +151,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <input type="text" name="event_id" value="{{$event->id}}" hidden>
                     </div>
                     <div class="card-footer">
                         <div class="row">

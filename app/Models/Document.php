@@ -8,6 +8,7 @@ use App\Models\CoAuthor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Kyslik\ColumnSortable\Sortable;
 
 class Document extends Model
@@ -55,6 +56,11 @@ class Document extends Model
     public function coAuthors(): BelongsToMany
     {
         return $this->belongsToMany(CoAuthor::class, 'co_authors_documents', 'document_id', 'co_author_id')->withPivot('number')->orderByPivot('number', 'asc');
+    }
+
+    public function submission(): HasOne
+    {
+        return $this->hasOne(Submission::class);
     }
 
     //Get creation date time

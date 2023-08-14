@@ -3,15 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Document;
-use Spatie\Permission\Models\Role;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
+use App\Models\Document;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Kyslik\ColumnSortable\Sortable;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -86,5 +87,10 @@ class User extends Authenticatable
     public function events()
     {
         return $this->belongsToMany(Event::class);
+    }
+
+    public function submission(): HasOne
+    {
+        return $this->hasOne(Submission::class);
     }
 }

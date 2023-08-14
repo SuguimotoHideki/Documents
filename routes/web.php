@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,10 +60,10 @@ Route::get('/manage/users', [UserController::class, 'index'])->name('manageUsers
 Route::group(['middleware' => ['auth']], function()
 {
     //Show document form view
-    Route::get('/documents/create', [DocumentController::class, 'create'])->name('createDocument');
+    Route::get('/event/{event}/documents/create', [DocumentController::class, 'create'])->name('createDocument');
 
     //Publish document
-    Route::post('documents', [DocumentController::class, 'store']);
+    Route::post('documents', [DocumentController::class, 'store'])->name('storeDocument');
 
     //Show all documents
     Route::get('/manage/documents', [DocumentController::class, 'index'])->name('manageDocuments');
@@ -78,7 +79,7 @@ Route::group(['middleware' => ['auth']], function()
 
     //User document
     //Get documents submitted by the user
-    Route::get('/users/{user}/documents/submitted', [DocumentController::class, 'userSubmission'])->name('indexSubmittedDocuments');
+    Route::get('/users/{user}/documents/submitted', [SubmissionController::class, 'index'])->name('indexSubmissions');
 });
 
 Route::group(['middleware' => ['auth']], function()

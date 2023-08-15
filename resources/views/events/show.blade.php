@@ -64,9 +64,15 @@
                                 </button>
                             </div>
                             <div class="d-grid col-4 mx-auto">
+                                @if (Auth::user()->events->contains($event) && Auth::user()->submission()->where('event_id', $event->id)->exists())
+                                <button type="button" class="btn btn-dark" disabled>
+                                    Submissão realizada
+                                </button>
+                                @else
                                 <a href="{{route('createDocument', $event)}}" class="btn btn-primary">
                                     Submeter artigo
                                 </a>
+                                @endif
                             </div>
                         </div>
                     @else

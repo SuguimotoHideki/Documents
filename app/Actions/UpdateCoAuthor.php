@@ -12,7 +12,8 @@ class UpdateCoAuthor extends Controller
 {
     public function handle(Request $request, Document $document)
     {
-        $user = $document->users()->first();
+        $user = $document->submission->user;
+        $submissionData = null;
 
         $coAuthors[] = [
             'name' => $user->user_name,
@@ -55,9 +56,11 @@ class UpdateCoAuthor extends Controller
 
         $changes = $document->coAuthors()->sync($submissionData);
 
+        //Update timestamps if co authors were altered
         if(!empty($changes["attached"]) || !empty($changes["detached"]))
         {
             $document->touch();
+            $document->submission->touch();
         }
 
         return redirect()->route('showDocument', [$document])->with('message', "Submissão atualizada.");

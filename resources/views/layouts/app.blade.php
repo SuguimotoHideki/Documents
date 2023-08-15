@@ -25,6 +25,7 @@
     />
 
     <!-- <script src="https://cdn.tailwindcss.com" defer></script> -->
+    
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 

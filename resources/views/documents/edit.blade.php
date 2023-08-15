@@ -71,11 +71,11 @@
                                 <div class="row mb-3">
                                     <div class="col my-auto">
                                         <small class="form-text text-muted">Nome completo</small>
-                                        <input type="text" class="form-control" value="{{ Auth()->getUser()->user_name }}" placeholder="Nome completo" required disabled autofocus>
+                                        <input type="text" class="form-control" value="{{ $document->submission->user->user_name }}" placeholder="Nome completo" required disabled autofocus>
                                     </div>
                                     <div class="col my-auto">
                                         <small class="form-text text-muted">Email</small>
-                                        <input type="text" class="form-control" value="{{ Auth()->getUser()->user_email }}" placeholder="Email" required disabled autofocus>
+                                        <input type="text" class="form-control" value="{{ $document->submission->user->user_email }}" placeholder="Email" required disabled autofocus>
                                     </div>
                                 </div>
                                 @for ($i = 0; $i < 7; $i++)

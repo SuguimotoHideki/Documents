@@ -14,14 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
-    //Get all documents
-    /*public function index()
-    {
-        return view('documents.index', [
-            'documents' => Document::all()
-        ]);
-    }*/
-
     //Return all documents
     public function index()
     {
@@ -49,18 +41,6 @@ class DocumentController extends Controller
             'document' => $document
         ]);
     }
-
-    /*//Returns user submissions
-    public function userSubmission()
-    {
-        $user = Auth::user();
-
-        $submissions = $user->documents()->sortable()->paginate();
-
-        return view('submissions.index', [
-            'documents' => $submissions
-        ]);
-    }*/
 
     //Returns document form view
     public function create(Event $event)
@@ -139,6 +119,11 @@ class DocumentController extends Controller
         else
         {
             $document->update($request->except('document'));
+        }
+
+        if($document->wasChanged())
+        {
+            $document->submission->touch();
         }
 
         return $action->handle($request, $document);

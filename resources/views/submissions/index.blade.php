@@ -6,11 +6,6 @@
         <div class="col-md-12">
             <div class="row mb-3">
                 <h1 class='fs-2 col'>Minhas submissões</h1>
-                @if($submissions->count() > 0)
-                    <div class="col">
-                        <a href="" class="btn btn-success float-end">Submeter documento</a>
-                    </div>
-                @endif
             </div>
             @if($submissions->count() === 0)
                 <div class="text-center">
@@ -26,33 +21,54 @@
                     <div class="table-responsive">
                         <table class="table bg-white">
                             <colgroup>
-                                <col width="10%">
+                                <col width="4%">
                                 <col width="20%">
                                 <col width="20%">
                                 <col width ="10%">
                                 <col width ="10%">
-                                <col width ="10%">
-                                <col width ="10%">
-                                <col width ="10%">
+                                <col width ="12%">
+                                <col width ="12%">
+                                <col width ="12%">
                             </colgroup>
                             <thead>
                                 <tr class="align-middle">
-                                    <th id="t1">ID</th>
-                                    <th id="t2">Título</th>
-                                    <th id="t3">Evento</th>
-                                    <th id="t4">Tipo</th>
-                                    <th id="t5">Status</th>
-                                    <th id="t6">Aprovado em</th>
-                                    <th id="t7">Publicado em</th>
-                                    <th id="t8">Atualizado em</th>
+                                    <th id="t1">@sortablelink('id', 'ID')</th>
+                                    <th id="t2">
+                                        <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'document.title', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Título</a>
+                                        @if(request('sort') === 'document.title')
+                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z' : 'fa-solid fa-arrow-down-z-a'}}"></i>
+                                        @else
+                                            <i class="fa fa-sort"></i>
+                                        @endif
+                                    </th>
+                                    <th id="t3">
+                                        <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'event.event_name', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Evento</a>
+                                        @if(request('sort') === 'event.event_name')
+                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z' : 'fa-solid fa-arrow-down-z-a'}}"></i>
+                                        @else
+                                            <i class="fa fa-sort"></i>
+                                        @endif
+                                    </th>
+                                    <th id="t4">
+                                        <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'document.document_type', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Tipo</a>
+                                        @if(request('sort') === 'document.document_type')
+                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z' : 'fa-solid fa-arrow-down-z-a'}}"></i>
+                                        @else
+                                            <i class="fa fa-sort"></i>
+                                        @endif
+                                    </th>
+                                    <th id="t5">@sortablelink('status', 'Status')</th>
+                                    <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
+                                    <th id="t7">@sortablelink('created_at','Publicado em')</th>
+                                    <th id="t8">@sortablelink('updated_at', 'Atualizado em')</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($submissions as $submission)
                                 <tr class="align-middle">
-                                    <td headers="t1">{{$submission->id}}</td>
-                                    <td headers="t2">{{$submission->document->title}}</td>
-                                    <td headers="t3">{{$submission->event->event_name}}</td>
+                                    <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
+                                    <td headers="t2"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
+                                    <td headers="t3"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>
                                     <td headers="t4">{{$submission->document->document_type}}</td>
                                     <td headers="t5">{{$submission->getStatusValue()}}</td>
                                     <td headers="t6">{{$submission->formatDate($submission->approved_at)}}</td>

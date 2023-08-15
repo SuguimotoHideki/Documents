@@ -21,11 +21,14 @@ class Submission extends Model
     ];
 
     protected $sortable = [
-        'event_id',
-        'document_id',
-        'user_id',
+        'id',
+        'document.title',
+        'event.event_name',
+        'document.document_type',
         'status',
-        'approved_at'
+        'approved_at',
+        'created_at',
+        'updated_at'
     ];
 
     public const STATUSES = [
@@ -62,13 +65,24 @@ class Submission extends Model
         }
         elseif($date === null)
         {
-            return('Em aguardo');
+            return('Aguardando avaliação');
         }
         else
         {
             return('Invalid date');
         }
     }
+
+    /*public function __get($key)
+    {
+        if(strpos($key, '.') !== false)
+        {
+            [$relation, $attribute] = explode('.', $key);
+            return $this->$relation->$attribute;
+        }
+
+        return parent::__get($key);
+    }*/
 
     public function user(): BelongsTo
     {

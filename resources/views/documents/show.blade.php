@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md mt-3">
                         <h2 class="fs-5 fw-bold">Status:</h2>
-                        <div class="px-3 py-1 rounded-1 bg-red-600" style="width: fit-content">{{$document->submission->getStatusValue()}}</div>
+                        <div>{{$document->submission->getStatusValue()}}</div>
                     </div>
                 </div>
                 <div class="row">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="row">
                 <div class="col-md-8">
                     <h1 class="fs-2">Inscritos em {{$event->event_name}}</h1>
@@ -14,7 +14,8 @@
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white caption-top">
+                        <caption>Total de inscritos: {{$event->subscriptionCount()}}</caption>
                         <colgroup>
                             <col width="20%">
                             <col width="20%">
@@ -22,7 +23,7 @@
                             <col width="20%">
                             <col width="20%">
                         </colgroup>
-                        <thead>
+                        <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">
                                     <a href="{{ route('indexSubscribers', [$event, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID da inscrição</a>
@@ -42,7 +43,7 @@
                                         <i class="fa fa-sort"></i>
                                     @endif
                                 </th>
-                                <th id="t1">Operações</th>
+                                <th id="t5">Operações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,9 +92,6 @@
                         </tbody>
                     </table>
                 </div>
-                @if ($event->subscriptionCount() > 0)
-                    <p class="fs-5 fw-semibold">Total de inscritos: {{$event->subscriptionCount()}}</p>                
-                @endif
             </div>
         </div>
     </div>

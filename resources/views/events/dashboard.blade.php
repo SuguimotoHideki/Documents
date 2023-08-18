@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="row mb-3">
                 <h1 class='fs-2 col'>Gerenciar eventos</h1>
                 <div class="col">
@@ -12,17 +12,17 @@
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white">
                         <colgroup>
-                            <col width="5%">
-                            <col width="20%">
+                            <col width="10%">
+                            <col width="18%">
+                            <col width="17%">
                             <col width="15%">
-                            <col width="15%">
                             <col width ="15%">
                             <col width ="15%">
-                            <col width ="15%">
+                            <col width ="10%">
                         </colgroup>
-                        <thead>
+                        <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">@sortablelink('id', 'ID')</th>
                                 <th id="t2">@sortablelink('event_name', 'Evento')</th>

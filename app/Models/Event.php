@@ -50,15 +50,15 @@ class Event extends Model
         'submission_deadline',
     ];
 
-    public static $eventStatuses = [
-        'Em breve',
-        'Encerrado',
-        'Inscrições abertas',
-        'Inscrições encerradas',
-        'Submissões abertas',
-        'Submissões encerradas',
-        'Adiado',
-        'Cancelado',
+    public const STATUSES = [
+        0 => 'Em breve',
+        1 => 'Encerrado',
+        2 => 'Inscrições abertas',
+        3 => 'Inscrições encerradas',
+        4 => 'Submissões abertas',
+        5 => 'Submissões encerradas',
+        6 => 'Adiado',
+        7 => 'Cancelado',
     ];
 
     /**
@@ -88,20 +88,30 @@ class Event extends Model
         }
     }
 
-    /**
-     * Updates the status depending on the set dates
-     */
-    public function getStatus()
+    public function getStatusID($status)
     {
-        return $this->event_status;
+        return array_search($status, self::STATUSES);
     }
 
+    public function getStatusValue()
+    {
+        return self::STATUSES[$this->attributes['event_status']];
+    }
+
+    public function setStatus($value)
+    {
+        $statusID = self::getStatusID($value);
+        if($statusID)
+        {
+            $this->attributes['event_status'] = $statusID;
+        }
+    }
     /**
      * Updates the status depending on the set dates
      */
     public function updateStatus()
     {
-        if($this->event_status !== self::$eventStatuses[6] & $this->event_status !== self::$eventStatuses[7])
+        if($this->getStatusID($this->getStatusValue()) < 6)
         {
             $today = Carbon::today();
         
@@ -109,32 +119,32 @@ class Event extends Model
             {
                 if($today < $this->subscription_start)
                 {
-                    $this->event_status = self::$eventStatuses[0];
+                    $this->event_status = 0;
                 }
                 else if($today >= $this->subscription_start && $today <= $this->subscription_deadline)
                 {
-                    $this->event_status = self::$eventStatuses[2];
+                    $this->event_status = 2;
                 }
                 else if($today > $this->subscription_deadline)
                 {
-                    $this->event_status = self::$eventStatuses[3];
+                    $this->event_status = 3;
                 }
             }
             else
             {
                 if($today >= $this->submission_start && $today <= $this->submission_deadline)
                 {
-                    $this->event_status = self::$eventStatuses[4];
+                    $this->event_status = 4;
                 }
                 else if($today > $this->submission_deadline)
                 {
-                    $this->event_status = self::$eventStatuses[5];
+                    $this->event_status = 5;
                 }
             }
             $this->save();
         }
         
-        return $this->event_status;
+        return $this->getStatusValue();
     }
 
     public function hasUser()
@@ -171,5 +181,14 @@ class Event extends Model
     public function submission(): HasOne
     {
         return $this->hasOne(Submission::class);
+    }
+
+    public function userSubmission(User $user)
+    {
+        $userId = $user->id;
+        
+        return $this->submission()
+        ->where('user_id', $userId)
+        ->first();
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             @if (Auth::user()->id === $user->id)
                 <h1 class='fs-2'>Minhas inscrições</h1>
             @else
@@ -99,19 +99,20 @@
             @else
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white">
                         <colgroup>
-                            <col width="20%">
-                            <col width="20%">
+                            <col width="10%">
+                            <col width="15%">
                             <col width="15%">
                             <col width ="15%">
                             <col width ="15%">
                             <col width ="15%">
+                            <col width ="15%">
                         </colgroup>
-                        <thead>
+                        <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">
-                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID da inscrição</a>
+                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID inscrição</a>
                                     @if(request('sort') === 'event_user.id')
                                         <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
                                     @else
@@ -120,9 +121,10 @@
                                 </th>
                                 <th id="t2">@sortablelink('event_name', 'Evento')</th>
                                 <th id="t3">@sortablelink('event_email', 'Email do evento')</th>
-                                <th id="t4">@sortablelink('status', 'Status')</th>
+                                <th id="t4">@sortablelink('event_status', 'Status')</th>
                                 <th id="t5">@sortablelink('subscription_deadline', 'Prazo para submissão')</th>
-                                <th id="t6">
+                                <th id="t6">Submissão</th>
+                                <th id="t7">
                                     <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.created_at', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Inscrito em</a>
                                     @if (request('sort') === 'event_user.created_at')
                                         <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
@@ -134,13 +136,20 @@
                         </thead>
                         <tbody>
                             @foreach($events as $event)
-                            <tr class="align-middle">
+                            <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                 <td headers="t3">{{$event->event_email}}</td>
-                                <td headers="t4">{{$event->updateStatus($event->event_status)}}</td>
+                                <td headers="t4">{{$event->updateStatus()}}</td>
                                 <td headers="t5">{{$event->formatDate($event->submission_start)}} - {{$event->formatDate($event->submission_deadline)}}</td>
-                                <td headers="t6">{{$event->subscriptionData($user)['created_at']}}</td>
+                                <td headers="t6">
+                                    @if($event->userSubmission($user) !== null)
+                                        <a href="{{ route('showDocument', $event->submission->document)}}">{{$event->userSubmission($user)->id}}</a>
+                                    @else
+                                        <a href="{{ route('createDocument', $event)}}">Fazer submissão</a>
+                                    @endif
+                                </td>
+                                <td headers="t7">{{$event->subscriptionData($user)['created_at']}}</td>
                             </tr>
                             @endforeach
                         </tbody>

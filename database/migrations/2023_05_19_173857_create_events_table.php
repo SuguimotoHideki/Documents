@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('organizer_email');
             $table->string('organizer_website')->nullable();
             $table->longText('event_information');
-            $table->enum('event_status', ['Em breve', 'Encerrado', 'Inscrições abertas', 'Inscrições encerradas', 'Submissões abertas', 'Submissões encerradas', 'Adiado', 'Cancelado']);
+            $table->unsignedBigInteger('event_status');
             $table->boolean('event_published');
             $table->longText('paper_topics');
             $table->date('subscription_start');

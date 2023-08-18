@@ -33,7 +33,7 @@ return [
     /*
     icon that shows when generating sortable link while column is not sorted
      */
-    'sortable_icon'                 => 'fa fa-sort',
+    'sortable_icon'                 => 'fa fa-sort float-end',
 
     /*
     generated icon is clickable non-clickable (default)
@@ -49,12 +49,12 @@ return [
     /*
     suffix class that is appended when ascending direction is applied
      */
-    'asc_suffix'                    => '-asc',
+    'asc_suffix'                    => '-asc float-end',
 
     /*
     suffix class that is appended when descending direction is applied
      */
-    'desc_suffix'                   => '-desc',
+    'desc_suffix'                   => '-desc float-end',
 
     /*
     default anchor class, if value is null none is added

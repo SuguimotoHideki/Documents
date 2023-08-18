@@ -76,9 +76,15 @@
                             </div>
                         </div>
                     @else
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">
-                            Inscrever-se
-                        </button>
+                        @if($event->event_status > 2)
+                            <button type="button" class="btn btn-dark" disabled>
+                                Inscrições encerradas
+                            </button>
+                        @else
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">
+                                Inscrever-se
+                            </button>
+                        @endif
                     @endif
                 </div>
             </div>

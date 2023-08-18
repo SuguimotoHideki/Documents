@@ -103,7 +103,7 @@ class EventController extends Controller
         {
             if($error->getCode() === '23000')
             {
-                return redirect()->back()->with('error', 'Você já está inscrito neste evento.');
+                return redirect()->back()->with('error', 'Você já está inscrito no evento ' . $event->event_name . '.');
             }
             else {
                 // Other database-related error occurred
@@ -130,7 +130,7 @@ class EventController extends Controller
             'paper_topics' => ['required', 'string'],
             'event_email' => ['required', 'string'],
             'organizer' => ['required', 'string'],
-            'event_status' => ['required', Rule::in(Event::$eventStatuses)],
+            'event_status' => ['required'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
             'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
@@ -142,7 +142,6 @@ class EventController extends Controller
         if($request->has('event_published'))    
         {
             $formFields['event_published'] = 1;
-            //dd($formFields);
         }
         else
             {$formFields['event_published'] = 0;}

@@ -187,9 +187,9 @@
                             </label>
                             <div class="col-md-8 my-auto">
                                 <select name="event_status" id="event_status" class="col-md-12 my-auto">
-                                    <option value="Em breve" {{ $event->event_status === 'Em breve' ? 'selected' : '' }}>Em breve</option>
-                                    <option value="Adiado" {{ $event->event_status === 'Adiado' ? 'selected' : '' }}>Adiado</option>
-                                    <option value="Cancelado" {{ $event->event_status === 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
+                                    <option value="0" {{ $event->event_status === 'Em breve' ? 'selected' : '' }}>Em breve</option>
+                                    <option value="6" {{ $event->event_status === 'Adiado' ? 'selected' : '' }}>Adiado</option>
+                                    <option value="7" {{ $event->event_status === 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
                                 </select>
                             </div>
                         </div>

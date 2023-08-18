@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -24,13 +25,14 @@ class EventFactory extends Factory
             'paper_topics' => implode(', ', [Str::random(30), Str::random(30), Str::random(30)]),
             'event_email' => fake()->companyEmail(),
             'event_published' => true,
+            'event_status' => 0,
             'organizer' => fake()->company(),
             'organizer_email' => fake()->companyEmail(),
             'organizer_website' => fake()->url(),
-            'subscription_start' => fake()->date(),
-            'subscription_deadline' => fake()->date(),
-            'submission_start' => fake()->date(),
-            'submission_deadline' => fake()->date(),
+            'subscription_start' => fake()->dateTimeBetween('-2 days', '+2 days'),
+            'subscription_deadline' => fake()->dateTimeInInterval('+2 days', '+4 days'),
+            'submission_start' => fake()->dateTimeInInterval('+4 days', '+6 days'),
+            'submission_deadline' => fake()->dateTimeInInterval('+6 days', '+8 days'),
         ];
     }
 }

@@ -73,17 +73,6 @@ class Submission extends Model
         }
     }
 
-    /*public function __get($key)
-    {
-        if(strpos($key, '.') !== false)
-        {
-            [$relation, $attribute] = explode('.', $key);
-            return $this->$relation->$attribute;
-        }
-
-        return parent::__get($key);
-    }*/
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

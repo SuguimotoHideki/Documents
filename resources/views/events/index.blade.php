@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <h1 class='fs-2'>Eventos abertos</h1>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white">
                         <colgroup>
                             <col width="20%">
                             <col width="20%">
@@ -15,8 +15,8 @@
                             <col width ="20%">
                             <col width ="20%">
                         </colgroup>
-                        <thead>
-                            <tr>
+                        <thead class="table-light">
+                            <tr class="align-middle">
                                 <th id="t1">@sortablelink('event_name', 'Evento')</th>
                                 <th id="t2">@sortablelink('event_email', 'Email do evento')</th>
                                 <th id="t3">@sortablelink('organizer', 'Organizador')</th>
@@ -30,7 +30,7 @@
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                 <td headers="t5">{{$event->event_email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
-                                <td headers="t4">{{$event->updateStatus($event->event_status)}}</td>
+                                <td headers="t4">{{$event->getStatusValue($event->updateStatus($event->event_status))}}</td>
                                 <td headers="t5">{{$event->formatDate($event->subscription_start)}} - {{$event->formatDate($event->subscription_deadline)}}</td>
                             </tr>
                             @endforeach

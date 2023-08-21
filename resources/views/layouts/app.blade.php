@@ -65,7 +65,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('manageDocuments')}}">
-                                    Gerenciar documentos
+                                    Gerenciar submissões
                                 </a>
                                 <a class="dropdown-item" href="{{ route('manageEvents') }}">
                                     Gerenciar eventos

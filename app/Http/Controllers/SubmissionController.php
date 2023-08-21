@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Submission;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,4 +38,12 @@ class SubmissionController extends Controller
 
         return view('submissions.index', ['user' => $user, 'submissions' => $submissions]);
     }
+
+    public function indexByEvent(Request $request, Event $event)
+    {
+        $submissions = $event->submission()->sortable()->paginate();
+
+        return view('submissions.indexByEvent', ['event' => $event, 'submissions' => $submissions]);
+    }
+
 }

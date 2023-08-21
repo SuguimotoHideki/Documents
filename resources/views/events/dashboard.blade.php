@@ -58,6 +58,10 @@
                                                 Ver inscrições
                                             </a>
 
+                                            <a href="{{ route('indexEventSubmissions', $event)}}" class="dropdown-item">
+                                                Ver submissões
+                                            </a>
+
                                             <a class="dropdown-item" href="{{route('showEvent', $event)}}">
                                                 Visualizar
                                             </a>

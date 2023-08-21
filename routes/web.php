@@ -77,6 +77,9 @@ Route::group(['middleware' => ['auth']], function()
     //Update document
     Route::put('/documents/{document}/update', [DocumentController::class, 'update'])->name('updateDocument');
 
+    //Delete document
+    Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('deleteDocument');
+
     //User document
     //Get documents submitted by the user
     Route::get('/users/{user}/documents/submitted', [SubmissionController::class, 'index'])->name('indexSubmissions');
@@ -110,4 +113,6 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/users/{user}/events/subscribed', [EventController::class, 'subscribedEvents'])->name('indexSubscribedEvents');
     //Get event's subscribers
     Route::get('/manage/events/{event}/subscribers', [EventController::class, 'subscribedUsers'])->name('indexSubscribers')->middleware('can:manage any event');
+    //Get event's submissions
+    Route::get('/manage/events/{event}/submissions', [SubmissionController::class, 'indexByEvent'])->name('indexEventSubmissions');
 });

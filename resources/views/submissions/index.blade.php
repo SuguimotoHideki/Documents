@@ -17,9 +17,9 @@
                     </a>
                 </div>
             @else
-                <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
-                    <div class="table-responsive">
-                        <table class="table bg-white">
+            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
+                <div class="table-responsive">
+                    <table class="table table-bordered border-light table-hover bg-white">
                             <colgroup>
                                 <col width="4%">
                                 <col width="20%">
@@ -30,7 +30,7 @@
                                 <col width ="12%">
                                 <col width ="12%">
                             </colgroup>
-                            <thead>
+                            <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('id', 'ID')</th>
                                     <th id="t2">
@@ -65,7 +65,7 @@
                             </thead>
                             <tbody>
                                 @foreach($submissions as $submission)
-                                <tr class="align-middle">
+                                <tr class="align-middle" style="height:4rem">
                                     <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
                                     <td headers="t2"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                     <td headers="t3"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>

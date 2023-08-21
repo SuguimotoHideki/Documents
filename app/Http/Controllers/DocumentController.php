@@ -128,4 +128,11 @@ class DocumentController extends Controller
 
         return $action->handle($request, $document);
     }
+
+    public function destroy(Document $document)
+    {
+        $document->delete();
+
+        return redirect()->back()->with('message', 'Submissão ' . $document->title . ' removida.');
+    }
 }

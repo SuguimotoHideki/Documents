@@ -10,9 +10,9 @@
                     <p>Ainda não há submissões.</p>
                 </div>
             @else
-            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
+            <div class="list-group list-group-flush shadow-sm p-3 mb-5">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white">
+                    <table class="table table-bordered border-light table-hover">
                             <colgroup>
                                 <col width="5%">
                                 <col width="10%">
@@ -80,7 +80,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Deseja excluir a submissão {{$document->title}} do evento {{$document->submission->event->event_name}} ?</p>
+                                                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->event_name}}</strong> ?</p>
 
                                             </div>
                                             <div class="modal-footer">

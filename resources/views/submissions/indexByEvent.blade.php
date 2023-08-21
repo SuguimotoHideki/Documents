@@ -12,16 +12,16 @@
                     <p>Ainda não há submissões para este evento.</p>
                 </div>
             @else
-            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
+            <div class="list-group list-group-flush shadow-sm p-3 mb-5">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white caption-top">
+                    <table class="table table-bordered border-light table-hover caption-top">
                         <caption>Número de submissões: {{count($submissions)}}</caption>
                             <colgroup>
-                                <col width="4%">
+                                <col width="6%">
                                 <col width="20%">
                                 <col width="20%">
-                                <col width ="10%">
-                                <col width ="10%">
+                                <col width ="9%">
+                                <col width ="9%">
                                 <col width ="12%">
                                 <col width ="12%">
                                 <col width ="12%">
@@ -29,9 +29,9 @@
                             <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('id', 'ID')</th>
-                                    <th id="t1">@sortablelink('title', 'Título')</th>
-                                    <th id="t1">@sortablelink('user', 'Author correspondente')</th>
-                                    <th id="t1">@sortablelink('document_type', 'Tipo')</th>
+                                    <th id="t2">@sortablelink('title', 'Título')</th>
+                                    <th id="t3">@sortablelink('user', 'Author correspondente')</th>
+                                    <th id="t4">@sortablelink('document_type', 'Tipo')</th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>
                                     <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
                                     <th id="t7">@sortablelink('created_at','Publicado em')</th>
@@ -79,7 +79,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Deseja excluir a submissão {{$submission->document->title}} do evento {{$event->event_name}} ?</p>
+                                                <p>Deseja excluir a submissão <strong>{{$submission->document->title}}</strong> do evento <strong>{{$event->event_name}}</strong> ?</p>
 
                                             </div>
                                             <div class="modal-footer">

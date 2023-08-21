@@ -17,18 +17,18 @@
                     </a>
                 </div>
             @else
-            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
+            <div class="list-group list-group-flush shadow-sm p-3 mb-5">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white">
+                    <table class="table table-bordered border-light table-hover">
                             <colgroup>
-                                <col width="4%">
-                                <col width="20%">
+                                <col width="6%">
+                                <col width="21%">
                                 <col width="20%">
                                 <col width ="10%">
                                 <col width ="10%">
-                                <col width ="12%">
-                                <col width ="12%">
-                                <col width ="12%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
@@ -36,25 +36,25 @@
                                     <th id="t2">
                                         <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'document.title', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Título</a>
                                         @if(request('sort') === 'document.title')
-                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z' : 'fa-solid fa-arrow-down-z-a'}}"></i>
+                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z float-end' : 'fa-solid fa-arrow-down-z-a float-end'}}"></i>
                                         @else
-                                            <i class="fa fa-sort"></i>
+                                            <i class="fa fa-sort float-end"></i>
                                         @endif
                                     </th>
                                     <th id="t3">
                                         <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'event.event_name', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Evento</a>
                                         @if(request('sort') === 'event.event_name')
-                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z' : 'fa-solid fa-arrow-down-z-a'}}"></i>
+                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z float-end' : 'fa-solid fa-arrow-down-z-a float-end'}}"></i>
                                         @else
-                                            <i class="fa fa-sort"></i>
+                                            <i class="fa fa-sort float-end"></i>
                                         @endif
                                     </th>
                                     <th id="t4">
                                         <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'document.document_type', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Tipo</a>
                                         @if(request('sort') === 'document.document_type')
-                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z' : 'fa-solid fa-arrow-down-z-a'}}"></i>
+                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z float-end' : 'fa-solid fa-arrow-down-z-a float-end'}}"></i>
                                         @else
-                                            <i class="fa fa-sort"></i>
+                                            <i class="fa fa-sort float-end"></i>
                                         @endif
                                     </th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>

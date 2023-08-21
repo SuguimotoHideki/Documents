@@ -21,12 +21,12 @@ class DocumentController extends Controller
 
         if($user->hasRole('admin'))
         {
-            $userDocuments = Document::all();
+            $userDocuments = Document::sortable()->paginate();
         }
         else
         {
             $userId = $user->id;
-            $userDocuments = Document::where('user_id', $userId)->get();
+            $userDocuments = Document::where('user_id', $userId)->sortable()->paginate();
         }
         return view('documents.index', [
             'documents' => $userDocuments

@@ -33,6 +33,8 @@ class Document extends Model
         'keyword',
         'document_institution',
         'document_type',
+        'created_at',
+        'updated_at'
     ];
 
     public function formatDate($date)

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-md-8">
                     <h1 class="fs-2">Inscritos em {{$event->event_name}}</h1>
                 </div>
@@ -74,7 +74,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja cancelar a inscrição de {{$user->user_name}} no evento {{$event->event_name}} ?</p>
+                                        <p>Deseja cancelar a inscrição de <strong>{{$user->user_name}}</strong> no evento <strong>{{$event->event_name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

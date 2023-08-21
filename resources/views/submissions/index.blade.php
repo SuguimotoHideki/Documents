@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="row mb-3">
+            <div class="row mb-2">
                 <h1 class='fs-2 col'>Minhas submissões</h1>
             </div>
             @if($submissions->count() === 0)
@@ -17,13 +17,13 @@
                     </a>
                 </div>
             @else
-            <div class="list-group list-group-flush shadow-sm p-3 mb-5">
+            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover">
+                    <table class="table table-bordered border-light table-hover bg-white">
                             <colgroup>
-                                <col width="6%">
+                                <col width="5%">
                                 <col width="21%">
-                                <col width="20%">
+                                <col width="21%">
                                 <col width ="10%">
                                 <col width ="10%">
                                 <col width ="11%">

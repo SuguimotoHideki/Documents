@@ -208,7 +208,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja confirmar as alterações em {{$event->event_name}} ?</p>
+                                        <p>Deseja confirmar as alterações em <strong>{{$event->event_name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

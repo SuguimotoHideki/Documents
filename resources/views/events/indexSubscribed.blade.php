@@ -4,11 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @if (Auth::user()->id === $user->id)
-                <h1 class='fs-2'>Minhas inscrições</h1>
-            @else
-                <h1 class='fs-2'>Inscrições de {{$user->user_name}}</h1>
-            @endif
+            <div class="row mb-2">
+                @if (Auth::user()->id === $user->id)
+                    <h1 class='fs-2'>Minhas inscrições</h1>
+                @else
+                    <h1 class='fs-2'>Inscrições de {{$user->user_name}}</h1>
+                @endif
+            </div>
             @can('manage any event')
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
@@ -18,7 +20,7 @@
                             <col width="20%">
                             <col width="15%">
                             <col width="15%">
-                            <col width ="15%">
+                            <col width="15%">
                             <col width="15%">
                             <col width="15%">
                         </colgroup>
@@ -77,7 +79,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja cancelar a inscrição de {{$user->user_name}} no evento {{$event->event_name}} ?</p>
+                                        <p>Deseja cancelar a inscrição de <strong>{{$user->user_name}}</strong> no evento <strong>{{$event->event_name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

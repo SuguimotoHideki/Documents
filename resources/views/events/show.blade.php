@@ -134,7 +134,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Deseja se inscrever em {{$event->event_name}} ?</p>
+                <p>Deseja se inscrever em <strong>{{$event->event_name}}</strong> ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -157,7 +157,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <p>Deseja excluir o evento {{$event->event_name}} ?</p>
+            <p>Deseja excluir o evento <strong>{{$event->event_name}}</strong> ?</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

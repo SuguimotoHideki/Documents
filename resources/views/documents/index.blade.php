@@ -4,15 +4,17 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1 class='fs-2 col'>Gerenciar submissões</h1>
-            @if($documents->count() === 0)
-                <div class="text-center">
-                    <p>Ainda não há submissões.</p>
-                </div>
-            @else
-            <div class="list-group list-group-flush shadow-sm p-3 mb-5">
+            <div class="row mb-2">
+                <h1 class='fs-2 col'>Gerenciar submissões</h1>
+                @if($documents->count() === 0)
+                    <div class="text-center">
+                        <p>Ainda não há submissões.</p>
+                    </div>
+                @else
+            </div>
+            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover">
+                    <table class="table table-bordered border-light table-hover bg-white">
                             <colgroup>
                                 <col width="5%">
                                 <col width="10%">

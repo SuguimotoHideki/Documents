@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="row mb-3">
+            <div class="row mb-2">
                 <h1 class='fs-2 col'>Gerenciar eventos</h1>
                 <div class="col">
                     <a href="{{route('createEvent')}}" class="btn btn-success float-end">Criar evento</a>
@@ -14,9 +14,9 @@
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white">
                         <colgroup>
-                            <col width="10%">
-                            <col width="18%">
-                            <col width="17%">
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="20%">
                             <col width="15%">
                             <col width ="15%">
                             <col width ="15%">
@@ -85,7 +85,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja excluir o evento {{$event->event_name}} ?</p>
+                                        <p>Deseja excluir o evento <strong>{{$event->event_name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

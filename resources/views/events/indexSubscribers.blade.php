@@ -15,9 +15,10 @@
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white caption-top">
-                        <caption>Total de inscritos: {{$event->subscriptionCount()}}</caption>
+                        <caption>N⁰ inscritos: {{$event->subscriptionCount()}}</caption>
                         <colgroup>
-                            <col width="20%">
+                            <col width="10%">
+                            <col width="10%">
                             <col width="20%">
                             <col width="20%">
                             <col width="20%">
@@ -25,17 +26,11 @@
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
-                                <th id="t1">
-                                    <a href="{{ route('indexSubscribers', [$event, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID da inscrição</a>
-                                    @if(request('sort') === 'event_user.id')
-                                        <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
-                                    @else
-                                        <i class="fa fa-sort"></i>
-                                    @endif
-                                </th>
-                                <th id="t2">@sortablelink('user_name', 'Usuário')</th>
-                                <th id="t3">Submissão</th>
-                                <th id="t4">
+                                <th id="t1">@sortablelink('id', 'ID inscrição')</th>
+                                <th id="t2">@sortablelink('id', 'ID usuário')</th>
+                                <th id="t3">@sortablelink('user_name', 'Usuário')</th>
+                                <th id="t4">Submissão</th>
+                                <th id="t5">
                                     <a href="{{ route('indexSubscribers', [$event, 'sort' => 'event_user.created_at', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Inscrição em</a>
                                     @if(request('sort') === 'event_user.created_at')
                                         <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
@@ -43,17 +38,18 @@
                                         <i class="fa fa-sort"></i>
                                     @endif
                                 </th>
-                                <th id="t5">Operações</th>
+                                <th id="t6">Operações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($users as $user)
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
-                                <td headers="t2"><a href="{{ route('showUser', ['user' => $user])}}">{{$user->user_name}}</a></td>
-                                <td headers="t3">TODO</td>
-                                <td headers="t4">{{$event->subscriptionData($user)['created_at']}}</td>
-                                <td headers="t5">
+                                <td headers="t2"><a href="{{ route("showUser", $user)}}">{{$user->id}}</a></td>
+                                <td headers="t3"><a href="{{ route('showUser', ['user' => $user])}}">{{$user->user_name}}</a></td>
+                                <td headers="t4">TODO</td>
+                                <td headers="t5">{{$event->subscriptionData($user)['created_at']}}</td>
+                                <td headers="t6">
                                     <div class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Operações

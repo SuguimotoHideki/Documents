@@ -15,7 +15,7 @@
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white caption-top">
-                        <caption>Número de submissões: {{count($submissions)}}</caption>
+                        <caption>N⁰ submissões: {{count($submissions)}}</caption>
                             <colgroup>
                                 <col width="5%">
                                 <col width="20%">
@@ -30,7 +30,7 @@
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('id', 'ID')</th>
                                     <th id="t2">@sortablelink('title', 'Título')</th>
-                                    <th id="t3">@sortablelink('user', 'Author correspondente')</th>
+                                    <th id="t3">@sortablelink('user', 'Correspondente')</th>
                                     <th id="t4">@sortablelink('document_type', 'Tipo')</th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>
                                     <th id="t6">@sortablelink('approved_at','Aprovado em')</th>

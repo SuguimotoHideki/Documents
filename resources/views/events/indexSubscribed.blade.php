@@ -14,20 +14,20 @@
             @can('manage any event')
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white">
                         <colgroup>
-                            <col width="5%">
+                            <col width="10%">
                             <col width="20%">
                             <col width="15%">
                             <col width="15%">
                             <col width="15%">
                             <col width="15%">
-                            <col width="15%">
+                            <col width="10%">
                         </colgroup>
-                        <thead>
+                        <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">
-                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID da inscrição</a>
+                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID inscrição</a>
                                     @if(request('sort') === 'event_user.id')
                                         <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
                                     @else
@@ -51,7 +51,7 @@
                         </thead>
                         <tbody>
                             @foreach($events as $event)
-                            <tr class="align-middle">
+                            <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                 <td headers="t3">{{$event->event_email}}</td>

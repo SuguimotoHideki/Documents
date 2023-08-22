@@ -18,21 +18,21 @@
                             <colgroup>
                                 <col width="5%">
                                 <col width="10%">
-                                <col width="10%">
+                                <col width="13%">
+                                <col width ="12%">
                                 <col width ="10%">
                                 <col width ="10%">
+                                <col width ="11%">
                                 <col width ="10%">
-                                <col width ="10%">
-                                <col width ="10%">
-                                <col width ="10%">
-                                <col width ="10%">
+                                <col width ="11%">
+                                <col width ="8%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('id', 'ID')</th>
                                     <th id="t2">@sortablelink('event', 'Evento')</th>
                                     <th id="t3">@sortablelink('title', 'Título')</th>
-                                    <th id="t4">@sortablelink('user', 'Autor correspondente')</th>
+                                    <th id="t4">@sortablelink('user', 'Correspondente')</th>
                                     <th id="t5">@sortablelink('document_type', 'Tipo')</th>
                                     <th id="t6">@sortablelink('status', 'Status')</th>
                                     <th id="t7">@sortablelink('approved_at', 'Aprovado em')</th>

@@ -21,9 +21,9 @@
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white">
                             <colgroup>
-                                <col width="5%">
-                                <col width="21%">
-                                <col width="21%">
+                                <col width="10%">
+                                <col width="19%">
+                                <col width="18%">
                                 <col width ="10%">
                                 <col width ="10%">
                                 <col width ="11%">
@@ -32,31 +32,10 @@
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
-                                    <th id="t1">@sortablelink('id', 'ID')</th>
-                                    <th id="t2">
-                                        <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'document.title', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Título</a>
-                                        @if(request('sort') === 'document.title')
-                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z float-end' : 'fa-solid fa-arrow-down-z-a float-end'}}"></i>
-                                        @else
-                                            <i class="fa fa-sort float-end"></i>
-                                        @endif
-                                    </th>
-                                    <th id="t3">
-                                        <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'event.event_name', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Evento</a>
-                                        @if(request('sort') === 'event.event_name')
-                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z float-end' : 'fa-solid fa-arrow-down-z-a float-end'}}"></i>
-                                        @else
-                                            <i class="fa fa-sort float-end"></i>
-                                        @endif
-                                    </th>
-                                    <th id="t4">
-                                        <a href="{{ route('indexSubmissions', ['user' => $user, 'sort' => 'document.document_type', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Tipo</a>
-                                        @if(request('sort') === 'document.document_type')
-                                            <i class="{{request('direction') === 'asc' ? 'fa-solid fa-arrow-down-a-z float-end' : 'fa-solid fa-arrow-down-z-a float-end'}}"></i>
-                                        @else
-                                            <i class="fa fa-sort float-end"></i>
-                                        @endif
-                                    </th>
+                                    <th id="t1">@sortablelink('id', 'Submissão')</th>
+                                    <th id="t2">@sortablelink('document.title', 'Título')</th>
+                                    <th id="t3">@sortablelink('event.event_name', 'Evento')</th>
+                                    <th id="t4">@sortablelink('document.document_type', 'Tipo')</th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>
                                     <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
                                     <th id="t7">@sortablelink('created_at','Publicado em')</th>

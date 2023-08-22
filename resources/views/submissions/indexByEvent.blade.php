@@ -6,29 +6,33 @@
         <div class="col-md-12">
             <div class="row mb-2">
                 <h1 class='fs-2 col'>Submissões em {{$event->event_name}}</h1>
-            </div>
-            @if($submissions->count() === 0)
-                <div class="text-center">
-                    <p>Ainda não há submissões para este evento.</p>
+                <div class="col-md-4 text-end">
+                    <a href="{{route('manageEvents')}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
                 </div>
-            @else
+            </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
+                <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
+                    <div class="navbar-nav me-auto">
+                        <a href="{{route('indexSubscribers', $event->id)}}" class="nav-item nav-link">Ver inscrições</a>
+                        <a href="{{ route('showEvent', $event->id)}}" class="nav-item nav-link">Ver evento</a>
+                    </div>
+                </nav>
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white caption-top">
                         <caption>N⁰ submissões: {{count($submissions)}}</caption>
                             <colgroup>
-                                <col width="5%">
-                                <col width="20%">
-                                <col width="20%">
+                                <col width="10%">
+                                <col width="19%">
+                                <col width="18%">
                                 <col width ="9%">
-                                <col width ="10%">
+                                <col width ="9%">
                                 <col width ="12%">
                                 <col width ="12%">
                                 <col width ="12%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
-                                    <th id="t1">@sortablelink('id', 'ID')</th>
+                                    <th id="t1">@sortablelink('id', 'Submissão')</th>
                                     <th id="t2">@sortablelink('title', 'Título')</th>
                                     <th id="t3">@sortablelink('user', 'Correspondente')</th>
                                     <th id="t4">@sortablelink('document_type', 'Tipo')</th>
@@ -80,7 +84,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p>Deseja excluir a submissão <strong>{{$submission->document->title}}</strong> do evento <strong>{{$event->event_name}}</strong> ?</p>
-
+                                                <p>Essa operação não pode ser desfeita.</p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -100,7 +104,6 @@
                         </table>
                     </div>
                 </div> 
-            @endif
         </div>
     </div>
 </div>

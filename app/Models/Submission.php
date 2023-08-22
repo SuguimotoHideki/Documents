@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -71,6 +72,15 @@ class Submission extends Model
         {
             return('Invalid date');
         }
+    }
+
+    public function hasSubmission(User $user, Event $event)
+    {
+        $submission = DB::table('submissions')
+        ->where('user_id', $user->id)
+        ->where('event_id', $event->id);
+
+        return $submission;
     }
 
     public function user(): BelongsTo

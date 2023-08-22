@@ -59,8 +59,6 @@ class EventController extends Controller
             $subscribers = $event->users()->sortable()->paginate();
         }
 
-        //dd($event, $subscribers);
-
         return view('events.indexSubscribers', [
             'event' => $event,
             'users' => $subscribers
@@ -155,13 +153,13 @@ class EventController extends Controller
     //Store event
     public function store(Request $request)
     {
+        //dd($request);
         $formFields = $request->validate([
             'event_name' => ['required', 'string', Rule::unique('events', 'event_name')],
             'event_website' => ['required', 'string'],
             'event_information' => ['required', 'string'],
             'paper_topics' => ['required', 'string'],
             'event_email' => ['required', 'string'],
-            'event_published' => false,
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
@@ -170,6 +168,9 @@ class EventController extends Controller
             'submission_start' => ['required', 'date_format:Y-m-d', 'before:submission_deadline'],
             'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
+
+        $formFields['event_published'] = false;
+        $formFields['event_status'] = 0;
 
         Event::create($formFields);
         return redirect('/')->with('message', 'Evento ' . $formFields['event_name'] . ' criado.');

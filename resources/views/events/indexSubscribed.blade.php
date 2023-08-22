@@ -17,36 +17,18 @@
                     <table class="table table-bordered border-light table-hover bg-white">
                         <colgroup>
                             <col width="10%">
+                            <col width="25%">
+                            <col width="25%">
                             <col width="20%">
-                            <col width="15%">
-                            <col width="15%">
-                            <col width="15%">
-                            <col width="15%">
                             <col width="10%">
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
-                                <th id="t1">
-                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID inscrição</a>
-                                    @if(request('sort') === 'event_user.id')
-                                        <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
-                                    @else
-                                        <i class="fa fa-sort"></i>
-                                    @endif
-                                </th>
+                                <th id="t1">@sortablelink('event_user.id', 'Inscrição')</th>
                                 <th id="t2">@sortablelink('event_name', 'Evento')</th>
-                                <th id="t3">@sortablelink('event_email', 'Email do evento')</th>
-                                <th id="t4">@sortablelink('status', 'Status')</th>
-                                <th id="t5">@sortablelink('subscription_deadline', 'Prazo para submissão')</th>
-                                <th id="t6">
-                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.created_at', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Inscrito em</a>
-                                    @if (request('sort') === 'event_user.created_at')
-                                        <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
-                                    @else
-                                        <i class="fa fa-sort"></i>
-                                    @endif
-                                </th>
-                                <th id="t7">Operações</th>
+                                <th id="t3">Submissão</th>
+                                <th id="t4">@sortablelink('event_user.created_at', 'Inscrito em')</th>
+                                <th id="t5">Operações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,19 +36,27 @@
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                <td headers="t3">{{$event->event_email}}</td>
-                                <td headers="t4">{{$event->updateStatus($event->event_status)}}</td>
-                                <td headers="t5">{{$event->formatDate($event->submission_start)}} - {{$event->formatDate($event->submission_deadline)}}</td>
-                                <td headers="t6">{{$event->subscriptionData($user)['created_at']}}</td>
-                                <td headers="t7">
+                                @if ($user->submission !== null)
+                                    <td headers="t3"><a href="{{ route("showDocument", $user->submission->document)}}">{{$user->submission->document->title}}</a></td>
+                                @else
+                                    <td headers="t3">Submissão pendente</td>
+                                @endif
+                                <td headers="t4">{{$event->subscriptionData($user)['created_at']}}</td>
+                                <td headers="t5">
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionPrompt{{$event->id}}">
-                                                Cancelar inscrição
-                                            </button>
+                                            @if($user->submission !== null)
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionWarning{{$event->id}}">
+                                                    Cancelar inscrição
+                                                </button>
+                                            @else
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionPrompt{{$event->id}}">
+                                                    Cancelar inscrição
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -93,6 +83,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="cancelSubscriptionWarning{{$event->id}}" tabindex="-1" aria-labelledby="cancelSubscriptionWarningLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Cancelar inscrição</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>{{$user->user_name}}</strong> possui uma submissão no evento <strong>{{$event->event_name}}</strong>, remova-a antes de cancelar a inscrição</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -113,27 +119,13 @@
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
-                                <th id="t1">
-                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">ID inscrição</a>
-                                    @if(request('sort') === 'event_user.id')
-                                        <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
-                                    @else
-                                        <i class="fa fa-sort"></i>
-                                    @endif
-                                </th>
+                                <th id="t1">@sortablelink('event_user.id', 'Inscrição')</th>
                                 <th id="t2">@sortablelink('event_name', 'Evento')</th>
                                 <th id="t3">@sortablelink('event_email', 'Email do evento')</th>
                                 <th id="t4">@sortablelink('event_status', 'Status')</th>
                                 <th id="t5">@sortablelink('subscription_deadline', 'Prazo para submissão')</th>
                                 <th id="t6">Submissão</th>
-                                <th id="t7">
-                                    <a href="{{ route('indexSubscribedEvents', ['user' => $user, 'sort' => 'event_user.created_at', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])}}">Inscrito em</a>
-                                    @if (request('sort') === 'event_user.created_at')
-                                        <i class="{{request('direction') === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'}}"></i>
-                                    @else
-                                        <i class="fa fa-sort"></i>
-                                    @endif
-                                </th>
+                                <th id="t7">@sortablelink('event_user.created_at', 'Inscrito em')</th>
                             </tr>
                         </thead>
                         <tbody>

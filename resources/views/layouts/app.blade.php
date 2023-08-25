@@ -76,6 +76,27 @@
                             </div>
                         </li>
                         @endif
+                        @role('event moderator')
+                        <li class="nav-item my-auto">
+                            <a href="/events/create" class="nav-link">Criar Evento</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ ('Administração') }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('manageDocuments')}}">
+                                    Gerenciar submissões
+                                </a>
+                                <a class="dropdown-item" href="{{ route('manageEvents') }}">
+                                    Gerenciar eventos
+                                </a>
+                                <a class="dropdown-item" href="{{ route('manageUsers') }}">
+                                    Gerenciar usuários
+                                </a>
+                            </div>
+                        </li>
+                        @endif
                     @endauth
                     </ul>
 

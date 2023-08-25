@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\QueryException;
 
 class EventController extends Controller
 {
-    //Returns event form view
-    public function create()
-    {
-        return view('events.create');
-    }
-    
     //Returns all events
     public function index()
     {
         $events = Event::where('event_published', true)->sortable()->paginate();
         return view('events.index', compact('events'));
     }
+
+    //Returns a single event
+    public function show(Event $event)
+    {    
+        return view('events.show', [
+            'event' => $event
+        ]);
+    }    
 
     //Returns events subscribed by the user
     public function subscribedEvents(Request $request, User $user)
@@ -68,24 +71,20 @@ class EventController extends Controller
     //Returns event management page
     public function dashboard()
     {
-        $events = Event::sortable()->paginate();
+        $user = Auth::user();
+
+        $this->authorize('dashboard', Event::class);
+
+        if($user->hasRole('event moderator'))
+        {
+            $events = $user->eventsModerated()->sortable()->paginate();
+        }
+        elseif($user->hasRole('admin'))
+        {
+            $events = Event::sortable()->paginate();
+        }
+
         return view('events.dashboard', compact('events'));
-    }
-
-    //Returns event edit form
-    public function edit(Event $event)
-    {
-        return view('events.edit', [
-            'event' => $event
-        ]);
-    }
-
-    //Returns a single event
-    public function show(Event $event)
-    {
-        return view('events.show', [
-            'event' => $event
-        ]);
     }
 
     public function subscribe(Event $event)
@@ -119,8 +118,50 @@ class EventController extends Controller
         return redirect()->back()->with('message', 'Inscrição removida.');
     }
 
+    public function eventModerator(Event $event)
+    {
+        $users = User::role('event moderator')->where('id', '!=', 1)->get();
+        return view('events.createModerator',[
+            'event' => $event,
+            'users' => $users
+        ]);
+    }
+
+    public function addModerator(Request $request, Event $event)
+    {
+        $parameters = $request['permissions'];
+        foreach($parameters as $userId => $permissions)
+        {
+            $user = User::find($userId);
+            if($permissions[0] === '1')
+            {
+                if(!$event->moderators->contains($user))
+                {
+                    $event->moderators()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
+                }
+            }
+            else
+            {
+                $event->moderators()->detach($user->id);
+            }
+        }
+        return back()->with('message', 'Permissões aplicadas.');
+    }
+
+    //Returns event edit form
+    public function edit(Event $event)
+    {
+        $this->authorize('update', $event);
+
+        return view('events.edit', [
+            'event' => $event
+        ]);
+    }
+
     public function update(Request $request, Event $event)
     {
+        $this->authorize('update', $event);
+        
         $formFields = $request->validate([
             'event_name' => ['required', 'string', Rule::unique('events', 'event_name')->ignore($event, 'id')],
             'event_website' => ['required', 'string'],
@@ -150,10 +191,19 @@ class EventController extends Controller
         return redirect()->route('showEvent', $event->id)->with('message', 'Evento ' . $event->event_name . ' atualizado.');
     }
 
+    //Returns event form view
+    public function create()
+    {
+        $this->authorize('create', Event::class);
+
+        return view('events.create');
+    }
+
     //Store event
     public function store(Request $request)
     {
-        //dd($request);
+        $this->authorize('create', Event::class);
+        
         $formFields = $request->validate([
             'event_name' => ['required', 'string', Rule::unique('events', 'event_name')],
             'event_website' => ['required', 'string'],
@@ -178,6 +228,8 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
+        $this->authorize('delete', Event::class);
+
         $event->delete();
 
         return redirect('/')->with('message', 'Evento ' . $event->event_name . ' removido.');

@@ -20,20 +20,32 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'delete any user']);
         Permission::create(['name' => 'update any user']);
         Permission::create(['name' => 'create reviewer user']);
+        Permission::create(['name' => 'create moderator user']);
 
         //Related to documents
         Permission::create(['name' => 'manage any document']);
         Permission::create(['name' => 'delete any document']);
         Permission::create(['name' => 'update any document']);
-        Permission::create(['name' => 'review document']);
+        Permission::create(['name' => 'delete any submission']);
+        Permission::create(['name' => 'review any document']);
+        Permission::create(['name' => 'manage submission from event *']);
+        Permission::create(['name' => 'delete submission from event *']);
+        Permission::create(['name' => 'update submission from event *']);
+        Permission::create(['name' => 'review submission from event *']);
 
         //Related to events
-        Permission::create(['name' => 'manage any event']);
-        Permission::create(['name' => 'delete any event']);
-        Permission::create(['name' => 'update any event']);
+        Permission::create(['name' => 'events.*']);
+        Permission::create(['name' => 'events.edit.*']);
+        Permission::create(['name' => 'events.delete.*']);
+        Permission::create(['name' => 'events.manage.*']);
+        Permission::create(['name' => 'events.create']);
+        Permission::create(['name' => 'events.edit']);
+        Permission::create(['name' => 'events.delete']);
+        Permission::create(['name' => 'events.manage']);
 
         //Create roles and assign permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
+        Role::create(['name' => 'event moderator'])->givePermissionTo(['events.manage', 'events.create', 'events.edit']);
         Role::create(['name' => 'user']);
     }
 }

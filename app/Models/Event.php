@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
@@ -147,10 +148,10 @@ class Event extends Model
         return $this->getStatusValue();
     }
 
-    public function hasUser()
+    public function hasUser(User $user)
     {
         return $this->users()
-        ->where('user_id', Auth::user()->id)
+        ->where('user_id', $user->id)
         ->exists();
     }
 
@@ -168,6 +169,15 @@ class Event extends Model
         return $data;
     }
 
+    public function userSubmission(User $user)
+    {
+        $userId = $user->id;
+        
+        return $this->submission()
+        ->where('user_id', $userId)
+        ->first();
+    }
+
     public function subscriptionCount()
     {
         return $this->users()->count();
@@ -183,12 +193,8 @@ class Event extends Model
         return $this->hasOne(Submission::class);
     }
 
-    public function userSubmission(User $user)
+    public function moderators(): BelongsToMany
     {
-        $userId = $user->id;
-        
-        return $this->submission()
-        ->where('user_id', $userId)
-        ->first();
+        return $this->belongsToMany(User::class, 'event_moderator', 'event_id', 'user_id');
     }
 }

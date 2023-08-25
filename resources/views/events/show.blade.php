@@ -17,22 +17,13 @@
 
         <div class="col-md-9">
             <div class="shadow-sm p-3 mb-5 bg-white">
-                @if($event->hasUser())
-                    <div class="row">
-                        <div class="text-muted">Inscrição nº: {{$event->subscriptionData(Auth::user())['id']}}</div>
-                        <div class="text-muted">Inscrito em: {{$event->subscriptionData(Auth::user())['created_at']}}</div>
-                    </div>
+                <x-event-nav-menu :event="$event"/>
+                @if($event->hasUser(Auth::user()))
+                <div class="row">
+                    <div class="text-muted">Inscrição nº: {{$event->subscriptionData(Auth::user())['id']}}</div>
+                    <div class="text-muted">Inscrito em: {{$event->subscriptionData(Auth::user())['created_at']}}</div>
+                </div>
                 @endif
-                @can('manage any event')
-                <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-                    <div class="navbar-nav me-auto">
-                        <a href="{{route('indexSubscribers', $event->id)}}" class="nav-item nav-link">Ver inscrições</a>
-                        <a href="{{route('indexEventSubmissions', $event->id)}}" class="nav-item nav-link">Ver submissões</a>
-                        <a href="{{ route('editEvent', $event->id)}}" class="nav-item nav-link">Editar evento</a>
-                        <button class="nav-item nav-link btn" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">Excluir evento</button>
-                    </div>
-                </nav>
-                @endcan
                 <div class="mt-3 text-break">
                     <h2 class="fs-5 fw-bold text-start">Sobre o evento:</h2>
                     <div>{{$event->event_information}}</div>
@@ -57,7 +48,7 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                    @if($event->hasUser())
+                    @if($event->hasUser(Auth::user()))
                         <div class="row">
                             <div class="d-grid col-4 mx-auto">
                                 <button type="button" class="btn btn-dark" disabled>

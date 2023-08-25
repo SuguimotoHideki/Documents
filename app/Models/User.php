@@ -89,6 +89,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Event::class);
     }
 
+    public function eventsModerated()
+    {
+        return $this->belongsToMany(Event::class, 'event_moderator', 'user_id', 'event_id');
+    }
+
     public function submission(): HasOne
     {
         return $this->hasOne(Submission::class);

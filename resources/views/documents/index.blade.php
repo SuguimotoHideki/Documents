@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class='fs-2 col'>Gerenciar submissões</h1>
+                <h1 class='fs-2 col mb-5'>Gerenciar submissões</h1>
                 @if($documents->count() === 0)
                     <div class="text-center">
                         <p>Ainda não há submissões.</p>

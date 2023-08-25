@@ -36,7 +36,14 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             // Assign roles to the user
-            $user->assignRole('user');
+            $randomNumber = rand(0, 1);
+
+            // Assign roles based on the random number
+            if ($randomNumber === 0) {
+                $user->assignRole('user');
+            } else {
+                $user->assignRole('event moderator');
+            }
         });
     }
 

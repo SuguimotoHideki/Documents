@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,19 +92,19 @@ Route::group(['middleware' => ['auth']], function()
     //Delete event
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent');
     //Add moderator
-    Route::get('/manage/events/{event}/moderators', [EventController::class, 'eventModerator'])->name('eventModerator');
+    Route::get('/manage/events/{event}/moderators', [ModeratorController::class, 'create'])->name('createModerator');
     //
-    Route::post('/manage/events/{event}', [EventController::class, 'addModerator'])->name('addModerator');
+    Route::post('/manage/events/{event}', [ModeratorController::class, 'store'])->name('storeModerator');
 
     //EVENT USER
     //Create relationship between event and logged user
-    Route::post('/events/{event}', [EventController::class, 'subscribe'])->name('eventSubscribe');
+    Route::post('/events/{event}', [SubscriptionController::class, 'create'])->name('eventSubscribe');
     //Cancel user's subscription
-    Route::post('/events/{event}/cancel-subscription', [EventController::class, 'cancelSubscription'])->name('cancelSubscription');
+    Route::post('/events/{event}/cancel-subscription', [SubscriptionController::class, 'delete'])->name('cancelSubscription');
     //Get event's subscribers
-    Route::get('/manage/events/{event}/subscribers', [EventController::class, 'subscribedUsers'])->name('indexSubscribers')->middleware('can:manage any event');
+    Route::get('/manage/events/{event}/subscribers', [SubscriptionController::class, 'indexSubscribers'])->name('indexSubscribers');
     //Get event's submissions
     Route::get('/manage/events/{event}/submissions', [SubmissionController::class, 'indexByEvent'])->name('indexEventSubmissions');
     //Get events subscribed by the logged user
-    Route::get('/users/{user}/events/subscribed', [EventController::class, 'subscribedEvents'])->name('indexSubscribedEvents');
+    Route::get('/users/{user}/events/subscribed', [SubscriptionController::class, 'indexSubscribed'])->name('indexSubscribed');
 });

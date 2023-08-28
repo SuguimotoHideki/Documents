@@ -67,7 +67,7 @@ class UserController extends Controller
 
         $user->update($request->except('current_password'));
 
-        return redirect()->route('showUser', $user)->with('message', 'Informações de perfil atualizadas.');
+        return redirect()->route('showUser', $user)->with('success', 'Informações de perfil atualizadas.');
     }
 
     //Update user password
@@ -83,6 +83,6 @@ class UserController extends Controller
         
         $user->update(['password' => Hash::make($passwordFields['password'])]);
 
-        return redirect()->route('showUser', $user)->with('message', 'Senha atualizada.');
+        return redirect()->route('showUser', $user)->with('success', 'Senha atualizada.');
     }
 }

@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">{{ __('Moderadores do evento ' . $event->event_name) }}</div>
-                <form method="POST" action="{{ route('addModerator', $event)}}">
+                <form method="POST" action="{{ route('storeModerator', $event)}}">
                     @csrf
                     <div class="list-group list-group-flush p-3 shadow-sm">
                         <div class="table-responsive">

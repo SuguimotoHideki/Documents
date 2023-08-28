@@ -63,6 +63,6 @@ class UpdateCoAuthor extends Controller
             $document->submission->touch();
         }
 
-        return redirect()->route('showDocument', [$document])->with('message', "Submissão atualizada.");
+        return redirect()->route('showDocument', [$document])->with('success', "Submissão atualizada.");
     }
 }

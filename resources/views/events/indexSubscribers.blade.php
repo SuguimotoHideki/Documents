@@ -43,8 +43,8 @@
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
                                 <td headers="t2"><a href="{{ route('showUser', ['user' => $user])}}">{{$user->user_name}}</a></td>
-                                @if ($user->submission !== null)
-                                    <td headers="t3"><a href="{{ route("showDocument", $user->submission->document)}}">{{$user->submission->document->title}}</a></td>
+                                @if ($event->submission !== null)
+                                    <td headers="t3"><a href="{{ route("showDocument", $event->submission->document)}}">{{$event->submission->document->title}}</a></td>
                                 @else
                                     <td headers="t4">Submissão pendente</td>
                                 @endif

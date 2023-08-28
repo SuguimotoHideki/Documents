@@ -133,6 +133,6 @@ class DocumentController extends Controller
     {
         $document->delete();
 
-        return redirect()->back()->with('message', 'Submissão ' . $document->title . ' removida.');
+        return redirect()->back()->with('success', 'Submissão ' . $document->title . ' removida.');
     }
 }

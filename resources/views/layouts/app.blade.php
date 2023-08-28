@@ -44,10 +44,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
-                        @role('user')
                         <li class="nav-item my-auto">
                             <a href="/" class="nav-link">Home</a>
                         </li>
+                        @role('user')
                         <li class="nav-item my-auto">
                             <a href="{{ route('indexSubmissions', Auth::user())}}" class="nav-link">Minhas submissões</a>
                         </li>

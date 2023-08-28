@@ -5,7 +5,9 @@
     <div class="navbar-nav me-auto">
         <a href="{{route('indexSubscribers', $event->id)}}" class="nav-item nav-link">Ver inscrições</a>
         <a href="{{route('indexEventSubmissions', $event->id)}}" class="nav-item nav-link">Ver submissões</a>
-        <a href="{{route('eventModerator', $event->id)}}" class="nav-item nav-link">Adicionar moderadores</a>
+        @role('admin')
+            <a href="{{route('createModerator', $event->id)}}" class="nav-item nav-link">Adicionar moderadores</a>
+        @endif
         <a href="{{ route('editEvent', $event->id)}}" class="nav-item nav-link">Editar evento</a>
         @can('events.delete')
             <button class="nav-item nav-link btn" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">Excluir evento</button>

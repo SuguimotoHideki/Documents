@@ -1,17 +1,13 @@
-@if(session()->has('message'))
-    <div x-data="{show: true}" x-init=""
-        x-show="show" class="text-md-center bg-success px-48 align-middle text-white">
-        <p class="py-2">
-            {{session('message')}}
-        </p>
+@if(session()->has('success'))
+    <div x-data="{show: true}" x-init="" x-show="show" class="text-md-center alert alert-success align-middle">
+        <strong>Sucesso! </strong>{{session('success')}}
     </div>
-@endif
-
-@if(session()->has('error'))
-    <div x-data="{show: true}" x-init=""
-        x-show="show" class="text-md-center bg-danger px-48 align-middle text-white">
-        <p class="py-2">
-            {{session('error')}}
-        </p>
+@elseif(session()->has('error'))
+    <div x-data="{show: true}" x-init="" x-show="show" class="text-md-center alert alert-danger align-middle">
+        <strong>Erro! </strong>{{session('error')}}
+    </div>
+@elseif(session()->has('warning'))
+    <div x-data="{show: true}" x-init="" x-show="show" class="text-md-center alert alert-warning align-middle">
+        <strong>Aviso! </strong>{{session('warning')}}
     </div>
 @endif

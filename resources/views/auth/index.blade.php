@@ -38,14 +38,14 @@
                                 <td headers="t3">{{$user->cpf}}</a></td>
                                 <td headers="t4">{{$user->user_email}}</td>
                                 <td headers="t5">{{$user->user_phone_number}}</td>
-                                <td headers="t6">{{$user->getRoles->value('name')}}</td>
+                                <td headers="t6">{{$user->getRoleNames()->first()}}</td>
                                 <td headers="t7">
                                     <div class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('indexSubscribedEvents', $user)}}">
+                                            <a class="dropdown-item" href="{{ route('indexSubscribed', $user)}}">
                                                 Ver inscrições
                                             </a>
 

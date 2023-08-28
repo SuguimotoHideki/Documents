@@ -53,6 +53,6 @@ class CreateCoAuthor extends Controller
             }
         }
 
-        return redirect()->route('indexSubmissions', ['user' => Auth::user()])->with('message', 'Submissão enviada.');
+        return redirect()->route('indexSubmissions', ['user' => Auth::user()])->with('success', 'Submissão enviada.');
     }
 }

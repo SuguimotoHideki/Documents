@@ -19,10 +19,10 @@
             <div class="shadow-sm p-3 mb-5 bg-white">
                 <x-event-nav-menu :event="$event"/>
                 @if($event->hasUser(Auth::user()))
-                <div class="row">
-                    <div class="text-muted">Inscrição nº: {{$event->subscriptionData(Auth::user())['id']}}</div>
-                    <div class="text-muted">Inscrito em: {{$event->subscriptionData(Auth::user())['created_at']}}</div>
-                </div>
+                    <div class="row">
+                        <div class="text-muted">Inscrição nº: {{$subscription->id}}</div>
+                        <div class="text-muted">Inscrito em: {{$event->formatDateTime($subscription->created_at)}}</div>
+                    </div>
                 @endif
                 <div class="mt-3 text-break">
                     <h2 class="fs-5 fw-bold text-start">Sobre o evento:</h2>

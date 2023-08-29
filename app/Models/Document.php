@@ -37,6 +37,9 @@ class Document extends Model
         'updated_at'
     ];
 
+    /**
+     * Formats timestamps
+     */
     public function formatDate($date)
     {
         if(strtotime($date))
@@ -49,25 +52,27 @@ class Document extends Model
         }
     }
 
-    //Defining a relationship with Users
+    /**
+     * Defines many-to-many relationship with User
+     */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'document_user', 'document_id', 'user_id');
     }
 
+    /**
+     * Defines many-to-many relationship with CoAuthor
+     */
     public function coAuthors(): BelongsToMany
     {
         return $this->belongsToMany(CoAuthor::class, 'co_authors_documents', 'document_id', 'co_author_id')->withPivot('number')->orderByPivot('number', 'asc');
     }
 
+    /**
+     * Defines many-to-many relationship with Submission
+     */
     public function submission(): HasOne
     {
         return $this->hasOne(Submission::class);
-    }
-
-    //Get creation date time
-    public function getCreatedAttribute()
-    {
-        return date_format($this->created_at, 'd/m/Y');
     }
 }

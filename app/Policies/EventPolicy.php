@@ -98,4 +98,9 @@ class EventPolicy
         ? Response::allow()
         : Response::deny('Você não ter permissão para se inscrever.');
     }
+
+    public function manageModerator(User $user)
+    {
+        return ($user->hasRole('admin') || $user->id === 1);
+    }
 }

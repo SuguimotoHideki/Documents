@@ -22,8 +22,15 @@ class EventController extends Controller
     //Returns a single event
     public function show(Event $event)
     {    
+        $user = Auth::user();
+        $pivotData = null;
+
+        if($event->hasUser($user))
+            $pivotData = $user->events->find($event->id)->pivot;
+
         return view('events.show', [
-            'event' => $event
+            'event' => $event,
+            'subscription' => $pivotData
         ]);
     }    
 
@@ -129,6 +136,7 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $response = Gate::inspect('delete', Event::class);
+
         if($response->allowed())
         {
             $event->delete();

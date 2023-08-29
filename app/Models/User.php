@@ -72,7 +72,54 @@ class User extends Authenticatable
     }
 
     /**
-     * Defines relationship with Document
+     * Formats timestamps
+     */
+    public function formatDate($date)
+    {
+        if(strtotime($date))
+        {
+            return Carbon::parse($date)->format('d/m/Y');
+        }
+        else
+        {
+            return('Invalid date');
+        }
+    }
+
+    public function formatDateTime($date)
+    {
+        if(strtotime($date))
+        {
+            return Carbon::parse($date)->format('d/m/Y - G:i:s');
+        }
+        else
+        {
+            return('Invalid date');
+        }
+    }
+
+    /**
+     * Checks if the user has a submission in a given event
+     */
+    public function eventSubmission(Event $event)
+    {
+        return $this->submission()
+        ->where('event_id', $event->id)
+        ->first();
+    }
+
+    /**
+     * Checks if the user is a moderator of a given event
+     */
+    public function isModerator(Event $event)
+    {
+        return $this->eventsModerated()
+        ->where('event_id', $event->id)
+        ->exists();
+    }
+
+    /**
+     * Defines many-to-many relationship with Document
      */
     public function documents()
     {
@@ -84,16 +131,25 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'model_has_roles', 'role_id', 'model_id');
     }
 
+    /**
+     * Defines many-to-many relationship with Event for subscriptions
+     */
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class)->withPivot(['id', 'created_at']);
     }
 
+    /**
+     * Defines many-to-many relationship with Event for moderators
+     */
     public function eventsModerated()
     {
         return $this->belongsToMany(Event::class, 'event_moderator', 'user_id', 'event_id');
     }
 
+    /**
+     * Defines one-to-one relationship with Submission
+     */
     public function submission(): HasOne
     {
         return $this->hasOne(Submission::class);

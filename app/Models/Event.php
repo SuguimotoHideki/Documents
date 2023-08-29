@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Kyslik\ColumnSortable\Sortable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
@@ -89,6 +86,9 @@ class Event extends Model
         }
     }
 
+    /**
+     * Status getters and setters
+     */
     public function getStatusID($status)
     {
         return array_search($status, self::STATUSES);
@@ -107,8 +107,9 @@ class Event extends Model
             $this->attributes['event_status'] = $statusID;
         }
     }
+
     /**
-     * Updates the status depending on the set dates
+     * Updates the status depending on the set dates (MUST OVERHAUL LATER)
      */
     public function updateStatus()
     {
@@ -148,6 +149,9 @@ class Event extends Model
         return $this->getStatusValue();
     }
 
+    /**
+     * Checks if a given user is subscribbed to the event
+     */
     public function hasUser(User $user)
     {
         return $this->users()
@@ -155,20 +159,9 @@ class Event extends Model
         ->exists();
     }
 
-    public function subscriptionData(User $user)
-    {
-        $subscription = DB::table('event_user')
-        ->where('event_id', $this->id)
-        ->where('user_id', $user->id);
-
-        $data = [
-            'id' => $subscription->value('id'),
-            'created_at' => $this->formatDateTime($subscription->value('created_at')),
-        ];
-
-        return $data;
-    }
-
+    /**
+     * Returns a given user's submission to a given event
+     */
     public function userSubmission(User $user)
     {
         $userId = $user->id;
@@ -178,21 +171,33 @@ class Event extends Model
         ->first();
     }
 
+    /**
+     * Returns the number of subscribers in an event
+     */
     public function subscriptionCount()
     {
         return $this->users()->count();
     }
 
+    /**
+     * Defines many-to-many relationship with User, for subscriptions
+     */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id');
+        return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id')->withPivot(['id', 'created_at']);
     }
 
+    /**
+     * Defines one-to-one relationship with Submission
+     */
     public function submission(): HasOne
     {
         return $this->hasOne(Submission::class);
     }
 
+    /**
+     * Defines many-to-many relationship with User, for moderators
+     */
     public function moderators(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'event_moderator', 'event_id', 'user_id');

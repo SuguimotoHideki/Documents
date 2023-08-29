@@ -10,6 +10,8 @@ class ModeratorController extends Controller
 {
     public function create(Event $event)
     {
+        $this->authorize('manageModerator', Event::class);
+
         $users = User::role('event moderator')->where('id', '!=', 1)->get();
         return view('events.createModerator',[
             'event' => $event,
@@ -19,6 +21,8 @@ class ModeratorController extends Controller
 
     public function store(Request $request, Event $event)
     {
+        $this->authorize('manageModerator', Event::class);
+
         $parameters = $request['permissions'];
         foreach($parameters as $userId => $permissions)
         {

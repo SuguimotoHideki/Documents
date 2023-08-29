@@ -11,7 +11,7 @@
                     <h1 class='fs-2'>Inscrições de {{$user->user_name}}</h1>
                 @endif
             </div>
-            @can('manage any event')
+            @can('events.manage')
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white">
@@ -34,14 +34,16 @@
                         <tbody>
                             @foreach($events as $event)
                             <tr class="align-middle" style="height: 4rem">
-                                <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
+                                <td headers="t1">{{$event->pivot->id}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                @if ($user->submission !== null)
-                                    <td headers="t3"><a href="{{ route("showDocument", $user->submission->document)}}">{{$user->submission->document->title}}</a></td>
-                                @else
-                                    <td headers="t3">Submissão pendente</td>
-                                @endif
-                                <td headers="t4">{{$event->subscriptionData($user)['created_at']}}</td>
+                                <td headers="t3">
+                                    @if($event->userSubmission($user) !== null)
+                                        <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}">{{$event->userSubmission($user)->document->title}}</a>
+                                    @else
+                                        <a href="{{ route('createDocument', $event)}}">Fazer submissão</a>
+                                    @endif
+                                </td>
+                                <td headers="t4">{{$event->formatDateTime($event->pivot->created_at)}}</td>
                                 <td headers="t5">
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -131,19 +133,19 @@
                         <tbody>
                             @foreach($events as $event)
                             <tr class="align-middle" style="height: 4rem">
-                                <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
+                                <td headers="t1">{{$event->pivot->id}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                 <td headers="t3">{{$event->event_email}}</td>
                                 <td headers="t4">{{$event->updateStatus()}}</td>
                                 <td headers="t5">{{$event->formatDate($event->submission_start)}} - {{$event->formatDate($event->submission_deadline)}}</td>
                                 <td headers="t6">
                                     @if($event->userSubmission($user) !== null)
-                                        <a href="{{ route('showDocument', $event->submission->document)}}">{{$event->userSubmission($user)->id}}</a>
+                                        <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}">{{$event->userSubmission($user)->document->title}}</a>
                                     @else
                                         <a href="{{ route('createDocument', $event)}}">Fazer submissão</a>
                                     @endif
                                 </td>
-                                <td headers="t7">{{$event->subscriptionData($user)['created_at']}}</td>
+                                <td headers="t7">{{$event->formatDateTime($event->pivot->created_at)}}</td>
                             </tr>
                             @endforeach
                         </tbody>

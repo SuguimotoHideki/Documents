@@ -39,6 +39,9 @@ class Submission extends Model
         4 => 'Enviado'
     ];
 
+    /**
+     * Status getters and setters
+     */
     public function getStatusID($status)
     {
         return array_search($status, self::STATUSES);
@@ -58,6 +61,9 @@ class Submission extends Model
         }
     }
 
+    /**
+     * Formats timestamp
+     */
     public function formatDate($date)
     {
         if(strtotime($date))
@@ -74,25 +80,25 @@ class Submission extends Model
         }
     }
 
-    public function hasSubmission(User $user, Event $event)
-    {
-        $submission = DB::table('submissions')
-        ->where('user_id', $user->id)
-        ->where('event_id', $event->id);
-
-        return $submission;
-    }
-
+    /**
+     * Defines many-to-many relationship with User
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Defines many-to-many relationship with Document
+     */
     public function document(): BelongsTo
     {
         return $this->belongsTo(Document::class);
     }
     
+    /**
+     * Defines one-to-one relationship with Event
+     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);

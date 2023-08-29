@@ -90,12 +90,16 @@ class SubscriptionController extends Controller
 
     public function delete(Request $request)
     {
-        $this->authorize('deleteSubscription', Event::class);
-
-        $event = Event::find($request['event']);
-
-        $event->users()->detach($request['user']);
-
-        return redirect()->back()->with('success', 'Inscrição removida.');
+        $response = Gate::inspect('deleteSubscription', Event::class);
+        if($response->allowed())
+        {
+            $event = Event::find($request['event']);
+            $event->users()->detach($request['user']);
+            return redirect()->back()->with('success', 'Inscrição removida.');
+        }
+        else
+        {
+            return redirect()->back()->with('error', $response->message());
+        }
     }
 }

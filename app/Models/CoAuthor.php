@@ -14,6 +14,9 @@ class CoAuthor extends Model
         'email'
     ];
 
+    /**
+     * Formats names to brazilian pattern
+     */
     public function formatName($name, $delimiters = array(" ", "-", ".", "'", "O'", "Mc"), $exceptions = array("de", "da", "do", "das", "dos"))
     {
         $name = mb_convert_case($name, MB_CASE_TITLE, "UTF-8");
@@ -38,6 +41,9 @@ class CoAuthor extends Model
         return $name;
     }
 
+    /**
+     * Defines many-to-many relationship with Document
+     */
     public function documents()
     {
         return $this->belongsToMany(Document::class)->withPivot('number')->orderByPivot('number', 'asc');

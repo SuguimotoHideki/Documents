@@ -41,21 +41,21 @@
                         <tbody>
                             @foreach($users as $user)
                             <tr class="align-middle" style="height: 4rem">
-                                <td headers="t1">{{$event->subscriptionData($user)['id']}}</td>
-                                <td headers="t2"><a href="{{ route('showUser', ['user' => $user])}}">{{$user->user_name}}</a></td>
-                                @if ($event->submission !== null)
-                                    <td headers="t3"><a href="{{ route("showDocument", $event->submission->document)}}">{{$event->submission->document->title}}</a></td>
+                                <td headers="t1">{{$user->pivot->id}}</td>
+                                <td headers="t2"><a href="{{ route('showUser', $user)}}">{{$user->user_name}}</a></td>
+                                @if ($user->eventSubmission($event) !== null)
+                                    <td headers="t3"><a href="{{ route("showDocument", $user->eventSubmission($event)->document)}}">{{$user->eventSubmission($event)->document->title}}</a></td>
                                 @else
                                     <td headers="t4">Submissão pendente</td>
                                 @endif
-                                <td headers="t4">{{$event->subscriptionData($user)['created_at']}}</td>
+                                <td headers="t4">{{$user->formatDateTime($user->pivot->created_at)}}</td>
                                 <td headers="t5">
                                     <div class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            @if($user->submission !== null)
+                                            @if($user->eventSubmission($event) !== null)
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionWarning{{$user->id}}">
                                                     Cancelar inscrição
                                                 </button>

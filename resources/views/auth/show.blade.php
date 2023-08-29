@@ -45,7 +45,7 @@
                 @can('manage any user')
                 <div class="mt-3">
                     <div class="fw-bold">Papel:</div>
-                    <div>{{$user->getRoles->value('name')}}</div>
+                    <div>{{$user->getRoleNames()->first()}}</div>
                 </div>
                 @endcan
             </div>

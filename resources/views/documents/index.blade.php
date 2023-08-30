@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class='fs-2 col mb-5'>Gerenciar submissões</h1>
+                <h1 class='fs-2 col mb-2'>Gerenciar submissões</h1>
                 @if($documents->count() === 0)
                     <div class="text-center">
                         <p>Ainda não há submissões.</p>
@@ -43,13 +43,27 @@
                             </thead>
                             <tbody>
                                 @foreach($documents as $document)
+                                @php
+                                    $status = $document->submission->getStatusID()
+                                @endphp
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1"><a href="{{route('showDocument', $document)}}">{{$document->id}}</a></td>
                                     <td headers="t2"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
                                     <td headers="t3"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
                                     <td headers="t4"><a href="{{ route('showUser', $document->submission->user)}}">{{$document->submission->user->user_name}}</a></td>
                                     <td headers="t5">{{$document->document_type}}</td>
-                                    <td headers="t6">{{$document->submission->getStatusValue()}}</td>
+                                    <td headers="t6">
+                                        @if($status === 1)
+                                        <i class="fas fa-circle text-success"></i>
+                                        @elseif($status === 2)
+                                        <i class="fas fa-circle text-danger"></i>
+                                        @elseif($status === 3)
+                                        <i class="fas fa-circle text-warning"></i>
+                                        @else
+                                        <i class="fas fa-circle text-primary"></i>
+                                        @endif
+                                        {{ $document->submission->getStatusValue()}}
+                                    </td>
                                     <td headers="t7">{{$document->submission->formatDate($document->submission->approved_at)}}</td>
                                     <td headers="t8">{{$document->formatDate($document->created_at)}}</td>
                                     <td headers="t9">{{$document->formatDate($document->updated_at)}}</td>

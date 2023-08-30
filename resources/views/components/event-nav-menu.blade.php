@@ -21,7 +21,11 @@
 @elseif(Auth::user()->hasRole('user'))
 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
     <div class="navbar-nav me-auto">
-        <a href="{{route('showDocument', $event->userSubmission(Auth::user()))}}" class="nav-item nav-link">Ver submissão</a>
+        @if($event->userSubmission(Auth::user()) !== null)
+            <a href="{{route('showDocument', $event->userSubmission(Auth::user()))}}" class="nav-item nav-link">Ver submissão</a>
+        @else
+            <a href="{{route('createDocument', $event)}}" class="nav-item nav-link">Fazer submissão</a>
+        @endif
     </div>
 </nav>
 @endcan

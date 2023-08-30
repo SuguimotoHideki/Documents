@@ -45,12 +45,26 @@
                             </thead>
                             <tbody>
                                 @foreach($submissions as $submission)
+                                @php
+                                    $status = $submission->getStatusID()
+                                @endphp
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
                                     <td headers="t2"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                     <td headers="t3"><a href="{{ route('showUser', $submission->user)}}">{{$submission->user->user_name}}</a></td>
                                     <td headers="t4">{{$submission->document->document_type}}</td>
-                                    <td headers="t5">{{$submission->getStatusValue()}}</td>
+                                    <td headers="t5">
+                                        @if($status === 1)
+                                        <i class="fas fa-circle text-success"></i>
+                                        @elseif($status === 2)
+                                        <i class="fas fa-circle text-danger"></i>
+                                        @elseif($status === 3)
+                                        <i class="fas fa-circle text-warning"></i>
+                                        @else
+                                        <i class="fas fa-circle text-primary"></i>
+                                        @endif
+                                        {{ $submission->getStatusValue()}}
+                                    </td>
                                     <td headers="t6">{{$submission->formatDate($submission->approved_at)}}</td>
                                     <td headers="t7">{{$submission->formatDate($submission->created_at)}}</td>
                                     <td headers="t8">{{$submission->formatDate($submission->updated_at)}}</td>

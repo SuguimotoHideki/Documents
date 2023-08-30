@@ -89,8 +89,9 @@ class Event extends Model
     /**
      * Status getters and setters
      */
-    public function getStatusID($status)
+    public function getStatusID()
     {
+        $status = self::STATUSES[$this->attributes['event_status']];
         return array_search($status, self::STATUSES);
     }
 
@@ -99,9 +100,9 @@ class Event extends Model
         return self::STATUSES[$this->attributes['event_status']];
     }
 
-    public function setStatus($value)
+    public function setStatus()
     {
-        $statusID = self::getStatusID($value);
+        $statusID = self::getStatusID();
         if($statusID)
         {
             $this->attributes['event_status'] = $statusID;
@@ -113,7 +114,7 @@ class Event extends Model
      */
     public function updateStatus()
     {
-        if($this->getStatusID($this->getStatusValue()) < 6)
+        if($this->getStatusID() < 6)
         {
             $today = Carbon::today();
         

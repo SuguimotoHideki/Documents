@@ -11,7 +11,6 @@
             </div>
             <div class="col-md-4 float-right">
                 <a href="{{ url()->previous()}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Página anterior</a>
-
             </div>
         </div>
 

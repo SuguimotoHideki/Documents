@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Editar Informações') }}</div>
+                <div class="card-header">{{ __('Editar dados') }}</div>
                 <form method="POST" action="/users/{{$user->id}}/update">
                     @csrf
                     @method('PUT')

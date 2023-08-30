@@ -42,9 +42,9 @@
                                 <td headers="t4">{{$event->organizer}}</td>
                                 <td headers="t5">
                                     @if($event->event_published === 1)
-                                        Publicado
+                                        <i class="fas fa-circle text-success"></i> Publicado
                                     @else
-                                        Não publicado
+                                        <i class="fas fa-circle text-danger"></i> Não publicado
                                     @endif
                                 </td>
                                 <td headers="t6">{{$event->updateStatus($event->event_status)}}</td>

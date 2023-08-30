@@ -10,14 +10,8 @@
             <h1 class='fs-2'>Minhas informações</h1>
             @endcan
             <div class="shadow-sm p-3 mb-5 bg-white">
-                <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-                    <div class="navbar-nav me-auto">
-                        <a href="{{route('indexSubscribed', $user)}}" class="nav-item nav-link">Ver inscrições</a>
-                        <a href="{{route('indexSubmissions', $user)}}" class="nav-item nav-link">Ver submissões</a>
-                        <a href="{{route('editUser', $user)}}" class="nav-item nav-link">Editar Informações</a>
-                        <a href="{{route('editPassword', $user)}}" class="nav-item nav-link">Alterar Senha</a>
-                    </div>
-                </nav>
+                <x-user-nav-menu :user="$user"/>
+
                 <div class="mt-3">
                     <div class="fw-bold">Nome:</div>
                     <div>{{$user->user_name}}</div>

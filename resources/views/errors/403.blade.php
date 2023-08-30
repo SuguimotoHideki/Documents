@@ -9,7 +9,7 @@
                 <h2 class="fs-3 fw-bold text-uppercase text-center mb-2">Sentimos muito...</h2>
                 <div class="text-center">
                     <p class="mb-4">Você não tem as permissões necessárias para acessar essa página.</p>
-                    <a href="{{ url()->previous()}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+                    <a href="/" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Página principal</a>
                 </div>
             </div>
         </div>

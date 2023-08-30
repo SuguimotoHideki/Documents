@@ -42,8 +42,9 @@ class Submission extends Model
     /**
      * Status getters and setters
      */
-    public function getStatusID($status)
+    public function getStatusID()
     {
+        $status = self::STATUSES[$this->attributes['status']];
         return array_search($status, self::STATUSES);
     }
 
@@ -52,9 +53,9 @@ class Submission extends Model
         return self::STATUSES[$this->attributes['status']];
     }
 
-    public function setStatus($value)
+    public function setStatus()
     {
-        $statusID = self::getStatusID($value);
+        $statusID = self::getStatusID();
         if($statusID)
         {
             $this->attributes['status'] = $statusID;

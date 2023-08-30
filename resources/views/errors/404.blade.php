@@ -16,8 +16,8 @@
                 </div>
                 <div class="row">
                     <div class="d-grid col-4 mx-auto">
-                        <a href="{{ url()->previous() }}" class="btn btn-primary">
-                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        <a href="/" class="btn btn-primary">
+                            <i class="fa-solid fa-arrow-left"></i> Página principal
                         </a>
                     </div>
                     <div class="d-grid col-4 mx-auto">

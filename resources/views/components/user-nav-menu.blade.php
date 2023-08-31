@@ -1,6 +1,6 @@
 @props(['user'])
 
-@role('user')
+@role(['user', 'admin'])
 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
     <ul class="navbar-nav me-auto">
         <li class="nav-item my-auto">

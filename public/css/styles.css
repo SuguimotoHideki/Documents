@@ -1,0 +1,25 @@
+.table-fixed{
+    table-layout: fixed;
+}
+.truncate-cell{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+a{
+    color: #212529;
+
+    background-color: transparent;
+}
+
+a:hover{
+    color: #0056b3 !important;
+    background-color: transparent;
+}
+
+@media (max-width: 1399px) {
+    .table col {
+      width: 135px; /* Allow columns to stack vertically */
+    }
+  }

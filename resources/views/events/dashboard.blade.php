@@ -12,7 +12,7 @@
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
                             <col width="5%">
                             <col width="20%">
@@ -38,7 +38,7 @@
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->id}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                <td headers="t3">{{$event->event_email}}</td>
+                                <td headers="t3" class="text-truncate">{{$event->event_email}}</td>
                                 <td headers="t4">{{$event->organizer}}</td>
                                 <td headers="t5">
                                     @if($event->event_published === 1)

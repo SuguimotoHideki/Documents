@@ -7,7 +7,7 @@
             <div class="row mb-2">
                 <h1 class='fs-2 col'>Submissões em {{$event->event_name}}</h1>
                 <div class="col-md-4 text-end">
-                    <a href="{{route('manageEvents')}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
+                    <a href="{{route('showEvent', $event)}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
                 </div>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
@@ -18,23 +18,24 @@
                     </div>
                 </nav>
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white caption-top">
+                    <table class="table table-bordered border-light table-hover bg-white caption-top table-fixed">
                         <caption>N⁰ submissões: {{count($submissions)}}</caption>
                             <colgroup>
-                                <col width="10%">
-                                <col width="19%">
-                                <col width="18%">
-                                <col width ="9%">
-                                <col width ="9%">
-                                <col width ="12%">
-                                <col width ="12%">
-                                <col width ="12%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
+                                <col width ="11%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('id', 'Submissão')</th>
                                     <th id="t2">@sortablelink('title', 'Título')</th>
-                                    <th id="t3">@sortablelink('user', 'Correspondente')</th>
+                                    <th id="t3">@sortablelink('user', 'Autor')</th>
                                     <th id="t4">@sortablelink('document_type', 'Tipo')</th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>
                                     <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
@@ -50,7 +51,7 @@
                                 @endphp
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
-                                    <td headers="t2"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
+                                    <td headers="t2" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                     <td headers="t3"><a href="{{ route('showUser', $submission->user)}}">{{$submission->user->user_name}}</a></td>
                                     <td headers="t4">{{$submission->document->document_type}}</td>
                                     <td headers="t5">

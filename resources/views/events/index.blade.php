@@ -7,7 +7,7 @@
             <h1 class='fs-2'>Eventos abertos</h1>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
                             <col width="20%">
                             <col width="20%">
@@ -28,7 +28,7 @@
                             @foreach($events as $event)
                             <tr class="align-middle" style="height:4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                <td headers="t5">{{$event->event_email}}</td>
+                                <td headers="t5" class="text-truncate">{{$event->event_email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
                                 <td headers="t4">{{$event->getStatusValue($event->updateStatus($event->event_status))}}</td>
                                 <td headers="t5">{{$event->formatDate($event->subscription_start)}} - {{$event->formatDate($event->subscription_deadline)}}</td>

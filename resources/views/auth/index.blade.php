@@ -9,14 +9,14 @@
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
-                            <col width="5%">
-                            <col width="25%">
+                            <col width="10%">
+                            <col width="20%">
                             <col width="15%">
                             <col width="15%">
                             <col width ="15%">
-                            <col width="10%">
+                            <col width="15%">
                             <col width="15%">
                         </colgroup>
                         <thead class="table-light">
@@ -36,7 +36,7 @@
                                 <td headers="t1"><a href="{{ route('showUser', $user)}}">{{$user->id}}</td>
                                 <td headers="t2"><a href="{{ route('showUser', $user)}}">{{$user->user_name}}</td>
                                 <td headers="t3">{{$user->cpf}}</a></td>
-                                <td headers="t4">{{$user->user_email}}</td>
+                                <td headers="t4" class="text-truncate">{{$user->user_email}}</td>
                                 <td headers="t5">{{$user->user_phone_number}}</td>
                                 <td headers="t6">{{ucwords($user->getRoleNames()->first())}}</td>
                                 <td headers="t7">
@@ -48,15 +48,15 @@
                                             <a class="dropdown-item" href="{{ route('indexSubscribed', $user)}}">
                                                 Ver inscrições
                                             </a>
-
+                                            <a class="dropdown-item" href="{{ route('indexSubmissions', $user)}}">
+                                                Ver submissões
+                                            </a>
                                             <a class="dropdown-item" href="{{ route('showUser', $user)}}">
                                                 Visualizar
                                             </a>
-
                                             <a class="dropdown-item" href="{{ route('editUser', $user)}}">
                                                 Editar
                                             </a>
-
                                             <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$user->id}}">
                                                 Excluir
                                             </button>

@@ -14,18 +14,18 @@
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white">
+                    <table class="table table-bordered border-light table-hover bg-white table-fixed">
                             <colgroup>
                                 <col width="5%">
                                 <col width="10%">
-                                <col width="13%">
-                                <col width ="12%">
+                                <col width="15%">
                                 <col width ="10%">
                                 <col width ="10%">
-                                <col width ="11%">
                                 <col width ="10%">
-                                <col width ="11%">
-                                <col width ="8%">
+                                <col width ="10%">
+                                <col width ="10%">
+                                <col width ="10%">
+                                <col width ="10%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
@@ -49,7 +49,7 @@
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1"><a href="{{route('showDocument', $document)}}">{{$document->id}}</a></td>
                                     <td headers="t2"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
-                                    <td headers="t3"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
+                                    <td headers="t3" class="text-truncate"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
                                     <td headers="t4"><a href="{{ route('showUser', $document->submission->user)}}">{{$document->submission->user->user_name}}</a></td>
                                     <td headers="t5">{{$document->document_type}}</td>
                                     <td headers="t6">

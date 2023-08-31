@@ -19,7 +19,7 @@ class DocumentController extends Controller
     {
         $user = Auth::user();
 
-        if($user->hasRole('admin'))
+        if($user->hasRole(['admin', 'event moderator']))
         {
             $userDocuments = Document::sortable()->paginate();
         }

@@ -9,7 +9,7 @@
                     <h1 class="fs-2">Inscritos em {{$event->event_name}}</h1>
                 </div>
                 <div class="col-md-4 text-end">
-                    <a href="{{route('manageEvents')}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
+                    <a href="{{route('showEvent', $event)}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
                 </div>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
@@ -20,14 +20,14 @@
                     </div>
                 </nav>
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white caption-top">
+                    <table class="table table-bordered border-light table-hover bg-white caption-top table-fixed">
                         <caption>N⁰ inscritos: {{$event->subscriptionCount()}}</caption>
                         <colgroup>
-                            <col width="10%">
-                            <col width="25%">
-                            <col width="25%">
                             <col width="20%">
-                            <col width="10%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="20%">
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
@@ -43,11 +43,13 @@
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$user->pivot->id}}</td>
                                 <td headers="t2"><a href="{{ route('showUser', $user)}}">{{$user->user_name}}</a></td>
-                                @if ($user->eventSubmission($event) !== null)
-                                    <td headers="t3"><a href="{{ route("showDocument", $user->eventSubmission($event)->document)}}">{{$user->eventSubmission($event)->document->title}}</a></td>
-                                @else
-                                    <td headers="t4">Submissão pendente</td>
-                                @endif
+                                <td headers="t3" class="text-truncate">
+                                    @if ($user->eventSubmission($event) !== null)
+                                        <a href="{{ route("showDocument", $user->eventSubmission($event)->document)}}">{{$user->eventSubmission($event)->document->title}}</a></td>
+                                    @else
+                                        Submissão pendente
+                                    @endif
+                                </td>
                                 <td headers="t4">{{$user->formatDateTime($user->pivot->created_at)}}</td>
                                 <td headers="t5">
                                     <div class="nav-item dropdown">

@@ -24,6 +24,8 @@
     referrerpolicy="no-referrer"
     />
 
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
+    
     <!-- <script src="https://cdn.tailwindcss.com" defer></script> -->
     
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

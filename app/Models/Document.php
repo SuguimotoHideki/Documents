@@ -75,4 +75,9 @@ class Document extends Model
     {
         return $this->hasOne(Submission::class);
     }
+
+    public function review(): HasOne
+    {
+        return $this->hasOne(Review::class);
+    }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubscriptionController;
@@ -72,6 +73,21 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/users/{user}/documents/submitted', [SubmissionController::class, 'index'])->name('indexSubmissions');
 });
 
+//REVIEWS
+Route::group(['middleware' => ['auth']], function()
+{
+    //Get submission review creation page
+    Route::get('/documents/{document}/review/create', [ReviewController::class, 'create'])->name('createReview');
+    //Store submission review
+    Route::post('/documents/{document}', [ReviewController::class, 'store'])->name('storeReview');
+    //Get submission review
+    Route::get('/documents/{document}/review/{review}', [ReviewController::class, 'show'])->name('showReview');
+    //Get all reviews
+    Route::get('/manage/reviews/', [ReviewController::class, 'index'])->name('indexReview');
+    //Get reviews related to submission
+    Route::get('/documents/{document}/reviews', [ReviewController::class, 'indexByDocument'])->name('indexByDocument');
+});
+
 Route::group(['middleware' => ['auth']], function()
 {
     //EVENTS
@@ -91,9 +107,9 @@ Route::group(['middleware' => ['auth']], function()
     Route::put('/events/{event}/update', [EventController::class, 'update'])->name('updateEvent');
     //Delete event
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('deleteEvent');
-    //Add moderator
+    //Show event moderator selection
     Route::get('/manage/events/{event}/moderators', [ModeratorController::class, 'create'])->name('createModerator');
-    //
+    //Post event moderators
     Route::post('/manage/events/{event}', [ModeratorController::class, 'store'])->name('storeModerator');
 
     //EVENT USER

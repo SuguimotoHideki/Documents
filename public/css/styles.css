@@ -7,13 +7,12 @@
     white-space: nowrap;
 }
 
-a{
-    color: #212529;
-
+a:not(.btn){
+    color: #212529 !important;
     background-color: transparent;
 }
 
-a:hover{
+a:hover:not(.btn){
     color: #0056b3 !important;
     background-color: transparent;
 }

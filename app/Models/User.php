@@ -154,4 +154,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Submission::class);
     }
+
+    /**
+     * Defines many-to-many relationship with Document for reviews
+     */
+    public function review(): HasOne
+    {
+        return $this->HasOne(Review::class);
+    }
 }

@@ -9,6 +9,8 @@
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
                     <div class="navbar-nav me-auto">
                         <a href="{{ route('editDocument', $document->id)}}" class="nav-item nav-link">Editar submissão</a>
+                        <a href="{{ route('indexByDocument', $document->id)}}" class="nav-item nav-link">Ver submissões</a>
+                        <a href="{{ route('createReview', $document->id)}}" class="nav-item nav-link">Avaliar submissão</a>
                     </div>
                 </nav>
                 <div class="row">

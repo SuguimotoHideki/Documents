@@ -32,6 +32,8 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'delete submission from event *']);
         Permission::create(['name' => 'update submission from event *']);
         Permission::create(['name' => 'review submission from event *']);
+        Permission::create(['name' => 'submissions.*']);
+        Permission::create(['name' => 'submissions.review']);
 
         //Related to events
         Permission::create(['name' => 'events.*']);
@@ -48,6 +50,8 @@ class RoleAndPermissionSeeder extends Seeder
         //Create roles and assign permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
         Role::create(['name' => 'event moderator'])->givePermissionTo(['events.manage', 'events.create', 'events.edit']);
+        Role::create(['name' => 'reviewer'])->givePermissionTo(['submissions.review']);
         Role::create(['name' => 'user'])->givePermissionTo(['events.subscribe']);
+
     }
 }

@@ -17,6 +17,9 @@
         <a href="{{route('manageDocuments')}}" class="nav-link">Gerenciar submissões</a>
     </li>
     <li class="nav-item my-auto">
+        <a href="{{route('manageReviews')}}" class="nav-link">Gerenciar avaliações</a>
+    </li>
+    <li class="nav-item my-auto">
         <a href="{{route('manageUsers')}}" class="nav-link">Gerenciar usuários</a>
     </li>
 @endif

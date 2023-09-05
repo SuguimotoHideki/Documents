@@ -42,7 +42,7 @@ class UserFactory extends Factory
             if ($randomNumber === 0) {
                 $user->assignRole('user');
             } else {
-                $user->assignRole('event moderator');
+                $user->assignRole(['event moderator', 'reviewer']);
             }
         });
     }

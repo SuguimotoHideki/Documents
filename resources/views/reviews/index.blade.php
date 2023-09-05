@@ -34,9 +34,9 @@
                                 $status = $review->getStatusID()
                             @endphp
                             <tr class="align-middle" style="height:4rem">
-                                <td headers="t1">{{$review->title}}</td>
+                                <td headers="t1"><a href="{{route('showReview', [$review, $review->document])}}">{{$review->title}}</a></td>
                                 <td headers="t2">{{$review->user->user_name}}</td>
-                                <td headers="t3"><a href="{{ route('showDocument', $review->document)}}">{{$review->document->title}}</a></td>
+                                <td headers="t3" class="text-truncate"><a href="{{ route('showDocument', $review->document)}}">{{$review->document->title}}</a></td>
                                 <td headers="t4">{{$review->score}}</td>
                                 <td headers="t5">
                                     @if($status === 0)

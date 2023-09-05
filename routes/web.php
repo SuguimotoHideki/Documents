@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ReviewerController;
 use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubscriptionController;
@@ -80,12 +81,20 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/documents/{document}/review/create', [ReviewController::class, 'create'])->name('createReview');
     //Store submission review
     Route::post('/documents/{document}', [ReviewController::class, 'store'])->name('storeReview');
+    //Get submission review editing page
+    Route::get('/documents/{document}/review/{review}/edit', [ReviewController::class, 'edit'])->name('editReview');
+    //Store submission review
+    Route::put('/documents/{document}/review/{review}/update', [ReviewController::class, 'update'])->name('updateReview');
     //Get submission review
     Route::get('/documents/{document}/review/{review}', [ReviewController::class, 'show'])->name('showReview');
     //Get all reviews
-    Route::get('/manage/reviews/', [ReviewController::class, 'index'])->name('indexReview');
+    Route::get('/manage/reviews/', [ReviewController::class, 'index'])->name('manageReviews');
     //Get reviews related to submission
     Route::get('/documents/{document}/reviews', [ReviewController::class, 'indexByDocument'])->name('indexByDocument');
+    //Show submission reviewer selection
+    Route::get('/documents/{document}/reviewers', [ReviewerController::class, 'create'])->name('assignReviewer');
+    //Post submission reviewers
+    Route::post('/manage/documents/{document}', [ReviewerController::class, 'store'])->name('storeReviewer');
 });
 
 Route::group(['middleware' => ['auth']], function()

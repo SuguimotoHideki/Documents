@@ -6,13 +6,7 @@
         <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">{{$document->title}}</h1>
         <div class="col-md-9">
             <div class="shadow-sm p-3 mb-5 bg-white">
-                <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-                    <div class="navbar-nav me-auto">
-                        <a href="{{ route('editDocument', $document->id)}}" class="nav-item nav-link">Editar submissão</a>
-                        <a href="{{ route('indexByDocument', $document->id)}}" class="nav-item nav-link">Ver submissões</a>
-                        <a href="{{ route('createReview', $document->id)}}" class="nav-item nav-link">Avaliar submissão</a>
-                    </div>
-                </nav>
+                <x-document-nav-menu :document="$document"/>
                 <div class="row">
                     <div class="text-muted">Submissão nº: {{$document->submission->id}}</div>
                 </div>

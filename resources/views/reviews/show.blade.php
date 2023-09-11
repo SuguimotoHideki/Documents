@@ -4,13 +4,18 @@
 <div class="container">
     <div class="row justify-content-center">
         <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">Avaliação</h1>
-        @role('admin')
+        @role(['admin', 'event moderator', 'reviewer'])
             <div class="col-md-9">
                 <div class="shadow-sm p-3 mb-5 bg-white">
                     <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
                         <div class="navbar-nav me-auto">
-                            <a href="{{route('editReview', [$review, $document])}}" class="nav-item nav-link">Editar avaliação</a>
-                            <a href="{{ route('indexByDocument', $document->id)}}" class="nav-item nav-link">Ver avaliações</a>
+                            @can('reviews.edit')
+                                <a href="{{route('editReview', [$document, $review])}}" class="nav-item nav-link">Editar avaliação</a>
+                            @endif
+                            @can('reviews.manage')
+                                <a href="{{ route('indexByDocument', $document->id)}}" class="nav-item nav-link">Ver avaliações</a>
+                            @endif
+                            <a href="{{ route('showDocument', $document->id)}}" class="nav-item nav-link">Ver submissão</a>
                         </div>
                     </nav>
                     <div class="row">
@@ -55,11 +60,13 @@
                             {{$review->getStatusValue()}}
                         </div>
                 </div>
+                @if($review->attachment !== null)
                 <div class="shadow-sm p-3 mb-3 bg-white">
                     <h2 class="fs-5 fw-bold mt-3">
                         <i class="fa-regular fa-file"></i> Visualizar anexo:</h2>
                     <div class="mt-2"><a href="/storage/{{$review->attachment}}">Clique aqui para abrir o arquivo</a></div>
                 </div>
+                @endif
                 <div class="shadow-sm p-3 mb-3 bg-white">
                     <h2 class="fs-5 fw-bold mt-3">
                         <i class="fa-regular fa-clock"></i> Enviado em:</h2>
@@ -74,8 +81,8 @@
                 <div class="shadow-sm p-3 mb-5 bg-white">
                     <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
                         <div class="navbar-nav me-auto">
-                            <a href="{{ route('showDocument', $document)}}" class="nav-item nav-link">Ver submissão</a>
                             <a href="{{ route('indexByDocument', $document)}}" class="nav-item nav-link">Ver avaliações</a>
+                            <a href="{{ route('showDocument', $document)}}" class="nav-item nav-link">Ver submissão</a>
                         </div>
                     </nav>
                     <div class="mt-3 text-break">
@@ -107,11 +114,13 @@
                             {{$review->getStatusValue()}}
                         </div>
                 </div>
+                @if($review->attachment !== null)
                 <div class="shadow-sm p-3 mb-3 bg-white">
                     <h2 class="fs-5 fw-bold mt-3">
                         <i class="fa-regular fa-file"></i> Visualizar anexo:</h2>
                     <div class="mt-2"><a href="/storage/{{$review->attachment}}">Clique aqui para abrir o arquivo</a></div>
                 </div>
+                @endif
             </div>
         @endif
     </div>

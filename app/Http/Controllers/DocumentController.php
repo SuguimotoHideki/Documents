@@ -23,6 +23,10 @@ class DocumentController extends Controller
         {
             $userDocuments = Document::sortable()->paginate();
         }
+        elseif($user->hasRole('reviewer'))
+        {
+            $userDocuments = $user->documents()->sortable()->paginate();
+        }
         else
         {
             $userId = $user->id;

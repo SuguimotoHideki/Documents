@@ -31,7 +31,7 @@ return new class extends Migration
             ->references('id')
             ->on('users');
 
-            $table->unique('user_id', 'document_id');
+            $table->unique(['document_id', 'user_id']);
 
             $table->timestamps();
         });

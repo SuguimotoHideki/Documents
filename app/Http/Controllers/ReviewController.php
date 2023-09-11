@@ -5,27 +5,69 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Models\Document;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\QueryException;
 
 class ReviewController extends Controller
 {
     //
     public function show(Document $document, Review $review)
     {
-        return view('reviews.show', ['document' => $document, 'review' => $review]);
+        $response = Gate::inspect('viewReview', [Document::class, $review]);
+        if($response->allowed())
+        {
+            return view('reviews.show', ['document' => $document, 'review' => $review]);
+        }
+        else
+        {
+            return redirect()->back()->with('error', $response->message());
+        }
     }
 
     public function index()
     {
-        $review = Review::all();
-        return view('reviews.index', ['reviews' => $review]);
+        $user = Auth::user();
+
+        $response = Gate::inspect('reviewDashboard', Document::class);
+
+        if($response->allowed())
+        {
+            if($user->can('reviews.manage'))
+            {
+                $review = Review::all();
+            }
+            else
+            {
+                $review = $user->review()->paginate();
+            }
+            return view('reviews.index', ['reviews' => $review]);
+        }
+
+        return redirect()->back()->with('error', $response->message());
     }
 
     public function indexByDocument(Document $document)
     {
-        $review = $document->review()->paginate();
-        return view('reviews.indexByDocument', ['document' => $document, 'reviews' => $review]);
+        $response = Gate::inspect('indexByDocument', $document);
+
+        if($response->allowed())
+        {
+            $review = $document->review()->paginate();
+            return view('reviews.indexByDocument', ['document' => $document, 'reviews' => $review]);
+        }
+        return redirect()->back()->with('error', $response->message());
+    }
+
+    public function indexDocuments()
+    {
+        $user = Auth::user();
+
+        $userDocuments = $user->documents()->sortable()->paginate();
+
+        return view('reviews.indexDocument', [
+            'documents' => $userDocuments
+        ]);
     }
 
     public function create(Document $document)
@@ -71,12 +113,13 @@ class ReviewController extends Controller
                 return redirect()->back()->with('error', 'Ocorreu um erro ao criar a avaliação.');
             }
         }
-        return redirect()->route('showReview', [$review, $document])->with('success', "Avaliação submetida.");
+        return redirect()->route('showReview', [$document, $review])->with('success', "Avaliação submetida.");
     }
 
     public function edit(Document $document, Review $review)
     {
-        $response = Gate::inspect('editReview', $document);
+        $response = Gate::inspect('editReview', [Document::class, $review]);
+
         if($response->allowed())
         {
             return view('reviews.edit', ['review' => $review, 'document' => $document]);
@@ -104,5 +147,12 @@ class ReviewController extends Controller
             $review->update($request->except('attachment'));
         }
         return redirect()->route('showReview', ['review' => $review, 'document' => $document])->with('success', "Avaliação atualizada.");
+    }
+
+    public function destroy(Document $document, Review $review)
+    {
+        $review->delete();
+
+        return redirect()->back()->with('success', 'Avaliação de ' . $document->title . ' removida.');
     }
 }

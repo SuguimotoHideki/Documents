@@ -56,8 +56,8 @@
                                         @endif
                                         {{$review->getStatusValue()}}
                                     </td>
-                                    <td headers="t7">{{$review->formatDate($review->created_at)}}</td>
-                                    <td headers="t8">{{$review->formatDate($review->updated_at)}}</td>
+                                    <td headers="t6">{{$review->formatDate($review->created_at)}}</td>
+                                    <td headers="t7">{{$review->formatDate($review->updated_at)}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -73,7 +73,7 @@
                                     <th id="t1">Título</th>
                                     <th id="t2">Pontuação</th>
                                     <th id="t3">Recomendação</th>
-                                    <th id="t4">Anexo</th>
+                                    <th id="t4">Avaliado em</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,7 +94,7 @@
                                         @endif
                                         {{$review->getStatusValue()}}
                                     </td>
-                                    <td headers="t4"><a href="/storage/{{$review->attachment}}">Ver anexo</a></td>
+                                    <td headers="t4">{{$review->formatDate($review->created_at)}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

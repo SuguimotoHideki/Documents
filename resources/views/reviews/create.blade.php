@@ -8,7 +8,7 @@
                 <div class="card-header fw-bold fs-5">{{ __("Avaliação de $document->title") }}</div>
                 <div class="shadow-sm p-3 mb-3 bg-white">
                     <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-regular fa-file"></i> Visualizar anexo:</h2>
+                        <i class="fa-regular fa-file"></i> Visualizar submissão:</h2>
                     <div class="mt-2"><a href="/storage/{{$document->document}}">Clique aqui para abrir o arquivo da submissão.</a></div>
                 </div>
                 <form method="POST" action="{{ route('storeReview', $document)}}" enctype="multipart/form-data">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="recommendation" class="col-md-2 col-form-label text-md-center text-break">
-                                {{ __('Tipo de documento') }}
+                                {{ __('Recomendação') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">

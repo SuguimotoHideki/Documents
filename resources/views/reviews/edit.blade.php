@@ -8,10 +8,10 @@
                 <div class="card-header fw-bold fs-5">{{ __("Editar avaliação de $document->title") }}</div>
                 <div class="shadow-sm p-3 mb-3 bg-white">
                     <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-regular fa-file"></i> Visualizar anexo:</h2>
+                        <i class="fa-regular fa-file"></i> Visualizar submissão:</h2>
                     <div class="mt-2"><a href="/storage/{{$document->document}}">Clique aqui para abrir o arquivo da submissão.</a></div>
                 </div>
-                <form method="POST" action="{{ route('updateReview', [$review, $document])}}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('updateReview', [$document, $review])}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
@@ -74,7 +74,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="recommendation" class="col-md-2 col-form-label text-md-center text-break">
-                                {{ __('Tipo de documento') }}
+                                {{ __('Recomendação') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
@@ -97,11 +97,13 @@
                             </label>
                             <div class="col-md-9 my-auto">
                                 <div class="row">
+                                    @if($review->attachment !== null)
                                     <div class="col-md-4 my-auto">
                                         <div>
                                             <a href="/storage/{{$review->attachment}}">Visualizar anexo</a>
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="col-md-8 my-auto">
                                         <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
         

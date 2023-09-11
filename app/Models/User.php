@@ -156,7 +156,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Defines many-to-many relationship with Document for reviews
+     * Defines one-to-one relationship with Review
      */
     public function review(): HasOne
     {

@@ -34,3 +34,11 @@
         <a href="{{route('manageUsers')}}" class="nav-link">Gerenciar usuários</a>
     </li>
 @endif
+@role('reviewer')
+    <li class="nav-item my-auto">
+        <a href="{{route('manageDocuments')}}" class="nav-link">Submissões</a>
+    </li>
+    <li class="nav-item my-auto">
+        <a href="{{route('manageReviews')}}" class="nav-link">Avaliações</a>
+    </li>
+@endif

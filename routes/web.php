@@ -95,6 +95,8 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/documents/{document}/reviewers', [ReviewerController::class, 'create'])->name('assignReviewer');
     //Post submission reviewers
     Route::post('/manage/documents/{document}', [ReviewerController::class, 'store'])->name('storeReviewer');
+    //Delete review
+    Route::delete('/documents/{document}}/review/{review}', [ReviewController::class, 'destroy'])->name('deleteReview');
 });
 
 Route::group(['middleware' => ['auth']], function()

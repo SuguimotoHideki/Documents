@@ -62,11 +62,11 @@
                                     <td headers="t3"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>
                                     <td headers="t4">{{$submission->document->document_type}}</td>
                                     <td headers="t5">
-                                        @if($status === 1)
+                                        @if($status === 0)
                                         <i class="fas fa-circle text-success"></i>
-                                        @elseif($status === 2)
+                                        @elseif($status === 1)
                                         <i class="fas fa-circle text-danger"></i>
-                                        @elseif($status === 3)
+                                        @elseif($status === 2)
                                         <i class="fas fa-circle text-warning"></i>
                                         @else
                                         <i class="fas fa-circle text-primary"></i>

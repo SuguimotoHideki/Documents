@@ -52,7 +52,7 @@
                                                 Ver submissões
                                             </a>
                                             <a class="dropdown-item" href="{{ route('showUser', $user)}}">
-                                                Visualizar
+                                                Ver usuário
                                             </a>
                                             <a class="dropdown-item" href="{{ route('editUser', $user)}}">
                                                 Editar

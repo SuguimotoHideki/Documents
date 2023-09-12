@@ -18,13 +18,12 @@
         <a href="{{ route('editEvent', $event->id)}}" class="nav-item nav-link">Editar evento</a>
     </div>
 </nav>
-@elseif(Auth::user()->hasRole('user'))
+@elseif(Auth::user()->hasRole('user') && $event->users->contains(Auth::user()))
 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
     <div class="navbar-nav me-auto">
         @if($event->userSubmission(Auth::user()) !== null)
-            <a href="{{route('showDocument', $event->userSubmission(Auth::user()))}}" class="nav-item nav-link">Ver submissão</a>
-        @else
-            <a href="{{route('createDocument', $event)}}" class="nav-item nav-link">Fazer submissão</a>
+            <a href="{{route('showDocument', $event->userSubmission(Auth::user())->document)}}" class="nav-item nav-link">Ver submissão</a>
+            <a href="{{route('editDocument', $event->userSubmission(Auth::user())->document)}}" class="nav-item nav-link">Editar submissão</a>
         @endif
     </div>
 </nav>

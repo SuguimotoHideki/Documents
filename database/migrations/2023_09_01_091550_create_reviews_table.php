@@ -25,11 +25,13 @@ return new class extends Migration
 
             $table->foreign('document_id')
             ->references('id')
-            ->on('documents');
+            ->on('documents')
+            ->onDelete('cascade');
 
             $table->foreign('user_id')
             ->references('id')
-            ->on('users');
+            ->on('users')
+            ->onDelete('cascade');
 
             $table->unique(['document_id', 'user_id']);
 

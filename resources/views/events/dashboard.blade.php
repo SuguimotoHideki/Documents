@@ -63,7 +63,7 @@
                                             </a>
 
                                             <a class="dropdown-item" href="{{route('showEvent', $event)}}">
-                                                Visualizar
+                                                Ver evento
                                             </a>
 
                                             <a class="dropdown-item" href="{{route('editEvent', $event)}}">

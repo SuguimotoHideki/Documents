@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use App\Actions\CreateSubmission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DocumentController extends Controller
 {
@@ -19,37 +20,47 @@ class DocumentController extends Controller
     {
         $user = Auth::user();
 
-        if($user->hasRole(['admin', 'event moderator']))
+        $response = Gate::inspect('indexDocument', Document::class);
+
+        if($response->allowed())
         {
-            $userDocuments = Document::sortable()->paginate();
+            if($user->hasRole(['admin', 'event moderator']))
+            {
+                $userDocuments = Document::sortable()->paginate();
+            }
+            elseif($user->hasRole('reviewer'))
+            {
+                $userDocuments = $user->documents()->sortable()->paginate();
+            }
+            return view('documents.index', [
+                'documents' => $userDocuments
+            ]);
         }
-        elseif($user->hasRole('reviewer'))
-        {
-            $userDocuments = $user->documents()->sortable()->paginate();
-        }
-        else
-        {
-            $userId = $user->id;
-            $userDocuments = Document::where('user_id', $userId)->sortable()->paginate();
-        }
-        return view('documents.index', [
-            'documents' => $userDocuments
-        ]);
+        return redirect()->back()->with('error', $response->message());
     }
     
     //Return single document
     public function show(Document $document)
     {
-        //dd($document);
-        return view('documents.show',[
-            'document' => $document
-        ]);
+        $response = Gate::inspect('showDocument', $document);
+        if($response->allowed())
+        {
+            return view('documents.show',[
+                'document' => $document
+            ]);
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 
     //Returns document form view
     public function create(Event $event)
     {
-        return view('documents.create', compact('event'));
+        $response = Gate::inspect('createDocument', [Document::class, $event]);
+        if($response->allowed())
+        {
+            return view('documents.create', compact('event'));
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 
     //Stores document
@@ -98,9 +109,14 @@ class DocumentController extends Controller
     //Show document edit form
     public function edit(Document $document)
     {
-        return view('documents.edit',[
-            'document' => $document
-        ]);
+        $response = Gate::inspect('editDocument', $document);
+        if($response->allowed())
+        {
+            return view('documents.edit',[
+                'document' => $document
+            ]);
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 
     //Uodate document fields
@@ -135,8 +151,13 @@ class DocumentController extends Controller
 
     public function destroy(Document $document)
     {
-        $document->delete();
+        $response = Gate::inspect('deleteDocument', $document);
 
-        return redirect()->back()->with('success', 'Submissão ' . $document->title . ' removida.');
+        if($response->allowed())
+        {
+            $document->delete();
+            return redirect()->back()->with('success', 'Submissão ' . $document->title . ' removida.');
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 }

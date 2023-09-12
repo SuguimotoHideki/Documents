@@ -55,11 +55,11 @@
                                     <td headers="t3"><a href="{{ route('showUser', $submission->user)}}">{{$submission->user->user_name}}</a></td>
                                     <td headers="t4">{{$submission->document->document_type}}</td>
                                     <td headers="t5">
-                                        @if($status === 1)
+                                        @if($status === 0)
                                         <i class="fas fa-circle text-success"></i>
-                                        @elseif($status === 2)
+                                        @elseif($status === 1)
                                         <i class="fas fa-circle text-danger"></i>
-                                        @elseif($status === 3)
+                                        @elseif($status === 2)
                                         <i class="fas fa-circle text-warning"></i>
                                         @else
                                         <i class="fas fa-circle text-primary"></i>
@@ -75,14 +75,18 @@
                                                 Operações
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{route('showDocument', $submission->document)}}">
-                                                    Visualizar
+                                                <a class="dropdown-item" href="{{ route('indexByDocument', $submission->document->id)}}">
+                                                    Ver avaliações
                                                 </a>
-    
+                                                <a class="dropdown-item" href="{{route('assignReviewer', $submission->document->id)}}">
+                                                    Adicionar avaliadores
+                                                </a>
+                                                <a class="dropdown-item" href="{{route('showDocument', $submission->document)}}">
+                                                    Ver avaliação
+                                                </a>
                                                 <a class="dropdown-item" href="{{route('editDocument', $submission->document)}}">
                                                     Editar
                                                 </a>
-    
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$submission->document->id}}">
                                                     Excluir
                                                 </button>

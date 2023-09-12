@@ -33,10 +33,10 @@ class Submission extends Model
     ];
 
     public const STATUSES = [
-        1 => 'Aprovado',
-        2 => 'Reprovado',
-        3 => 'Em revisão',
-        4 => 'Enviado'
+        0 => 'Aprovado',
+        1 => 'Reprovado',
+        2 => 'Em revisão',
+        3 => 'Enviado'
     ];
 
     /**

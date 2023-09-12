@@ -17,25 +17,23 @@
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                             <colgroup>
-                                <col width="12%">
-                                <col width="12%">
-                                <col width="12%">
-                                <col width ="12%">
-                                <col width ="12%">
-                                <col width ="12%">
-                                <col width ="12%">
-                                <col width ="12%">
+                                <col width="14%">
+                                <col width="14%">
+                                <col width="14%">
+                                <col width ="14%">
+                                <col width ="14%">
+                                <col width ="14%">
+                                <col width ="14%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
-                                    <th id="t1">@sortablelink('id', 'ID')</th>
+                                    <th id="t1">Submissão</th>
                                     <th id="t2">@sortablelink('event', 'Evento')</th>
-                                    <th id="t3">@sortablelink('title', 'Título')</th>
-                                    <th id="t4">@sortablelink('user', 'Correspondente')</th>
-                                    <th id="t5">@sortablelink('document_type', 'Tipo')</th>
-                                    <th id="t6">Status</th>
-                                    <th id="t7">Aprovado em</th>
-                                    <th id="t8">Operações</th>
+                                    <th id="t3">@sortablelink('document_type', 'Tipo')</th>
+                                    <th id="t4">Nota</th>
+                                    <th id="t5">Recomendação</th>
+                                    <th id="t6">Avaliado em</th>
+                                    <th id="t7">Operações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,19 +46,18 @@
                                     }
                                 @endphp
                                 <tr class="align-middle" style="height:4rem">
-                                    <td headers="t1"><a href="{{route('showDocument', $document)}}">{{$document->id}}</a></td>
+                                    <td headers="t1" class="text-truncate"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
                                     <td headers="t2"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
-                                    <td headers="t3" class="text-truncate"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
-                                    <td headers="t4"><a href="{{ route('showUser', $document->submission->user)}}">{{$document->submission->user->user_name}}</a></td>
-                                    <td headers="t5">{{$document->document_type}}</td>
-                                    <td headers="t6">
+                                    <td headers="t3">{{$document->document_type}}</td>
+                                    <td headers="t4">{{$review->score}}</td>
+                                    <td headers="t5">
                                         @if($review !== null)
                                             @if($reviewStatus === 0)
                                             <i class="fas fa-circle text-success"></i>
-                                            @elseif($reviewStatus === 2)
-                                            <i class="fas fa-circle text-danger"></i>
                                             @elseif($reviewStatus === 1)
                                             <i class="fas fa-circle text-warning"></i>
+                                            @elseif($reviewStatus === 2)
+                                            <i class="fas fa-circle text-danger"></i>
                                             @else
                                             <i class="fas fa-circle text-primary"></i>
                                             @endif
@@ -69,8 +66,8 @@
                                             Aguardando avaliação
                                         @endif
                                     </td>
-                                    <td headers="t7">{{$document->submission->formatDate($document->submission->approved_at)}}</td>
-                                    <td headers="t10">
+                                    <td headers="t6">{{$review->formatDate($review->created_at)}}</td>
+                                    <td headers="t7">
                                         <div class="nav-item dropdown">
                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                                 Operações
@@ -78,7 +75,7 @@
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                                 @if($review !== null)
                                                     <a class="dropdown-item" href="{{route('showReview', [$document, $review])}}">
-                                                        Visualizar
+                                                        Ver avaliação
                                                     </a>
                                                     <a class="dropdown-item" href="{{route('editReview', [$document, $review])}}">
                                                         Editar
@@ -174,11 +171,11 @@
                                     <td headers="t4"><a href="{{ route('showUser', $document->submission->user)}}">{{$document->submission->user->user_name}}</a></td>
                                     <td headers="t5">{{$document->document_type}}</td>
                                     <td headers="t6">
-                                        @if($status === 1)
+                                        @if($status === 0)
                                         <i class="fas fa-circle text-success"></i>
-                                        @elseif($status === 2)
+                                        @elseif($status === 1)
                                         <i class="fas fa-circle text-danger"></i>
-                                        @elseif($status === 3)
+                                        @elseif($status === 2)
                                         <i class="fas fa-circle text-warning"></i>
                                         @else
                                         <i class="fas fa-circle text-primary"></i>
@@ -195,7 +192,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="{{route('showDocument', $document)}}">
-                                                    Visualizar
+                                                    Ver submissão
                                                 </a>
                                                 @can(['submissions.edit, submissions.index'])
                                                     <a class="dropdown-item" href="{{route('editDocument', $document)}}">

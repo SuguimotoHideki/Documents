@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Review;
 use App\Models\Document;
 use Illuminate\Auth\Access\Response;
@@ -21,56 +22,73 @@ class DocumentPolicy
         Document::class => DocumentPolicy::class,
     ];
 
-    public function assignReviewer(User $user)
+    /**
+     * Verifies if user can view a given document
+     */
+    public function showDocument(User $user, Document $document)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || $user->hasRole('event moderator'))
+        return ($user->hasRole(['admin', 'event_moderator']) ||
+        ($user->hasRole('reviewer') && $document->users->contains($user)) ||
+        ($user->hasRole('user') && $document->submission->user->id === $user->id))
         ? Response::allow()
-        : Response::deny('Você não ter permissão para escolher avaliadores.');
+        : Response::deny('Você não ter permissão para ver essa submissão.');
     }
 
-    public function createReview(User $user, Document $document)
+    /**
+     * Verifies if user can edit a given document
+     */
+    public function editDocument(User $user, Document $document)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $document->users->contains($user)))
+        return ($user->hasRole(['admin', 'event_moderator']) ||
+        ($user->hasRole('user') && $document->submission->user->id === $user->id))
         ? Response::allow()
-        : Response::deny('Você não ter permissão para avaliar essa submissão.');
+        : Response::deny('Você não ter permissão para editar essa submissão.');
     }
 
-    public function editReview(User $user, Review $review)
+    /**
+     * Verifies if user can delete a given document
+     */
+    public function deleteDocument(User $user, Document $document)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $review->user->id === $user->id))
+        return ($user->hasRole(['admin', 'event_moderator']) ||
+        ($user->hasRole('user') && $document->submission->user->id === $user->id))
         ? Response::allow()
-        : Response::deny('Você não ter permissão para editar essa avaliação.');
+        : Response::deny('Você não ter permissão para deletar essa submissão.');
     }
 
-    public function reviewDashboard(User $user)
+    /**
+     * Verifies if user can create a submission
+     */
+    public function createDocument(User $user, Event $event)
+    {
+        if($user->hasRole(['admin', 'event_moderator']))
+        {
+            return Response::allow();
+        }
+        elseif(($user->hasRole('user') && $event->users->contains($user)))
+        {
+            if($event->userSubmission($user) === null)
+            {
+                return Response::allow();
+            }
+            else
+            {
+                return Response::deny("Você já fez uma submissão nesse evento.");
+            }
+        }
+        else
+        {
+            return Response::deny("Você precisa estar inscrito para enviar submissões.");
+        }
+    }
+
+    /**
+     * Verifies if user can access the document's dashboard table
+     */
+    public function indexDocument(User $user)
     {
         return ($user->hasRole(['admin', 'event_moderator', 'reviewer']))
         ? Response::allow()
         : Response::deny('Você não ter permissão para acessar essa página.');
-    }
-
-    public function indexByDocument(User $user, Document $document)
-    {
-        return ($user->hasRole(['admin', 'event_moderator']) || $document->submission->user->id === $user->id)
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para acessar essa página.');
-    }
-
-    public function viewReview(User $user, Review $review)
-    {
-        return ($user->hasRole(['admin', 'event_moderator']) ||
-        ($user->hasRole('reviewer') && $review->user->id === $user->id) ||
-        ($user->hasRole('user') && $review->document->submission->user->id === $user->id))
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para ver essa avaliação.');
-    }
-
-    public function viewDocument(User $user, Review $document)
-    {
-        return ($user->hasRole(['admin', 'event_moderator', 'reviewer']) ||
-        ($user->hasRole('reviewer') && $review->user->id === $user->id) ||
-        ($user->hasRole('user') && $review->document->submission->user->id === $user->id))
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para ver essa avaliação.');
     }
 }

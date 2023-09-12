@@ -51,7 +51,7 @@ class Review extends Model
     }
 
     /**
-     * Formats timestamp
+     * Format timestamps
      */
     public function formatDate($date)
     {
@@ -68,12 +68,18 @@ class Review extends Model
             return('Invalid date');
         }
     }
-
+    
+    /**
+     * Defines one-to-one relationship with Document
+     */
     public function document(): BelongsTo
     {
         return $this->belongsTo(Document::class);
     }
     
+    /**
+     * Defines one-to-one relationship with User
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

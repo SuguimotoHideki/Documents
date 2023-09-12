@@ -5,31 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\QueryException;
 
 class ReviewController extends Controller
 {
-    //
+    /**
+     * Shows a single review
+     */
     public function show(Document $document, Review $review)
     {
-        $response = Gate::inspect('viewReview', [Document::class, $review]);
+        $response = Gate::inspect('showReview', $review);
+
         if($response->allowed())
         {
             return view('reviews.show', ['document' => $document, 'review' => $review]);
         }
-        else
-        {
-            return redirect()->back()->with('error', $response->message());
-        }
+
+        return redirect()->back()->with('error', $response->message());
     }
 
+    /**
+     * Shows a table of reviews
+     */
     public function index()
     {
         $user = Auth::user();
 
-        $response = Gate::inspect('reviewDashboard', Document::class);
+        $response = Gate::inspect('reviewDashboard', Review::class);
 
         if($response->allowed())
         {
@@ -47,9 +52,12 @@ class ReviewController extends Controller
         return redirect()->back()->with('error', $response->message());
     }
 
+    /**
+     * Shows a table of reviews from a given document
+     */
     public function indexByDocument(Document $document)
     {
-        $response = Gate::inspect('indexByDocument', $document);
+        $response = Gate::inspect('indexByDocument', [Review::class, $document]);
 
         if($response->allowed())
         {
@@ -59,20 +67,12 @@ class ReviewController extends Controller
         return redirect()->back()->with('error', $response->message());
     }
 
-    public function indexDocuments()
-    {
-        $user = Auth::user();
-
-        $userDocuments = $user->documents()->sortable()->paginate();
-
-        return view('reviews.indexDocument', [
-            'documents' => $userDocuments
-        ]);
-    }
-
+    /**
+     * Shows review creation form
+     */
     public function create(Document $document)
     {
-        $response = Gate::inspect('createReview', $document);
+        $response = Gate::inspect('createReview', [Review::class, $document]);
         if($response->allowed())
         {
             return view('reviews.create', ['document' => $document]);
@@ -80,6 +80,9 @@ class ReviewController extends Controller
         return redirect()->back()->with('error', $response->message());
     }
 
+    /**
+     * Stores review
+     */
     public function store(Request $request, Document $document)
     {
         $review = null;
@@ -98,9 +101,12 @@ class ReviewController extends Controller
         {
             $formFields['attachment'] = $request->file('attachment')->store('review_attachments', 'public');
         }
+
         try
         {
-            $review = Review::create($formFields);
+            DB::transaction(function() use ($formFields, &$review){
+                $review = Review::create($formFields);
+            });
         }
         catch(QueryException $error)
         {
@@ -116,9 +122,12 @@ class ReviewController extends Controller
         return redirect()->route('showReview', [$document, $review])->with('success', "Avaliação submetida.");
     }
 
+    /**
+     * Shows review edition form
+     */
     public function edit(Document $document, Review $review)
     {
-        $response = Gate::inspect('editReview', [Document::class, $review]);
+        $response = Gate::inspect('editReview', $review);
 
         if($response->allowed())
         {
@@ -127,6 +136,9 @@ class ReviewController extends Controller
         return redirect()->back()->with('error', $response->message());
     }
 
+    /**
+     * Saves review changes
+     */
     public function update(Request $request, Document $document, Review $review)
     {
         $formFields = $request->validate([
@@ -149,10 +161,18 @@ class ReviewController extends Controller
         return redirect()->route('showReview', ['review' => $review, 'document' => $document])->with('success', "Avaliação atualizada.");
     }
 
+    /**
+     * Delete review
+     */
     public function destroy(Document $document, Review $review)
     {
-        $review->delete();
+        $response = Gate::inspect('deleteReview', [Document::class, $review]);
 
-        return redirect()->back()->with('success', 'Avaliação de ' . $document->title . ' removida.');
+        if($response->allowed())
+        {
+            $review->delete();
+            return redirect()->back()->with('success', 'Avaliação de ' . $document->title . ' removida.');
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 }

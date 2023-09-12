@@ -76,6 +76,9 @@ class Document extends Model
         return $this->hasOne(Submission::class);
     }
 
+    /**
+     * Defines one-to-one relationship with Review
+     */
     public function review(): HasOne
     {
         return $this->hasOne(Review::class);

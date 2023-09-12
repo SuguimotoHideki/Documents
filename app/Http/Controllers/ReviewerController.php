@@ -10,7 +10,7 @@ class ReviewerController extends Controller
 {
     public function create(Document $document)
     {
-        $this->authorize('assignReviewer', Document::class);
+        $this->authorize('assignReviewer', Review::class);
 
         $users = User::role('reviewer')->where('id', '!=', 1)->get();
         return view('reviews.assignReviewer',[
@@ -21,7 +21,7 @@ class ReviewerController extends Controller
 
     public function store(Request $request, Document $document)
     {
-        $this->authorize('assignReviewer', Document::class);
+        $this->authorize('assignReviewer', Review::class);
 
         $parameters = $request['permissions'];
         foreach($parameters as $userId => $permissions)

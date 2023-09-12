@@ -21,7 +21,7 @@ Class CreateSubmission extends Controller
                 'event_id' => $event->id,
                 'document_id' => $document->id,
                 'user_id' => $user->id,
-                'status' => 4
+                'status' => 3
             ]);
         }
         catch(QueryException $error)

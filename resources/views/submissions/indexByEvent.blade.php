@@ -7,7 +7,7 @@
             <div class="row mb-2">
                 <h1 class='fs-2 col'>Submissões em {{$event->event_name}}</h1>
                 <div class="col-md-4 text-end">
-                    <a href="{{route('showEvent', $event)}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+                    <a href="{{route('manageEvents')}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
                 </div>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
@@ -75,21 +75,25 @@
                                                 Operações
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('indexByDocument', $submission->document->id)}}">
-                                                    Ver avaliações
-                                                </a>
-                                                <a class="dropdown-item" href="{{route('assignReviewer', $submission->document->id)}}">
-                                                    Adicionar avaliadores
-                                                </a>
                                                 <a class="dropdown-item" href="{{route('showDocument', $submission->document)}}">
-                                                    Ver avaliação
+                                                    Ver submissão
                                                 </a>
-                                                <a class="dropdown-item" href="{{route('editDocument', $submission->document)}}">
-                                                    Editar
-                                                </a>
-                                                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$submission->document->id}}">
-                                                    Excluir
-                                                </button>
+                                                @can(['submissions.edit, submissions.delete'])
+                                                    <a class="dropdown-item" href="{{route('editDocument', $submission->document)}}">
+                                                        Editar
+                                                    </a>
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$submission->document->id}}">
+                                                        Excluir
+                                                    </button>
+                                                @endif
+                                                @can(['submissions.manage'])
+                                                    <a class="dropdown-item" href="{{route('indexByDocument', $submission->document)}}">
+                                                        Avaliações
+                                                    </a>
+                                                    <a class="dropdown-item" href="{{route('assignReviewer', $submission->document)}}">
+                                                        Avaliadores
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

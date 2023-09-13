@@ -27,7 +27,7 @@ class DocumentPolicy
      */
     public function showDocument(User $user, Document $document)
     {
-        return ($user->hasRole(['admin', 'event_moderator']) ||
+        return ($user->hasRole(['admin', 'event moderator']) ||
         ($user->hasRole('reviewer') && $document->users->contains($user)) ||
         ($user->hasRole('user') && $document->submission->user->id === $user->id))
         ? Response::allow()
@@ -39,7 +39,7 @@ class DocumentPolicy
      */
     public function editDocument(User $user, Document $document)
     {
-        return ($user->hasRole(['admin', 'event_moderator']) ||
+        return ($user->hasRole(['admin', 'event moderator']) ||
         ($user->hasRole('user') && $document->submission->user->id === $user->id))
         ? Response::allow()
         : Response::deny('Você não ter permissão para editar essa submissão.');
@@ -50,7 +50,7 @@ class DocumentPolicy
      */
     public function deleteDocument(User $user, Document $document)
     {
-        return ($user->hasRole(['admin', 'event_moderator']) ||
+        return ($user->hasRole(['admin', 'event moderator']) ||
         ($user->hasRole('user') && $document->submission->user->id === $user->id))
         ? Response::allow()
         : Response::deny('Você não ter permissão para deletar essa submissão.');
@@ -61,7 +61,7 @@ class DocumentPolicy
      */
     public function createDocument(User $user, Event $event)
     {
-        if($user->hasRole(['admin', 'event_moderator']))
+        if($user->hasRole(['admin', 'event moderator']))
         {
             return Response::allow();
         }
@@ -87,7 +87,7 @@ class DocumentPolicy
      */
     public function indexDocument(User $user)
     {
-        return ($user->hasRole(['admin', 'event_moderator', 'reviewer']))
+        return ($user->hasRole(['admin', 'event moderator', 'reviewer']))
         ? Response::allow()
         : Response::deny('Você não ter permissão para acessar essa página.');
     }

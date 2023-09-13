@@ -10,7 +10,7 @@
                 <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">{{$event->event_name}}</h1>
             </div>
             <div class="col-md-4 float-right">
-                <a href="{{ url()->previous()}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Página anterior</a>
+                <a href="{{route('manageEvents')}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
             </div>
         </div>
 
@@ -31,11 +31,11 @@
                     <div class="col-md">
                         <div class="mt-3">
                             <h2 class="fs-5 fw-bold">Site do evento:</h2>
-                            <div>{{$event->event_website}}</div>
+                            <a href="{{$event->event_website}}">{{$event->event_website}}</a>
                         </div>
                         <div class="mt-3">
                             <h2 class="fs-5 fw-bold">Email do evento:</h2>
-                            <div>{{$event->event_email}}</div>
+                            <a href="mailto:{{$event->event_email}}">{{$event->event_email}}</a>
                         </div>
 
                     </div>
@@ -100,16 +100,13 @@
             <div class="shadow-sm p-3 mb-3 bg-white">
                 <div>
                     <h2 class="fs-5 fw-bold mt-2">Organizador:</h2>
-                        <div>
-                            <div>{{$event->organizer}}</div>
-                        </div>
-                        <div class="mt-2">
-
-                            <div>Website: {{$event->organizer_website}}</div>
-                        </div>
-                        <div class="mt-2">
-                            <div>Email: {{$event->organizer_email}}</div>
-                        </div>
+                    <div>{{$event->organizer}}</div>
+                    <h2 class="fs-5 fw-bold mt-3">
+                        <i class="fa-solid fa-link"></i> Website:</h2>
+                    <a href="{{$event->organizer_website}}" class="mt-2">{{$event->organizer_website}}</a>
+                    <h2 class="fs-5 fw-bold mt-3">
+                        <i class="fa-solid fa-envelope"></i> Email:</h2>
+                    <a href="mailto:{{$event->organizer_email}}" class="mt-2">{{$event->organizer_email}}</a>
                 </div>
             </div>
         </div>

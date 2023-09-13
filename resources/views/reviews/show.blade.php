@@ -15,7 +15,10 @@
                             @can('reviews.manage')
                                 <a href="{{ route('indexByDocument', $document->id)}}" class="nav-item nav-link">Ver avaliações</a>
                             @endif
-                            <a href="{{ route('showDocument', $document->id)}}" class="nav-item nav-link">Ver submissão</a>
+                                <a href="{{ route('showDocument', $document->id)}}" class="nav-item nav-link">Ver submissão</a>
+                            @can('reviews.delete')
+                                <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#reviewDeletePrompt{{$review->id}}">Excluir avaliação</a>                            
+                            @endif
                         </div>
                     </nav>
                     <div class="row">
@@ -123,6 +126,30 @@
                 @endif
             </div>
         @endif
+    </div>
+</div>
+
+<div class="modal fade" id="reviewDeletePrompt{{$review->id}}" tabindex="-1" aria-labelledby="reviewDeletePromptLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir avaliação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja excluir a avaliação da submissão <strong>{{$review->document->title}}</strong> ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form action="{{ route('deleteReview', [$review->document, $review])}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        {{ __('Excluir') }}
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

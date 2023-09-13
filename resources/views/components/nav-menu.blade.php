@@ -11,27 +11,27 @@
         <a href="{{route('createEvent')}}" class="nav-link">Criar Evento</a>
     </li>
     <li class="nav-item my-auto">
-        <a href="{{route('manageEvents')}}" class="nav-link">Gerenciar eventos</a>
+        <a href="{{route('manageEvents')}}" class="nav-link">Eventos</a>
     </li>
     <li class="nav-item my-auto">
-        <a href="{{route('manageDocuments')}}" class="nav-link">Gerenciar submissões</a>
+        <a href="{{route('manageDocuments')}}" class="nav-link">Submissões</a>
     </li>
     <li class="nav-item my-auto">
-        <a href="{{route('manageReviews')}}" class="nav-link">Gerenciar avaliações</a>
+        <a href="{{route('manageReviews')}}" class="nav-link">Avaliações</a>
     </li>
     <li class="nav-item my-auto">
-        <a href="{{route('manageUsers')}}" class="nav-link">Gerenciar usuários</a>
+        <a href="{{route('manageUsers')}}" class="nav-link">Usuários</a>
     </li>
 @endif
 @role('event moderator')
     <li class="nav-item my-auto">
-        <a href="{{route('manageEvents')}}" class="nav-link">Gerenciar eventos</a>
+        <a href="{{route('manageEvents')}}" class="nav-link">Eventos</a>
     </li>
     <li class="nav-item my-auto">
-        <a href="{{route('manageDocuments')}}" class="nav-link">Gerenciar submissões</a>
+        <a href="{{route('manageDocuments')}}" class="nav-link">Submissões</a>
     </li>
     <li class="nav-item my-auto">
-        <a href="{{route('manageUsers')}}" class="nav-link">Gerenciar usuários</a>
+        <a href="{{route('manageUsers')}}" class="nav-link">Usuários</a>
     </li>
 @endif
 @role('reviewer')

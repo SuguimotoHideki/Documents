@@ -30,8 +30,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                             <colgroup>
-                                <col width="12%">
-                                <col width="12%">
+                                <col width="20%">
                                 <col width="12%">
                                 <col width ="12%">
                                 <col width ="12%">
@@ -41,14 +40,13 @@
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
-                                    <th id="t1">@sortablelink('id', 'Submissão')</th>
-                                    <th id="t2">@sortablelink('document.title', 'Título')</th>
-                                    <th id="t3">@sortablelink('event.event_name', 'Evento')</th>
-                                    <th id="t4">@sortablelink('document.document_type', 'Tipo')</th>
-                                    <th id="t5">@sortablelink('status', 'Status')</th>
-                                    <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
-                                    <th id="t7">@sortablelink('created_at','Publicado em')</th>
-                                    <th id="t8">@sortablelink('updated_at', 'Atualizado em')</th>
+                                    <th id="t1">@sortablelink('document.title', 'Título')</th>
+                                    <th id="t2">@sortablelink('document.document_type', 'Tipo')</th>
+                                    <th id="t3">@sortablelink('status', 'Status')</th>
+                                    <th id="t4">@sortablelink('event.event_name', 'Evento')</th>
+                                    <th id="t5">@sortablelink('approved_at','Aprovado em')</th>
+                                    <th id="t6">@sortablelink('created_at','Publicado em')</th>
+                                    <th id="t7">@sortablelink('updated_at', 'Atualizado em')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,11 +55,9 @@
                                     $status = $submission->getStatusID()
                                 @endphp
                                 <tr class="align-middle" style="height:4rem">
-                                    <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
-                                    <td headers="t2" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
-                                    <td headers="t3"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>
-                                    <td headers="t4">{{$submission->document->document_type}}</td>
-                                    <td headers="t5">
+                                    <td headers="t1" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
+                                    <td headers="t2">{{$submission->document->document_type}}</td>
+                                    <td headers="t3">
                                         @if($status === 0)
                                         <i class="fas fa-circle text-success"></i>
                                         @elseif($status === 1)
@@ -73,9 +69,10 @@
                                         @endif
                                         {{ $submission->getStatusValue()}}
                                     </td>
-                                    <td headers="t6">{{$submission->formatDate($submission->approved_at)}}</td>
-                                    <td headers="t7">{{$submission->formatDate($submission->created_at)}}</td>
-                                    <td headers="t8">{{$submission->formatDate($submission->updated_at)}}</td>
+                                    <td headers="t4"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>
+                                    <td headers="t5">{{$submission->formatDate($submission->approved_at)}}</td>
+                                    <td headers="t6">{{$submission->formatDate($submission->created_at)}}</td>
+                                    <td headers="t7">{{$submission->formatDate($submission->updated_at)}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

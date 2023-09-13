@@ -56,7 +56,7 @@ class ReviewPolicy
      */
     public function reviewDashboard(User $user)
     {
-        return ($user->hasRole(['admin', 'event_moderator', 'reviewer']))
+        return ($user->hasRole(['admin', 'event moderator', 'reviewer']))
         ? Response::allow()
         : Response::deny('Você não ter permissão para acessar essa página.');
     }
@@ -66,7 +66,7 @@ class ReviewPolicy
      */
     public function indexByDocument(User $user, Document $document)
     {
-        return ($user->hasRole(['admin', 'event_moderator']) || $document->submission->user->id === $user->id)
+        return ($user->hasRole(['admin', 'event moderator']) || $document->submission->user->id === $user->id)
         ? Response::allow()
         : Response::deny('Você não ter permissão para acessar essa página.');
     }
@@ -76,7 +76,7 @@ class ReviewPolicy
      */
     public function showReview(User $user, Review $review)
     {
-        return ($user->hasRole(['admin', 'event_moderator']) ||
+        return ($user->hasRole(['admin', 'event moderator']) ||
         ($user->hasRole('reviewer') && $review->user->id === $user->id) ||
         ($user->hasRole('user') && $review->document->submission->user->id === $user->id))
         ? Response::allow()

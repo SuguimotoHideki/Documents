@@ -31,6 +31,8 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'submissions.delete']);
         Permission::create(['name' => 'submissions.manage']);
         Permission::create(['name' => 'submissions.create']);
+        Permission::create(['name' => 'submissions.index']);
+
 
         Permission::create(['name' => 'reviews.*']);
         Permission::create(['name' => 'reviews.edit.*']);
@@ -40,6 +42,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'reviews.delete']);
         Permission::create(['name' => 'reviews.manage']);
         Permission::create(['name' => 'reviews.create']);
+        Permission::create(['name' => 'reviews.index']);
 
         //Related to events
         Permission::create(['name' => 'events.*']);
@@ -50,14 +53,15 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'events.edit']);
         Permission::create(['name' => 'events.delete']);
         Permission::create(['name' => 'events.manage']);
+        Permission::create(['name' => 'events.index']);
         Permission::create(['name' => 'events.subscribe']);
 
 
         //Create roles and assign permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
-        Role::create(['name' => 'event moderator'])->givePermissionTo(['events.manage', 'events.create', 'events.edit', 'submissions.manage', 'reviews.manage']);
+        Role::create(['name' => 'event moderator'])->givePermissionTo(['events.manage', 'events.create', 'events.edit', 'submissions.manage', 'reviews.manage', 'reviews.index']);
         Role::create(['name' => 'reviewer'])->givePermissionTo(['reviews.create', 'reviews.edit']);
-        Role::create(['name' => 'user'])->givePermissionTo(['events.subscribe', 'submissions.create']);
+        Role::create(['name' => 'user'])->givePermissionTo(['events.subscribe', 'submissions.create', 'submissions.edit', 'reviews.index']);
 
     }
 }

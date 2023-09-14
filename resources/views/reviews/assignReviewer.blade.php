@@ -45,14 +45,14 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="d-grid col-5 mx-auto">
+                                <a href="{{ url()->previous()}}" class="btn btn-outline-dark">
+                                    Voltar
+                                </a>
+                            </div>
+                            <div class="d-grid col-5 mx-auto">
                                 <button type="submit" class="btn btn-success">
                                     {{ __('Salvar alterações') }}
                                 </button>
-                            </div>
-                            <div class="d-grid col-5 mx-auto">
-                                <a href="{{ route('showDocument', $document)}}" class="btn btn-outline-dark">
-                                    Voltar
-                                </a>
                             </div>
                         </div>
                     </div>

@@ -5,12 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                <div class="col-md-8">
-                    <h1 class="fs-2">Inscritos em {{$event->event_name}}</h1>
-                </div>
-                <div class="col-md-4 text-end">
-                    <a href="{{route('manageEvents')}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
-                </div>
+                <h1 class="fs-2">Inscritos em {{$event->event_name}}</h1>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">

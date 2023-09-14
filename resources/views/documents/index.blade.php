@@ -80,11 +80,11 @@
                                                         Ver avaliação
                                                     </a>
                                                     <a class="dropdown-item" href="{{route('editReview', [$document, $review])}}">
-                                                        Editar
+                                                        Editar avaliação
                                                     </a>
                                                 @else
                                                     <a class="dropdown-item" href="{{route('createReview', $document)}}">
-                                                        Avaliar
+                                                        Avaliar submissão
                                                     </a>
                                                 @endif
                                             </div>
@@ -195,10 +195,10 @@
                                                 </a>
                                                 @can(['submissions.edit, submissions.delete'])
                                                     <a class="dropdown-item" href="{{route('editDocument', $document)}}">
-                                                        Editar
+                                                        Editar submissão
                                                     </a>
                                                     <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$document->id}}">
-                                                        Excluir
+                                                        Excluir submissão
                                                     </button>
                                                 @endif
                                                 @can(['submissions.manage'])

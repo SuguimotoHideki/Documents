@@ -6,9 +6,11 @@
         <div class="col-md-12">
             <div class="row mb-2">
                 <h1 class='fs-2 col'>Gerenciar eventos</h1>
-                <div class="col">
-                    <a href="{{route('createEvent')}}" class="btn btn-success float-end">Criar evento</a>
-                </div>
+                @role('admin')
+                    <div class="col">
+                        <a href="{{route('createEvent')}}" class="btn btn-success float-end">Criar evento</a>
+                    </div>
+                @endif
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
@@ -67,15 +69,15 @@
                                             </a>
 
                                             <a class="dropdown-item" href="{{route('editEvent', $event)}}">
-                                                Editar
+                                                Editar evento
                                             </a>
                                             @if($event->users->isNotEmpty() || $event->submission)
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eventDeleteWarning{{$event->id}}">
-                                                    Excluir
+                                                    Excluir evento
                                                 </button>
                                             @else
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">
-                                                    Excluir
+                                                    Excluir evento
                                                 </button>
                                             @endif
                                         </div>

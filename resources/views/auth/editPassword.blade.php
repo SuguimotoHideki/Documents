@@ -91,14 +91,14 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="d-grid col-5 mx-auto">
-                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
-                                {{ __('Atualizar senha') }}
-                            </button>
-                        </div>
-                        <div class="d-grid col-5 mx-auto">
                             <a href="{{ route('showUser', $user)}}" class="btn btn-outline-dark">
                                 Voltar
                             </a>
+                        </div>
+                        <div class="d-grid col-5 mx-auto">
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
+                                {{ __('Atualizar senha') }}
+                            </button>
                         </div>
                     </div>
                 </div>

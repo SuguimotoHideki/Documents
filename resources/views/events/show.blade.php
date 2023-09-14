@@ -3,110 +3,106 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-
-        <div class="row justify-content-center">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">{{$event->event_name}}</h1>
+        <div class="col-md-12">
+            <div class="row mb-2">
+                <h1 class="fs-3 fw-bold text-uppercase text-center">{{$event->event_name}}</h1>
             </div>
-            <div class="col-md-4 float-right">
-                <a href="{{route('manageEvents')}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Eventos</a>
-            </div>
-        </div>
-
-        <div class="col-md-9">
-            <div class="shadow-sm p-3 mb-5 bg-white">
-                <x-event-nav-menu :event="$event"/>
-                @if($event->hasUser(Auth::user()))
-                    <div class="row">
-                        <div class="text-muted">Inscrição nº: {{$subscription->id}}</div>
-                        <div class="text-muted">Inscrito em: {{$event->formatDateTime($subscription->created_at)}}</div>
-                    </div>
-                @endif
-                <div class="mt-3 text-break">
-                    <h2 class="fs-5 fw-bold text-start">Sobre o evento:</h2>
-                    <div>{{$event->event_information}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md">
-                        <div class="mt-3">
-                            <h2 class="fs-5 fw-bold">Site do evento:</h2>
-                            <a href="{{$event->event_website}}">{{$event->event_website}}</a>
-                        </div>
-                        <div class="mt-3">
-                            <h2 class="fs-5 fw-bold">Email do evento:</h2>
-                            <a href="mailto:{{$event->event_email}}">{{$event->event_email}}</a>
-                        </div>
-
-                    </div>
-                    <div class="col-md">
-                        <div class="mt-3">
-                            <h2 class="fs-5 fw-bold">Tópicos de artigos:</h2>
-                            <x-list-items : wordList="{{$event->paper_topics}}"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-5 text-center">
-                    @if($event->hasUser(Auth::user()))
-                        <div class="row">
-                            <div class="d-grid col-4 mx-auto">
-                                <button type="button" class="btn btn-dark" disabled>
-                                    Inscrito
-                                </button>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="shadow-sm p-3 mb-5 bg-white">
+                        <x-event-nav-menu :event="$event"/>
+                        @if($event->hasUser(Auth::user()))
+                            <div class="row">
+                                <div class="text-muted">Inscrição nº: {{$subscription->id}}</div>
+                                <div class="text-muted">Inscrito em: {{$event->formatDateTime($subscription->created_at)}}</div>
                             </div>
-                            <div class="d-grid col-4 mx-auto">
-                                @if (Auth::user()->events->contains($event) && Auth::user()->submission()->where('event_id', $event->id)->exists())
-                                <button type="button" class="btn btn-dark" disabled>
-                                    Submissão realizada
-                                </button>
-                                @else
-                                <a href="{{route('createDocument', $event)}}" class="btn btn-primary">
-                                    Submeter artigo
-                                </a>
-                                @endif
-                            </div>
-                        </div>
-                    @else
-                        @if($event->event_status > 2)
-                            <button type="button" class="btn btn-dark" disabled>
-                                Inscrições encerradas
-                            </button>
-                        @else
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">
-                                Inscrever-se
-                            </button>
                         @endif
-                    @endif
+                        <div class="mt-3 text-break">
+                            <h2 class="fs-5 fw-bold text-start">Sobre o evento:</h2>
+                            <div>{{$event->event_information}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="mt-3">
+                                    <h2 class="fs-5 fw-bold">Site do evento:</h2>
+                                    <a href="{{$event->event_website}}">{{$event->event_website}}</a>
+                                </div>
+                                <div class="mt-3">
+                                    <h2 class="fs-5 fw-bold">Email do evento:</h2>
+                                    <a href="mailto:{{$event->event_email}}">{{$event->event_email}}</a>
+                                </div>
+        
+                            </div>
+                            <div class="col-md">
+                                <div class="mt-3">
+                                    <h2 class="fs-5 fw-bold">Tópicos de artigos:</h2>
+                                    <x-list-items : wordList="{{$event->paper_topics}}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 text-center">
+                            @if($event->hasUser(Auth::user()))
+                                <div class="row">
+                                    <div class="d-grid col-4 mx-auto">
+                                        <button type="button" class="btn btn-dark" disabled>
+                                            Inscrito
+                                        </button>
+                                    </div>
+                                    <div class="d-grid col-4 mx-auto">
+                                        @if (Auth::user()->events->contains($event) && Auth::user()->submission()->where('event_id', $event->id)->exists())
+                                        <button type="button" class="btn btn-dark" disabled>
+                                            Submissão realizada
+                                        </button>
+                                        @else
+                                        <a href="{{route('createDocument', $event)}}" class="btn btn-primary">
+                                            Submeter artigo
+                                        </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            @else
+                                @if($event->event_status > 2)
+                                    <button type="button" class="btn btn-dark" disabled>
+                                        Inscrições encerradas
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">
+                                        Inscrever-se
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="shadow-sm p-3 mb-3 bg-white">
-                <div>
-                    <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-regular fa-clock"></i> Período de inscrição:</h2>
-                    <div class="mt-2">Inicio: {{$event->formatDate($event->subscription_start)}}</div>
-                    <div class="mt-2">Fim: {{$event->formatDate($event->subscription_deadline)}}</div>
-                </div>
-            </div>
-            <div class="shadow-sm p-3 mb-3 bg-white">
-                <div>
-                    <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-regular fa-clock"></i> Período de submissão:</h2>
-                    <div class="mt-2">Inicio: {{$event->formatDate($event->submission_start)}}</div>
-                    <div class="mt-2">Fim: {{$event->formatDate($event->submission_deadline)}}</div>
-                </div>
-            </div>
-            <div class="shadow-sm p-3 mb-3 bg-white">
-                <div>
-                    <h2 class="fs-5 fw-bold mt-2">Organizador:</h2>
-                    <div>{{$event->organizer}}</div>
-                    <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-solid fa-link"></i> Website:</h2>
-                    <a href="{{$event->organizer_website}}" class="mt-2">{{$event->organizer_website}}</a>
-                    <h2 class="fs-5 fw-bold mt-3">
-                        <i class="fa-solid fa-envelope"></i> Email:</h2>
-                    <a href="mailto:{{$event->organizer_email}}" class="mt-2">{{$event->organizer_email}}</a>
+                <div class="col-md-3">
+                    <div class="shadow-sm p-3 mb-3 bg-white">
+                        <div>
+                            <h2 class="fs-5 fw-bold mt-3">
+                                <i class="fa-regular fa-clock"></i> Período de inscrição:</h2>
+                            <div class="mt-2">Inicio: {{$event->formatDate($event->subscription_start)}}</div>
+                            <div class="mt-2">Fim: {{$event->formatDate($event->subscription_deadline)}}</div>
+                        </div>
+                    </div>
+                    <div class="shadow-sm p-3 mb-3 bg-white">
+                        <div>
+                            <h2 class="fs-5 fw-bold mt-3">
+                                <i class="fa-regular fa-clock"></i> Período de submissão:</h2>
+                            <div class="mt-2">Inicio: {{$event->formatDate($event->submission_start)}}</div>
+                            <div class="mt-2">Fim: {{$event->formatDate($event->submission_deadline)}}</div>
+                        </div>
+                    </div>
+                    <div class="shadow-sm p-3 mb-3 bg-white">
+                        <div>
+                            <h2 class="fs-5 fw-bold mt-2">Organizador:</h2>
+                            <div>{{$event->organizer}}</div>
+                            <h2 class="fs-5 fw-bold mt-3">
+                                <i class="fa-solid fa-link"></i> Website:</h2>
+                            <a href="{{$event->organizer_website}}" class="mt-2">{{$event->organizer_website}}</a>
+                            <h2 class="fs-5 fw-bold mt-3">
+                                <i class="fa-solid fa-envelope"></i> Email:</h2>
+                            <a href="mailto:{{$event->organizer_email}}" class="mt-2">{{$event->organizer_email}}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

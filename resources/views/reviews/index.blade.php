@@ -10,14 +10,14 @@
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
-                            <col width ="13%">
-                            <col width ="13%">
-                            <col width ="13%">
-                            <col width ="13%">
-                            <col width ="13%">
-                            <col width ="13%">
-                            <col width ="13%">
-                            <col width ="13%">
+                            <col width ="12%">
+                            <col width ="12%">
+                            <col width ="20%">
+                            <col width ="8%">
+                            <col width ="12%">
+                            <col width ="12%">
+                            <col width ="12%">
+                            <col width ="12%">
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">

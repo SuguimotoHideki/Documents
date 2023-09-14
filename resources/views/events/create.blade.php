@@ -183,14 +183,14 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="d-grid col-5 mx-auto">
-                                <button type="submit" class="btn btn-success">
-                                    {{ __('Publicar') }}
-                                </button>
-                            </div>
-                            <div class="d-grid col-5 mx-auto">
                                 <a href="{{ route('manageEvents')}}" class="btn btn-outline-dark">
                                     Voltar
                                 </a>
+                            </div>
+                            <div class="d-grid col-5 mx-auto">
+                                <button type="submit" class="btn btn-success">
+                                    {{ __('Publicar') }}
+                                </button>
                             </div>
                         </div>
                     </div>

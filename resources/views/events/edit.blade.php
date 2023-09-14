@@ -228,14 +228,14 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="d-grid col-5 mx-auto">
+                            <a href="{{ url()->previous()}}" class="btn btn-outline-dark">
+                                Voltar
+                            </a>
+                        </div>
+                        <div class="d-grid col-5 mx-auto">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPrompt">
                                 {{ __('Salvar alterações') }}
                             </button>
-                        </div>
-                        <div class="d-grid col-5 mx-auto">
-                            <a href="{{ route('showEvent', $event)}}" class="btn btn-outline-dark">
-                                Voltar
-                            </a>
                         </div>
                     </div>
                 </div>

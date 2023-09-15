@@ -76,14 +76,14 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                                 @if($review !== null)
-                                                    <a class="dropdown-item" href="{{route('showReview', [$document, $review])}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('showReview', [$document, $review])}}">
                                                         Ver avaliação
                                                     </a>
-                                                    <a class="dropdown-item" href="{{route('editReview', [$document, $review])}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('editReview', [$document, $review])}}">
                                                         Editar avaliação
                                                     </a>
                                                 @else
-                                                    <a class="dropdown-item" href="{{route('createReview', $document)}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('createReview', $document)}}">
                                                         Avaliar submissão
                                                     </a>
                                                 @endif
@@ -171,15 +171,22 @@
                                     <td headers="t4">{{$document->type}}</td>
                                     <td headers="t5">
                                         @if($status === 0)
-                                        <i class="fas fa-circle text-success"></i>
+                                            <div class="bg-success text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$document->submission->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 1)
-                                        <i class="fas fa-circle text-danger"></i>
+                                            <div class="bg-danger text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$document->submission->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 2)
-                                        <i class="fas fa-circle text-warning"></i>
+                                            <div class="bg-warning text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$document->submission->getStatusValue()}}
+                                            </div>
                                         @else
-                                        <i class="fas fa-circle text-primary"></i>
+                                            <div class="bg-primary text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$document->submission->getStatusValue()}}
+                                            </div>
                                         @endif
-                                        {{ $document->submission->getStatusValue()}}
                                     </td>
                                     <td headers="t6"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
                                     <td headers="t7">{{$document->submission->formatDate($document->submission->approved_at)}}</td>
@@ -190,22 +197,19 @@
                                                 Operações
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{route('showDocument', $document)}}">
-                                                    Ver submissão
-                                                </a>
                                                 @can(['submissions.edit, submissions.delete'])
-                                                    <a class="dropdown-item" href="{{route('editDocument', $document)}}">
-                                                        Editar submissão
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('editDocument', $document)}}">
+                                                        Editar
                                                     </a>
-                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$document->id}}">
-                                                        Excluir submissão
+                                                    <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$document->id}}">
+                                                        Excluir
                                                     </button>
                                                 @endif
                                                 @can(['submissions.manage'])
-                                                    <a class="dropdown-item" href="{{route('indexByDocument', $document)}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('indexByDocument', $document)}}">
                                                         Avaliações
                                                     </a>
-                                                    <a class="dropdown-item" href="{{route('assignReviewer', $document)}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('assignReviewer', $document)}}">
                                                         Avaliadores
                                                     </a>
                                                 @endif

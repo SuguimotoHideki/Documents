@@ -32,10 +32,11 @@
                             <colgroup>
                                 <col width="12%">
                                 <col width="12%">
-                                <col width="30%">
+                                <col width="25%">
                                 <col width ="15%">
-                                <col width ="20%">
-                                <col width ="20%">
+                                <col width ="12%">
+                                <col width ="12%">
+                                <col width ="10%">
                             </colgroup>
                             <thead class="table-light">
                                 <tr class="align-middle">
@@ -45,7 +46,7 @@
                                     <th id="t4">@sortablelink('status', 'Status')</th>
                                     <th id="t5">Avaliações</th>
                                     <th id="t6">@sortablelink('event.event_name', 'Evento')</th>
-                                    
+                                    <th id="t7">Operações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,19 +60,65 @@
                                     <td headers="t3" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                     <td headers="t4">
                                         @if($status === 0)
-                                        <i class="fas fa-circle text-success"></i>
+                                            <div class="bg-success text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 1)
-                                        <i class="fas fa-circle text-danger"></i>
+                                            <div class="bg-danger text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 2)
-                                        <i class="fas fa-circle text-warning"></i>
+                                            <div class="bg-warning text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @else
-                                        <i class="fas fa-circle text-primary"></i>
+                                            <div class="bg-primary text-white mx-3 py-1 rounded-1 text-md-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @endif
-                                        {{ $submission->getStatusValue()}}
                                     </td>
                                     <td headers="t5"><a href="{{ route('indexByDocument', $submission->document)}}">Ver avaliações</a></td>
                                     <td headers="t6"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>
+                                    <td headers="t7">
+                                        <div class="nav-item dropdown">
+                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                Operações
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item btn rounded-0" href="{{route('editDocument', $submission->document)}}">
+                                                    Editar
+                                                </a>
+                                                <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$submission->document->id}}">
+                                                    Excluir
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
+                                <div class="modal fade" id="documentDeletePrompt{{$submission->document->id}}" tabindex="-1" aria-labelledby="documentDeletePromptLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Excluir submissão</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Deseja excluir a submissão ?</p>
+                                                <p>Essa operação não pode ser desfeita.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <form action="{{ route('deleteDocument', $submission->document->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        {{ __('Excluir') }}
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>

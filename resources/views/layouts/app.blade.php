@@ -74,11 +74,11 @@
                                     {{ Auth::user()->user_name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/users/{{Auth::user()->id}}">
+                                    <a class="dropdown-item btn rounded-0" href="/users/{{Auth::user()->id}}">
                                         Minha conta
                                     </a>
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item btn rounded-0" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

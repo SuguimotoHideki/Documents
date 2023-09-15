@@ -63,13 +63,13 @@
                                                 Operações
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{route('showReview', [$review->document, $review])}}">
+                                                <a class="dropdown-item btn rounded-0" href="{{route('showReview', [$review->document, $review])}}">
                                                     Ver avaliação
                                                 </a>
-                                                <a class="dropdown-item" href="{{route('editReview', [$review->document, $review])}}">
+                                                <a class="dropdown-item btn rounded-0" href="{{route('editReview', [$review->document, $review])}}">
                                                     Editar avaliação
                                                 </a>
-                                                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#reviewDeletePrompt{{$review->id}}">
+                                                <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#reviewDeletePrompt{{$review->id}}">
                                                     Excluir avaliação
                                                 </button>
                                             </div>

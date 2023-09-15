@@ -66,11 +66,11 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                                 @if($user->submission !== null)
-                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionWarning{{$event->id}}">
+                                                    <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionWarning{{$event->id}}">
                                                         Cancelar inscrição
                                                     </button>
                                                 @else
-                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionPrompt{{$event->id}}">
+                                                    <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#cancelSubscriptionPrompt{{$event->id}}">
                                                         Cancelar inscrição
                                                     </button>
                                                 @endif

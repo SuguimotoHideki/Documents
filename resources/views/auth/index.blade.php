@@ -45,19 +45,19 @@
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('indexSubscribed', $user)}}">
+                                            <a class="dropdown-item btn rounded-0" href="{{ route('indexSubscribed', $user)}}">
                                                 Ver inscrições
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('indexSubmissions', $user)}}">
+                                            <a class="dropdown-item btn rounded-0" href="{{ route('indexSubmissions', $user)}}">
                                                 Ver submissões
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('showUser', $user)}}">
+                                            <a class="dropdown-item btn rounded-0" href="{{ route('showUser', $user)}}">
                                                 Ver usuário
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('editUser', $user)}}">
+                                            <a class="dropdown-item btn rounded-0" href="{{ route('editUser', $user)}}">
                                                 Editar
                                             </a>
-                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$user->id}}">
+                                            <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$user->id}}">
                                                 Excluir
                                             </button>
                                         </div>

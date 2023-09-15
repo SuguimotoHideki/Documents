@@ -72,22 +72,19 @@
                                                 Operações
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{route('showDocument', $submission->document)}}">
-                                                    Ver submissão
-                                                </a>
                                                 @can(['submissions.edit, submissions.delete'])
-                                                    <a class="dropdown-item" href="{{route('editDocument', $submission->document)}}">
-                                                        Editar submissão
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('editDocument', $submission->document)}}">
+                                                        Editar
                                                     </a>
-                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$submission->document->id}}">
-                                                        Excluir submissão
+                                                    <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$submission->document->id}}">
+                                                        Excluir
                                                     </button>
                                                 @endif
                                                 @can(['submissions.manage'])
-                                                    <a class="dropdown-item" href="{{route('indexByDocument', $submission->document)}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('indexByDocument', $submission->document)}}">
                                                         Avaliações
                                                     </a>
-                                                    <a class="dropdown-item" href="{{route('assignReviewer', $submission->document)}}">
+                                                    <a class="dropdown-item btn rounded-0" href="{{route('assignReviewer', $submission->document)}}">
                                                         Avaliadores
                                                     </a>
                                                 @endif

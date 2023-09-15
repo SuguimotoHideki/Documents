@@ -18,21 +18,20 @@ class Document extends Model
     protected $fillable = [
         'title',
         'user_id',
-        'abstract', 
         'keyword',
-        'document_institution',
-        'document_type',
-        'document',
+        'institution',
+        'type',
+        'attachment_author',
+        'attachment_no_author'
     ];
 
     public $sortable = [
         'id',
         'title',
         'user_id',
-        'abstract', 
         'keyword',
-        'document_institution',
-        'document_type',
+        'institution',
+        'type',
         'created_at',
         'updated_at'
     ];

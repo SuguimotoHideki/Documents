@@ -10,18 +10,14 @@
                 <div class="row">
                     <div class="text-muted">Submissão nº: {{$document->submission->id}}</div>
                 </div>
-                <div class="mt-3 text-break">
-                    <h2 class="fs-5 fw-bold text-start">Resumo:</h2>
-                    <div>{{$document->abstract}}</div>
-                </div>
                 <div class="row">
                     <div class="col-md mt-3">
                         <h2 class="fs-5 fw-bold">Instituição:</h2>
-                        <div>{{$document->document_institution}}</div>
+                        <div>{{$document->institution}}</div>
                     </div>
                     <div class="col-md mt-3">
                         <h2 class="fs-5 fw-bold">Tipo de documento:</h2>
-                        <div>{{$document->document_type}}</div>
+                        <div>{{$document->type}}</div>
                     </div>
                 </div>
                 <div class="row">
@@ -65,8 +61,11 @@
             </div>
             <div class="shadow-sm p-3 mb-3 bg-white">
                 <h2 class="fs-5 fw-bold mt-3">
-                    <i class="fa-regular fa-file"></i> Visualizar arquivo:</h2>
-                <div class="mt-2"><a href="/storage/{{$document->document}}">Clique aqui para abrir o arquivo</a></div>
+                    <i class="fa-regular fa-eye"></i> Trabalho com identificação:</h2>
+                <div class="mt-2"><a href="/storage/{{$document->attachment_author}}">Clique aqui para abrir o arquivo</a></div>
+                <h2 class="fs-5 fw-bold mt-3">
+                    <i class="fa-regular fa-eye-slash"></i> Trabalho sem identificação:</h2>
+                <div class="mt-2"><a href="/storage/{{$document->attachment_no_author}}">Clique aqui para abrir o arquivo</a></div>
             </div>
         </div>
     </div>

@@ -28,7 +28,7 @@
                             <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">Submissão</th>
-                                    <th id="t2">@sortablelink('document_type', 'Tipo')</th>
+                                    <th id="t2">@sortablelink('type', 'Tipo')</th>
                                     <th id="t3">@sortablelink('event', 'Evento')</th>
                                     <th id="t4">Nota</th>
                                     <th id="t5">Recomendação</th>
@@ -47,7 +47,7 @@
                                 @endphp
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1" class="text-truncate"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
-                                    <td headers="t2">{{$document->document_type}}</td>
+                                    <td headers="t2">{{$document->type}}</td>
                                     <td headers="t3"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
                                     @if($review !== null)
                                         <td headers="t4">{{$review->score}}</td>
@@ -151,7 +151,7 @@
                                     <th id="t1">@sortablelink('id', 'ID')</th>
                                     <th id="t2">@sortablelink('title', 'Título')</th>
                                     <th id="t3">@sortablelink('user', 'Autor')</th>
-                                    <th id="t4">@sortablelink('document_type', 'Tipo')</th>
+                                    <th id="t4">@sortablelink('type', 'Tipo')</th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>
                                     <th id="t6">@sortablelink('event', 'Evento')</th>
                                     <th id="t7">@sortablelink('approved_at', 'Aprovado em')</th>
@@ -168,7 +168,7 @@
                                     <td headers="t1"><a href="{{route('showDocument', $document)}}">{{$document->id}}</a></td>
                                     <td headers="t2" class="text-truncate"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
                                     <td headers="t3"><a href="{{ route('showUser', $document->submission->user)}}">{{$document->submission->user->user_name}}</a></td>
-                                    <td headers="t4">{{$document->document_type}}</td>
+                                    <td headers="t4">{{$document->type}}</td>
                                     <td headers="t5">
                                         @if($status === 0)
                                         <i class="fas fa-circle text-success"></i>

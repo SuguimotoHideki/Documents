@@ -25,7 +25,7 @@ class Submission extends Model
         'id',
         'document.title',
         'event.event_name',
-        'document.document_type',
+        'document.type',
         'status',
         'approved_at',
         'created_at',

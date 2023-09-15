@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->string('document_institution');
-            $table->longText('abstract');
+            $table->string('institution');
             $table->string('keyword');
-            $table->string('document_type');
-            $table->string('document');
+            $table->string('type');
+            $table->string('attachment_author');
+            $table->string('attachment_no_author');
             $table->timestamps();
         });
     }

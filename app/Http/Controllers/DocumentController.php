@@ -68,18 +68,17 @@ class DocumentController extends Controller
     {
         $validationRules = [
             'title' => ['required', 'string', Rule::unique('documents', 'title')],
-            'abstract' => ['required', 'min:100'],
             'keyword' => ['required', 'string'],
-            'document_institution' => ['required', 'string'],
-            'document_type' => ['required', 'string']
+            'institution' => ['required', 'string'],
+            'type' => ['required', 'string'],
+            'attachment_author' => ['required'],
+            'attachment_no_author' => ['required']
         ];
 
         $formFields = $request->validate($validationRules);
 
-        if($request->hasFile('document'))
-        {
-            $formFields['document'] = $request->file('document')->store('documents', 'public');
-        }
+        $formFields['attachment_author'] = $request->file('attachment_author')->store('submission_attachments', 'public');
+        $formFields['attachment_no_author'] = $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public');
 
         //Retrieves the current user and the event
         $redirect = null;
@@ -91,11 +90,11 @@ class DocumentController extends Controller
         DB::transaction(function() use ($coAction, $subAction, $request, $formFields, $event, $user, &$redirect){
             $document = Document::create([
                 'title' => $formFields['title'],
-                'abstract' => $formFields['abstract'],
                 'keyword' => $formFields['keyword'],
-                'document_institution' => $formFields['document_institution'],
-                'document_type' => $formFields['document_type'],
-                'document' => $formFields['document'],
+                'institution' => $formFields['institution'],
+                'type' => $formFields['type'],
+                'attachment_author' => $formFields['attachment_author'],
+                'attachment_no_author' => $formFields['attachment_no_author'],
             ]);
 
             $subAction->handle($document, $event, $user);
@@ -125,20 +124,29 @@ class DocumentController extends Controller
 
         $formFields = $request->validate([
             'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
-            'abstract' => ['required', 'string'],
             'keyword' => ['required', 'string'],
-            'document_institution' => ['required', 'string'],
-            'document_type' => ['required', 'string']
+            'institution' => ['required', 'string'],
+            'type' => ['required', 'string']
         ]);
 
-        if($request->hasFile('document'))
+        if($request->hasFile('attachment_author'))
         {
-            $formFields['document'] = $request->file('document')->store('documents', 'public');
+            $formFields['attachment_author'] = $request->file('attachment_author')->store('submission_attachments', 'public');
             $document->update($formFields);
         }
         else
         {
-            $document->update($request->except('document'));
+            $document->update($request->except('attachment_author'));
+        }
+
+        if($request->hasFile('attachment_no_author'))
+        {
+            $formFields['attachment_no_author'] = $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public');
+            $document->update($formFields);
+        }
+        else
+        {
+            $document->update($request->except('attachment_no_author'));
         }
 
         if($document->wasChanged())

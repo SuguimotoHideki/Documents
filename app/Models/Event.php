@@ -62,16 +62,24 @@ class Event extends Model
     /**
      * Returns formated date to d/m/Y
      */
-    public function formatDate($date)
+    public function getSubscriptionDates()
     {
-        if(strtotime($date))
-        {
-            return Carbon::parse($date)->format('d/m/Y');
-        }
-        else
-        {
-            return('Invalid date');
-        }
+        $start = Carbon::parse($this->subscription_start)->format('d/m/Y');
+        $end = Carbon::parse($this->subscription_deadline)->format('d/m/Y');
+        
+        $string = ($start ." - " . $end);
+
+        return $string;
+    }
+
+    public function getSubmissionDates()
+    {
+        $start = Carbon::parse($this->submission_start)->format('d/m/Y');
+        $end = Carbon::parse($this->submission_deadline)->format('d/m/Y');
+        
+        $string = ($start ." - " . $end);
+
+        return $string;
     }
 
     public function formatDateTime($date)
@@ -79,6 +87,18 @@ class Event extends Model
         if(strtotime($date))
         {
             return Carbon::parse($date)->format('d/m/Y - G:i:s');
+        }
+        else
+        {
+            return('Invalid date');
+        }
+    }
+
+    public function formatDate($date)
+    {
+        if(strtotime($date))
+        {
+            return Carbon::parse($date)->format('l, d \d\e F \d\e Y');
         }
         else
         {

@@ -2,9 +2,6 @@
     <li class="nav-item my-auto">
         <a href="{{ route('indexSubmissions', Auth::user())}}" class="nav-link">Minhas submissões</a>
     </li>
-    <li class="nav-item my-auto">
-        <a href="{{route('indexSubscribed', Auth::user())}}" class="nav-link">Minhas inscrições</a>
-    </li>
 @endif
 @role('admin')
     <li class="nav-item my-auto">

@@ -152,7 +152,7 @@
                                     <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
                                     <td headers="t3" class="text-truncate">{{$event->event_email}}</td>
                                     <td headers="t4">{{$event->updateStatus()}}</td>
-                                    <td headers="t5">{{$event->formatDate($event->submission_start)}} - {{$event->formatDate($event->submission_deadline)}}</td>
+                                    <td headers="t5">{{$event->getSubmissionDates()}}</td>
                                     <td headers="t6" class="text-truncate">
                                         @if($event->userSubmission($user) !== null)
                                             <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}">{{$event->userSubmission($user)->document->title}}</a>

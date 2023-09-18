@@ -7,6 +7,14 @@
     white-space: nowrap;
 }
 
+.width-100{
+    width: 100%;
+}
+
+.text-paragraph{
+    white-space: break-spaces;
+}
+
 a:not(.btn){
     color: #212529 !important;
     background-color: transparent;

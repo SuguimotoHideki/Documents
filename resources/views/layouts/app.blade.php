@@ -36,7 +36,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="logo" src="{{asset('storage/images/LogoTrimmedBlack.png')}}" alt="" height="48"/>
+                    <img class="logo" src="{{asset('storage/event_logos/Placeholder.jpg')}}" alt="Website logo" height="48"/>
                     <!-- {{ config('app.name', 'Documentos') }} -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -69,6 +69,21 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ "Meus eventos" }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @php
+                                        $events = Auth::user()->events()->get();
+                                    @endphp
+                                    @foreach ($events as $event)
+                                        <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
+                                            {{$event->event_name}}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->user_name }}

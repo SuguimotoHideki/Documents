@@ -31,7 +31,7 @@
                                 <td headers="t5" class="text-truncate">{{$event->event_email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
                                 <td headers="t4">{{$event->getStatusValue($event->updateStatus($event->event_status))}}</td>
-                                <td headers="t5">{{$event->formatDate($event->subscription_start)}} - {{$event->formatDate($event->subscription_deadline)}}</td>
+                                <td headers="t5">{{$event->getSubscriptionDates()}}</td>
                             </tr>
                             @endforeach
                         </tbody>

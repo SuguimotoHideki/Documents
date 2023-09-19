@@ -95,6 +95,11 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <div>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#logoPrompt">
+                                        <i class="fa-regular fa-image"></i> Ver ícone atual
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -278,6 +283,22 @@
                                             {{ __('Salvar') }}
                                         </button>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="logoPrompt" tabindex="-1" aria-labelledby="logoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Logo atual</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{asset('storage/'.$event->logo)}}" alt="Logo do evento" width="100%"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
                                 </div>
                             </div>
                         </div>

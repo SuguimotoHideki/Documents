@@ -63,6 +63,13 @@ class Event extends Model
         7 => 'Cancelado',
     ];
 
+    public const TYPES = [
+        'Artigo',
+        'Resumo',
+        'TCC',
+        'Monografia'
+    ];
+
     /**
      * Returns formated date to d/m/Y
      */

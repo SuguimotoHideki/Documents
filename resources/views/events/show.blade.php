@@ -47,7 +47,6 @@
                         <h1 class="fs-5 text-start">
                             {{$event->name}}
                         </h1>
-                        <div class="text-muted">Data: {{$event->formatDate($event->created_at)}}</div>
                         <div class="text-muted">Inscrições: {{$event->getSubscriptionDates()}}</div>
                         <div class="text-muted">Submissões: {{$event->getSubmissionDates()}}</div>
                         <div class="text-paragraph text-muted mt-2">{{$event->information}}</div>

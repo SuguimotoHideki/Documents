@@ -71,10 +71,9 @@ class EventController extends Controller
             'name' => ['required', 'string', Rule::unique('events', 'name')->ignore($event, 'id')],
             'website' => ['required', 'string'],
             'information' => ['required', 'string'],
-            'paper_topics' => ['required', 'string'],
             'email' => ['required', 'string'],
+            'submission_type' => ['required', 'array'],
             'organizer' => ['required', 'string'],
-            'status' => ['required'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
             'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
@@ -84,11 +83,14 @@ class EventController extends Controller
         ]);
 
         if($request->has('published'))    
-        {
             $formFields['published'] = 1;
-        }
         else
             {$formFields['published'] = 0;}
+
+        if($request->hasFile('logo'))
+            $formFields['logo'] = $request->file('logo')->store('event_logos', 'public');
+
+        $formFields['submission_type'] = implode(", ", $formFields['submission_type']);
 
         $event->update($formFields);
 

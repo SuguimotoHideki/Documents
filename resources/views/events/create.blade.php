@@ -166,14 +166,13 @@
                                     <span style="color: red">*</span>
                                 </label>
                                 <div id="submission_type" class="form-control @error('submission_type') is-invalid @enderror">
-                                    <div class="col-md-3">
-                                        <input type="checkbox"  name="submission_type[{{0}}]" value="Artigo">
-                                        <label for="submission_type[]">{{ __('Artigo') }}</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="checkbox"  name="submission_type[{{1}}]" value="Resumo científico">
-                                        <label for="submission_type[]">{{ __('Resumo científico') }}</label>
-                                    </div>
+                                    @foreach(\App\Models\Event::TYPES as $type)
+                                        <div class="col-md-3">
+                                            <input type="hidden" name="submission_type[{{$type}}]" value="0">
+                                            <input type="checkbox"  name="submission_type[{{$type}}]" value="{{$type}}">
+                                            <label for="submission_type[]">{{ $type }}</label>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 @error('submission_type')
                                     <span class="invalid-feedback" role="alert">

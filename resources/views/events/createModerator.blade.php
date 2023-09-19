@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">{{ __('Moderadores do evento ' . $event->event_name) }}</div>
+                <div class="card-header">{{ __('Moderadores do evento ' . $event->name) }}</div>
                 <form method="POST" action="{{ route('storeModerator', $event)}}">
                     @csrf
                     <div class="list-group list-group-flush p-3 shadow-sm">
@@ -33,7 +33,7 @@
                                                 @else
                                                     <input type="checkbox" class="form-check-input" id="{{$user->id}}_manage" name="permissions[{{$user->id}}]" value="1">
                                                 @endif
-                                                <label for="{{$user->id}}_manage" class="form-check-label">{{'Moderar ' . $event->event_name}}</label>
+                                                <label for="{{$user->id}}_manage" class="form-check-label">{{'Moderar ' . $event->name}}</label>
                                             </div>
                                         </td>
                                     </tr>

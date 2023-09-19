@@ -15,7 +15,7 @@ class EventController extends Controller
     //Returns all events
     public function index()
     {
-        $events = Event::where('event_published', true)->sortable()->paginate();
+        $events = Event::where('published', true)->sortable()->paginate();
         return view('events.index', compact('events'));
     }
 
@@ -68,13 +68,13 @@ class EventController extends Controller
         $this->authorize('update', $event);
         
         $formFields = $request->validate([
-            'event_name' => ['required', 'string', Rule::unique('events', 'event_name')->ignore($event, 'id')],
-            'event_website' => ['required', 'string'],
-            'event_information' => ['required', 'string'],
+            'name' => ['required', 'string', Rule::unique('events', 'name')->ignore($event, 'id')],
+            'website' => ['required', 'string'],
+            'information' => ['required', 'string'],
             'paper_topics' => ['required', 'string'],
-            'event_email' => ['required', 'string'],
+            'email' => ['required', 'string'],
             'organizer' => ['required', 'string'],
-            'event_status' => ['required'],
+            'status' => ['required'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
             'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
@@ -83,16 +83,16 @@ class EventController extends Controller
             'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
 
-        if($request->has('event_published'))    
+        if($request->has('published'))    
         {
-            $formFields['event_published'] = 1;
+            $formFields['published'] = 1;
         }
         else
-            {$formFields['event_published'] = 0;}
+            {$formFields['published'] = 0;}
 
         $event->update($formFields);
 
-        return redirect()->route('showEvent', $event->id)->with('success', 'Evento ' . $event->event_name . ' atualizado.');
+        return redirect()->route('showEvent', $event->id)->with('success', 'Evento ' . $event->name . ' atualizado.');
     }
 
     //Returns event form view
@@ -109,11 +109,11 @@ class EventController extends Controller
         $this->authorize('create', Event::class);
         
         $formFields = $request->validate([
-            'event_name' => ['required', 'string', Rule::unique('events', 'event_name')],
-            'event_website' => ['required', 'string'],
-            'event_information' => ['required', 'string'],
-            'paper_topics' => ['required', 'string'],
-            'event_email' => ['required', 'string'],
+            'name' => ['required', 'string', Rule::unique('events', 'name')],
+            'website' => ['required', 'string'],
+            'information' => ['required', 'string'],
+            'email' => ['required', 'string'],
+            'submission_type' => ['required', 'array'],
             'organizer' => ['required', 'string'],
             'organizer_email' => ['required', 'string'],
             'organizer_website' => ['required', 'string'],
@@ -123,14 +123,19 @@ class EventController extends Controller
             'submission_deadline' => ['required', 'date_format:Y-m-d'],
         ]);
 
-        $formFields['event_published'] = false;
-        $formFields['event_status'] = 0;
+        if($request->hasFile('logo'))
+        {
+            $formFields['logo'] = $request->file('logo')->store('event_logos', 'public');
+        }
+
+        $formFields['submission_type'] = implode(", ", $formFields['submission_type']);
+
+        $formFields['published'] = false;
+        $formFields['status'] = 0;
 
         Event::create($formFields);
 
-        $events = Event::sortable()->paginate();
-
-        return redirect()->route('manageEvents')->with('success', 'Evento ' . $formFields['event_name'] . ' criado.');
+        return redirect()->route('manageEvents')->with('success', 'Evento ' . $formFields['name'] . ' criado.');
     }
 
     public function destroy(Event $event)
@@ -141,7 +146,7 @@ class EventController extends Controller
         {
             $event->delete();
 
-            return redirect()->route('manageEvents')->with('success', 'Evento ' . $event->event_name . ' removido.');
+            return redirect()->route('manageEvents')->with('success', 'Evento ' . $event->name . ' removido.');
         }
         else
         {

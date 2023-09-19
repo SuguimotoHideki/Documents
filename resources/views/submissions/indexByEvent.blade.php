@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class='fs-2 col'>Submissões em {{$event->event_name}}</h1>
+                <h1 class='fs-2 col'>Submissões em {{$event->name}}</h1>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
@@ -100,7 +100,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Deseja excluir a submissão <strong>{{$submission->document->title}}</strong> do evento <strong>{{$event->event_name}}</strong> ?</p>
+                                                <p>Deseja excluir a submissão <strong>{{$submission->document->title}}</strong> do evento <strong>{{$event->name}}</strong> ?</p>
                                                 <p>Essa operação não pode ser desfeita.</p>
                                             </div>
                                             <div class="modal-footer">

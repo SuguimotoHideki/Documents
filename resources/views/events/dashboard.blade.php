@@ -27,11 +27,11 @@
                         <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">@sortablelink('id', 'ID')</th>
-                                <th id="t2">@sortablelink('event_name', 'Evento')</th>
-                                <th id="t3">@sortablelink('event_email', 'Email do evento')</th>
+                                <th id="t2">@sortablelink('name', 'Evento')</th>
+                                <th id="t3">@sortablelink('email', 'Email do evento')</th>
                                 <th id="t4">@sortablelink('organizer', 'Organizador')</th>
-                                <th id="t5">@sortablelink('event_published', 'Publicação')</th>
-                                <th id="t6">@sortablelink('event_status', 'Status')</th>
+                                <th id="t5">@sortablelink('published', 'Publicação')</th>
+                                <th id="t6">@sortablelink('status', 'Status')</th>
                                 <th id="t7">Operações</th>
                             </tr>
                         </thead>
@@ -39,17 +39,17 @@
                             @foreach($events as $event)
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->id}}</td>
-                                <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                <td headers="t3" class="text-truncate">{{$event->event_email}}</td>
+                                <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
+                                <td headers="t3" class="text-truncate">{{$event->email}}</td>
                                 <td headers="t4">{{$event->organizer}}</td>
                                 <td headers="t5">
-                                    @if($event->event_published === 1)
+                                    @if($event->published === 1)
                                         <i class="fas fa-circle text-success"></i> Publicado
                                     @else
                                         <i class="fas fa-circle text-danger"></i> Não publicado
                                     @endif
                                 </td>
-                                <td headers="t6">{{$event->updateStatus($event->event_status)}}</td>
+                                <td headers="t6">{{$event->updateStatus($event->status)}}</td>
                                 <td headers="t7">
                                     <div class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -92,7 +92,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja excluir o evento <strong>{{$event->event_name}}</strong> ?</p>
+                                        <p>Deseja excluir o evento <strong>{{$event->name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -115,7 +115,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>O evento <strong>{{$event->event_name}}</strong> possui inscritos ou submissões. Remova-as antes de apagar o evento.</p>
+                                        <p>O evento <strong>{{$event->name}}</strong> possui inscritos ou submissões. Remova-as antes de apagar o evento.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>

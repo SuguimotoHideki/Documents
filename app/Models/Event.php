@@ -14,13 +14,15 @@ class Event extends Model
     use HasFactory, Sortable;
 
     protected $fillable = [
-        'event_name',
-        'event_website',
-        'event_information',
+        'name',
+        'website',
+        'information',
         'paper_topics',
-        'event_email',
-        'event_status',
-        'event_published',
+        'email',
+        'status',
+        'published',
+        'logo',
+        'submission_type',
         'organizer', 
         'organizer_email', 
         'organizer_website',
@@ -32,13 +34,15 @@ class Event extends Model
 
     public $sortable = [
         'id',
-        'event_name',
-        'event_website',
-        'event_information',
+        'name',
+        'website',
+        'information',
         'paper_topics',
-        'event_email',
-        'event_status',
-        'event_published',
+        'email',
+        'status',
+        'published',
+        'logo',
+        'submission_type',
         'organizer', 
         'organizer_email', 
         'organizer_website',
@@ -111,13 +115,13 @@ class Event extends Model
      */
     public function getStatusID()
     {
-        $status = self::STATUSES[$this->attributes['event_status']];
+        $status = self::STATUSES[$this->attributes['status']];
         return array_search($status, self::STATUSES);
     }
 
     public function getStatusValue()
     {
-        return self::STATUSES[$this->attributes['event_status']];
+        return self::STATUSES[$this->attributes['status']];
     }
 
     public function setStatus()
@@ -125,8 +129,17 @@ class Event extends Model
         $statusID = self::getStatusID();
         if($statusID)
         {
-            $this->attributes['event_status'] = $statusID;
+            $this->attributes['status'] = $statusID;
         }
+    }
+
+    /**
+     * Returns list of submission types
+     */
+    public function getSubmissionTypes()
+    {
+        $types = explode(",", $this->submission_types);
+        dd($types);
     }
 
     /**
@@ -142,26 +155,26 @@ class Event extends Model
             {
                 if($today < $this->subscription_start)
                 {
-                    $this->event_status = 0;
+                    $this->status = 0;
                 }
                 else if($today >= $this->subscription_start && $today <= $this->subscription_deadline)
                 {
-                    $this->event_status = 2;
+                    $this->status = 2;
                 }
                 else if($today > $this->subscription_deadline)
                 {
-                    $this->event_status = 3;
+                    $this->status = 3;
                 }
             }
             else
             {
                 if($today >= $this->submission_start && $today <= $this->submission_deadline)
                 {
-                    $this->event_status = 4;
+                    $this->status = 4;
                 }
                 else if($today > $this->submission_deadline)
                 {
-                    $this->event_status = 5;
+                    $this->status = 5;
                 }
             }
             $this->save();

@@ -28,7 +28,7 @@ Class CreateSubmission extends Controller
         {
             if($error->getCode() === '23000')
             {
-                return redirect()->back()->with('error', 'Você já fez uma submissão para o evento ' . $event->event_name . '.');
+                return redirect()->back()->with('error', 'Você já fez uma submissão para o evento ' . $event->name . '.');
             }
             else {
                 // Other database-related error occurred

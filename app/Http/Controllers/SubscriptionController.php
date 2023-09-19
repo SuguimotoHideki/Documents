@@ -68,13 +68,13 @@ class SubscriptionController extends Controller
             {
                 $event->users()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
     
-                return redirect()->route('indexSubscribed', ['user' => $user])->with('success', 'Inscrito no evento ' . $event->event_name . '.');
+                return redirect()->route('indexSubscribed', ['user' => $user])->with('success', 'Inscrito no evento ' . $event->name . '.');
             }
             catch(QueryException $error)
             {
                 if($error->getCode() === '23000')
                 {
-                    return redirect()->back()->with('error', 'Você já está inscrito no evento ' . $event->event_name . '.');
+                    return redirect()->back()->with('error', 'Você já está inscrito no evento ' . $event->name . '.');
                 }
                 else {
                     // Other database-related error occurred

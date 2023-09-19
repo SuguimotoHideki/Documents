@@ -13,6 +13,7 @@
 
 .text-paragraph{
     white-space: break-spaces;
+    word-wrap: break-word;
 }
 
 a:not(.btn){

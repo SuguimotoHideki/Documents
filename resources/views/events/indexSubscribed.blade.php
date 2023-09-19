@@ -40,7 +40,7 @@
                             <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('event_user.id', 'Inscrição')</th>
-                                    <th id="t2">@sortablelink('event_name', 'Evento')</th>
+                                    <th id="t2">@sortablelink('name', 'Evento')</th>
                                     <th id="t3">Submissão</th>
                                     <th id="t4">@sortablelink('event_user.created_at', 'Inscrito em')</th>
                                     <th id="t5">Operações</th>
@@ -50,7 +50,7 @@
                                 @foreach($events as $event)
                                 <tr class="align-middle" style="height: 4rem">
                                     <td headers="t1">{{$event->pivot->id}}</td>
-                                    <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
+                                    <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
                                     <td headers="t3" class="text-truncate">
                                         @if($event->userSubmission($user) !== null)
                                             <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}">{{$event->userSubmission($user)->document->title}}</a>
@@ -86,7 +86,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Deseja cancelar a inscrição de <strong>{{$user->user_name}}</strong> no evento <strong>{{$event->event_name}}</strong> ?</p>
+                                            <p>Deseja cancelar a inscrição de <strong>{{$user->user_name}}</strong> no evento <strong>{{$event->name}}</strong> ?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -108,7 +108,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p><strong>{{$user->user_name}}</strong> possui uma submissão no evento <strong>{{$event->event_name}}</strong>, remova-a antes de cancelar a inscrição</p>
+                                            <p><strong>{{$user->user_name}}</strong> possui uma submissão no evento <strong>{{$event->name}}</strong>, remova-a antes de cancelar a inscrição</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
@@ -137,9 +137,9 @@
                             <thead class="table-light">
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('event_user.id', 'Inscrição')</th>
-                                    <th id="t2">@sortablelink('event_name', 'Evento')</th>
-                                    <th id="t3">@sortablelink('event_email', 'Email do evento')</th>
-                                    <th id="t4">@sortablelink('event_status', 'Status')</th>
+                                    <th id="t2">@sortablelink('name', 'Evento')</th>
+                                    <th id="t3">@sortablelink('email', 'Email do evento')</th>
+                                    <th id="t4">@sortablelink('status', 'Status')</th>
                                     <th id="t5">@sortablelink('subscription_deadline', 'Prazo para submissão')</th>
                                     <th id="t6">Submissão</th>
                                     <th id="t7">@sortablelink('event_user.created_at', 'Inscrito em')</th>
@@ -149,8 +149,8 @@
                                 @foreach($events as $event)
                                 <tr class="align-middle" style="height: 4rem">
                                     <td headers="t1">{{$event->pivot->id}}</td>
-                                    <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                    <td headers="t3" class="text-truncate">{{$event->event_email}}</td>
+                                    <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
+                                    <td headers="t3" class="text-truncate">{{$event->email}}</td>
                                     <td headers="t4">{{$event->updateStatus()}}</td>
                                     <td headers="t5">{{$event->getSubmissionDates()}}</td>
                                     <td headers="t6" class="text-truncate">

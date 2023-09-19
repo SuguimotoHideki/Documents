@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class="fs-2">Inscritos em {{$event->event_name}}</h1>
+                <h1 class="fs-2">Inscritos em {{$event->name}}</h1>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
@@ -73,7 +73,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja cancelar a inscrição de <strong>{{$user->user_name}}</strong> no evento <strong>{{$event->event_name}}</strong> ?</p>
+                                        <p>Deseja cancelar a inscrição de <strong>{{$user->user_name}}</strong> no evento <strong>{{$event->name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -95,7 +95,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><strong>{{$user->user_name}}</strong> possui uma submissão no evento <strong>{{$event->event_name}}</strong>, remova-a antes de cancelar a inscrição</p>
+                                        <p><strong>{{$user->user_name}}</strong> possui uma submissão no evento <strong>{{$event->name}}</strong>, remova-a antes de cancelar a inscrição</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>

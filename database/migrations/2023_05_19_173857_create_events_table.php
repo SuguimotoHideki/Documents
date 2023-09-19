@@ -13,16 +13,20 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('event_name')->unique();
-            $table->string('event_email');
-            $table->string('event_website')->nullable();
+            $table->string('name')->unique();
+            $table->string('email');
+            $table->string('website')->nullable();
             $table->string('organizer');
             $table->string('organizer_email');
             $table->string('organizer_website')->nullable();
-            $table->longText('event_information');
-            $table->unsignedBigInteger('event_status');
-            $table->boolean('event_published');
-            $table->longText('paper_topics');
+            $table->longText('information');
+            $table->integer('status');
+            $table->boolean('published');
+            //New fields
+            $table->json('paper_topics')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('submission_type');
+            //
             $table->date('subscription_start');
             $table->date('subscription_deadline');
             $table->date('submission_start');

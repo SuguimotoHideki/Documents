@@ -17,20 +17,20 @@
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
-                                <th id="t1">@sortablelink('event_name', 'Evento')</th>
-                                <th id="t2">@sortablelink('event_email', 'Email do evento')</th>
+                                <th id="t1">@sortablelink('name', 'Evento')</th>
+                                <th id="t2">@sortablelink('email', 'Email do evento')</th>
                                 <th id="t3">@sortablelink('organizer', 'Organizador')</th>
-                                <th id="t4">@sortablelink('event_status', 'Status')</th>
+                                <th id="t4">@sortablelink('status', 'Status')</th>
                                 <th id="t5">@sortablelink('subscription_deadline', 'Prazo para inscrição')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($events as $event)
                             <tr class="align-middle" style="height:4rem">
-                                <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->event_name}}</a></td>
-                                <td headers="t5" class="text-truncate">{{$event->event_email}}</td>
+                                <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
+                                <td headers="t5" class="text-truncate">{{$event->email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
-                                <td headers="t4">{{$event->getStatusValue($event->updateStatus($event->event_status))}}</td>
+                                <td headers="t4">{{$event->getStatusValue($event->updateStatus($event->status))}}</td>
                                 <td headers="t5">{{$event->getSubscriptionDates()}}</td>
                             </tr>
                             @endforeach

@@ -45,7 +45,7 @@
                                     <th id="t2">@sortablelink('document.title', 'Título')</th>
                                     <th id="t4">@sortablelink('status', 'Status')</th>
                                     <th id="t5">Avaliações</th>
-                                    <th id="t6">@sortablelink('event.event_name', 'Evento')</th>
+                                    <th id="t6">@sortablelink('event.name', 'Evento')</th>
                                     <th id="t7">Operações</th>
                                 </tr>
                             </thead>
@@ -78,7 +78,7 @@
                                         @endif
                                     </td>
                                     <td headers="t5"><a href="{{ route('indexByDocument', $submission->document)}}">Ver avaliações</a></td>
-                                    <td headers="t6"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->event_name}}</a></td>
+                                    <td headers="t6"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->name}}</a></td>
                                     <td headers="t7">
                                         <div class="nav-item dropdown">
                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

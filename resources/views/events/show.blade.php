@@ -8,7 +8,7 @@
                 <x-event-nav-menu :event="$event"/>
                 <div class="row">
                     <div class="col-md-4">
-                        <img class="logo mb-3" src="{{asset('storage/event_logos/Placeholder.jpg')}}" alt="Logo do evento" width="100%"/>
+                        <img class="logo mb-3" src="{{asset('storage/'.$event->logo)}}" alt="Logo do evento" width="100%"/>
                         <div class="mb-3">
                             <div class="text-muted">{{"Organizador: $event->organizer"}}</div>
                             <div class="text-muted">
@@ -31,7 +31,7 @@
                                 </a>
                                 @endif
                             @else
-                                @if($event->event_status > 2)
+                                @if($event->status > 2)
                                     <button type="button" class="btn btn-dark width-100 mb-3" disabled>
                                         Inscrições encerradas
                                     </button>
@@ -45,12 +45,12 @@
                     </div>
                     <div class="col-md-8">
                         <h1 class="fs-5 text-start">
-                            {{$event->event_name}}
+                            {{$event->name}}
                         </h1>
                         <div class="text-muted">Data: {{$event->formatDate($event->created_at)}}</div>
                         <div class="text-muted">Inscrições: {{$event->getSubscriptionDates()}}</div>
                         <div class="text-muted">Submissões: {{$event->getSubmissionDates()}}</div>
-                        <div class="text-paragraph text-muted mt-2">{{$event->event_information}}</div>
+                        <div class="text-paragraph text-muted mt-2">{{$event->information}}</div>
                     </div>
                 </div>
             </div>
@@ -62,11 +62,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{$event->event_name}}</h5>
+                <h5 class="modal-title">{{$event->name}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Deseja se inscrever em <strong>{{$event->event_name}}</strong> ?</p>
+                <p>Deseja se inscrever em <strong>{{$event->name}}</strong> ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -89,7 +89,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <p>Deseja excluir o evento <strong>{{$event->event_name}}</strong> ?</p>
+            <p>Deseja excluir o evento <strong>{{$event->name}}</strong> ?</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

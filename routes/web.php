@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth']], function()
     //Show event form view
     Route::get('/events/create', [EventController::class, 'create'])->name('createEvent');
     //Store new event
-    Route::post('events', [EventController::class, 'store'])->middleware('auth');
+    Route::post('events', [EventController::class, 'store'])->middleware('auth')->name('storeEvent');
     //Show all events
     Route::get('/events', [EventController::class, 'index'])->name('indexEvents');
     //Show event dashboard

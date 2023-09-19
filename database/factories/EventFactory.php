@@ -19,13 +19,13 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'event_name' => fake()->company(),
-            'event_website' => fake()->url(),
-            'event_information' => fake()->paragraph(6),
+            'name' => fake()->company(),
+            'website' => fake()->url(),
+            'information' => fake()->paragraph(6),
             'paper_topics' => implode(', ', [Str::random(30), Str::random(30), Str::random(30)]),
-            'event_email' => fake()->companyEmail(),
-            'event_published' => true,
-            'event_status' => 0,
+            'email' => fake()->companyEmail(),
+            'published' => true,
+            'status' => 0,
             'organizer' => fake()->company(),
             'organizer_email' => fake()->companyEmail(),
             'organizer_website' => fake()->url(),

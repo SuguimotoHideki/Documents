@@ -48,7 +48,7 @@
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1" class="text-truncate"><a href="{{route('showDocument', $document)}}">{{$document->title}}</a></td>
                                     <td headers="t2">{{$document->type}}</td>
-                                    <td headers="t3"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
+                                    <td headers="t3"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->name}}</a></td>
                                     @if($review !== null)
                                         <td headers="t4">{{$review->score}}</td>
                                         <td headers="t5">
@@ -99,7 +99,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->event_name}}</strong> ?</p>
+                                                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->name}}</strong> ?</p>
 
                                             </div>
                                             <div class="modal-footer">
@@ -188,7 +188,7 @@
                                             </div>
                                         @endif
                                     </td>
-                                    <td headers="t6"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></td>
+                                    <td headers="t6"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->name}}</a></td>
                                     <td headers="t7">{{$document->submission->formatDate($document->submission->approved_at)}}</td>
                                     <td headers="t8">{{$document->formatDate($document->created_at)}}</td>
                                     <td headers="t9">
@@ -225,7 +225,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->event_name}}</strong> ?</p>
+                                                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->name}}</strong> ?</p>
 
                                             </div>
                                             <div class="modal-footer">

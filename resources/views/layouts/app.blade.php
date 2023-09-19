@@ -77,11 +77,17 @@
                                     @php
                                         $events = Auth::user()->events()->get();
                                     @endphp
-                                    @foreach ($events as $event)
-                                        <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
-                                            {{$event->event_name}}
-                                        </a>
-                                    @endforeach
+                                    @if($events->isEmpty())
+                                        <div class="dropdown-item rounded-0 disabled">
+                                            Não há eventos inscritos
+                                        </div>
+                                    @else
+                                        @foreach ($events as $event)
+                                            <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
+                                                {{$event->name}}
+                                            </a>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </li>
                             <li class="nav-item dropdown">

@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md mt-3">
                         <h2 class="fs-5 fw-bold">Evento:</h2>
-                        <div><a href="{{ route('showEvent', $document->submission->event)}}">{{$document->submission->event->event_name}}</a></div>
+                        <div><a href="{{ route('showEvent', $document->submission->event)}}">{{$document->submission->event->name}}</a></div>
                     </div>
                     <div class="col-md mt-3">
                         <h2 class="fs-5 fw-bold">Status:</h2>
@@ -79,7 +79,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->event_name}}</strong> ?</p>
+                <p>Deseja excluir a submissão <strong>{{$document->title}}</strong> do evento <strong>{{$document->submission->event->name}}</strong> ?</p>
 
             </div>
             <div class="modal-footer">

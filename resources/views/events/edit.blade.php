@@ -12,13 +12,13 @@
                         @csrf
                         @method('PUT')
                         <div class="row mb-3">
-                            <label for="event_name" class="col-md-3 col-form-label text-md-center">{{ __('Nome do evento') }}
+                            <label for="name" class="col-md-3 col-form-label text-md-center">{{ __('Nome do evento') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-8">
-                                <input id="event_name" type="text" class="form-control @error('event_name') is-invalid @enderror" name="event_name" value="{{ old('event_name', $event->event_name) }}" required autocomplete="event_name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $event->name) }}" required autocomplete="name" autofocus>
 
-                                @error('event_name')
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -26,13 +26,13 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="event_email" class="col-md-3 col-form-label text-md-center">{{ __('E-mail do evento') }}
+                            <label for="email" class="col-md-3 col-form-label text-md-center">{{ __('E-mail do evento') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-8">
-                                <input id="event_email" type="email" class="form-control @error('event_email') is-invalid @enderror" name="event_email" value="{{ old('event_email', $event->event_email) }}" required autocomplete="event_email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $event->email) }}" required autocomplete="email" autofocus>
 
-                                @error('event_email')
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -40,13 +40,13 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="event_website" class="col-md-3 col-form-label text-md-center">{{ __('Site do evento') }}
+                            <label for="website" class="col-md-3 col-form-label text-md-center">{{ __('Site do evento') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-8">
-                                <input id="event_website" type="url" class="form-control @error('event_website') is-invalid @enderror" name="event_website" value="{{ old('event_website', $event->event_website) }}" required autocomplete="event_website" autofocus>
+                                <input id="website" type="url" class="form-control @error('website') is-invalid @enderror" name="website" value="{{ old('website', $event->website) }}" required autocomplete="website" autofocus>
 
-                                @error('event_website')
+                                @error('website')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -96,13 +96,13 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="event_information" class="col-md-3 col-form-label text-md-center">{{ __('Informações do evento') }}
+                            <label for="information" class="col-md-3 col-form-label text-md-center">{{ __('Informações do evento') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-8">
-                                <textarea id="event_information" type="text" class="form-control @error('event_information') is-invalid @enderror" rows="10" name="event_information" required autocomplete="event_information" autofocus>{{ old('event_information', $event->event_information) }}</textarea>
+                                <textarea id="information" type="text" class="form-control @error('information') is-invalid @enderror" rows="10" name="information" required autocomplete="information" autofocus>{{ old('information', $event->information) }}</textarea>
 
-                                @error('event_information')
+                                @error('information')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -182,21 +182,21 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="event_status" class="col-md-3 col-form-label text-md-center">{{ __('Status do evento') }}
+                            <label for="status" class="col-md-3 col-form-label text-md-center">{{ __('Status do evento') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-8 my-auto">
-                                <select name="event_status" id="event_status" class="col-md-12 my-auto">
-                                    <option value="0" {{ $event->event_status === 'Em breve' ? 'selected' : '' }}>Em breve</option>
-                                    <option value="6" {{ $event->event_status === 'Adiado' ? 'selected' : '' }}>Adiado</option>
-                                    <option value="7" {{ $event->event_status === 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
+                                <select name="status" id="status" class="col-md-12 my-auto">
+                                    <option value="0" {{ $event->status === 'Em breve' ? 'selected' : '' }}>Em breve</option>
+                                    <option value="6" {{ $event->status === 'Adiado' ? 'selected' : '' }}>Adiado</option>
+                                    <option value="7" {{ $event->status === 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="event_published" class="col-md-3 col-form-label text-md-center">{{ __('Evento publicado') }}</label>
+                            <label for="published" class="col-md-3 col-form-label text-md-center">{{ __('Evento publicado') }}</label>
                             <div class="col-md-8 my-auto">
-                                <input id="event_published" type="checkbox" name="event_published" value='1' @checked(old('1', $event->event_published )) autofocus>
+                                <input id="published" type="checkbox" name="published" value='1' @checked(old('1', $event->published )) autofocus>
                                 <small class="form-text text-muted">Tornar o evento visível para usuários</small>
                             </div>
                         </div>
@@ -204,11 +204,11 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">{{$event->event_name}}</h5>
+                                        <h5 class="modal-title">{{$event->name}}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Deseja confirmar as alterações em <strong>{{$event->event_name}}</strong> ?</p>
+                                        <p>Deseja confirmar as alterações em <strong>{{$event->name}}</strong> ?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

@@ -167,10 +167,10 @@
                                 </label>
                                 <div id="submission_type" class="form-control @error('submission_type') is-invalid @enderror">
                                     @foreach(\App\Models\Event::TYPES as $type)
-                                        <div class="col-md-3">
+                                        <div>
                                             <input type="hidden" name="submission_type[{{$type}}]" value="0">
                                             <input type="checkbox"  name="submission_type[{{$type}}]" value="{{$type}}">
-                                            <label for="submission_type[]">{{ $type }}</label>
+                                            <small>{{ $type }}</small>
                                         </div>
                                     @endforeach
                                 </div>

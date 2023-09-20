@@ -184,7 +184,7 @@
                                 </label>
                                 <div id="submission_type" class="form-control @error('submission_type') is-invalid @enderror">
                                     @for($i = 0; $i < sizeof($types); ++$i)
-                                        <div class="col-md-3">
+                                        <div>
                                             <input type="hidden" name="submission_type[{{$types[$i]}}]" value="0">
                                             <input type="checkbox"  name="submission_type[{{$types[$i]}}]" value="{{$types[$i]}}" @checked(old($types[$i], $checkedTypes[$i]))>
                                             <small>{{ $types[$i] }}</small>

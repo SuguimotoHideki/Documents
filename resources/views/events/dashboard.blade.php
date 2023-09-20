@@ -16,27 +16,32 @@
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
-                            <col width="5%">
-                            <col width="20%">
-                            <col width="20%">
+                            <col width="6%">
                             <col width="15%">
-                            <col width ="15%">
-                            <col width ="15%">
-                            <col width ="10%">
+                            <col width="15%">
+                            <col width="12%">
+                            <col width ="12%">
+                            <col width ="12%">
+                            <col width ="12%">
+                            <col width ="12%">
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">@sortablelink('id', 'ID')</th>
-                                <th id="t2">@sortablelink('name', 'Evento')</th>
-                                <th id="t3">@sortablelink('email', 'Email do evento')</th>
+                                <th id="t2">@sortablelink('name', 'Título')</th>
+                                <th id="t3">@sortablelink('email', 'Email')</th>
                                 <th id="t4">@sortablelink('organizer', 'Organizador')</th>
                                 <th id="t5">@sortablelink('published', 'Publicação')</th>
-                                <th id="t6">@sortablelink('status', 'Status')</th>
-                                <th id="t7">Operações</th>
+                                <th id="t6">@sortablelink('status', 'Inscrições')</th>
+                                <th id="t7">@sortablelink('status', 'Submissões')</th>
+                                <th id="t8">Operações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($events as $event)
+                            @php
+                                $event->updateStatus()
+                            @endphp
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->id}}</td>
                                 <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
@@ -44,13 +49,47 @@
                                 <td headers="t4">{{$event->organizer}}</td>
                                 <td headers="t5">
                                     @if($event->published === 1)
-                                        <i class="fas fa-circle text-success"></i> Publicado
+                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Publicado
+                                        </div>
                                     @else
-                                        <i class="fas fa-circle text-danger"></i> Não publicado
+                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Não publicado
+                                        </div>
                                     @endif
                                 </td>
-                                <td headers="t6">{{$event->updateStatus($event->status)}}</td>
+                                <td headers="t6">
+                                    @if($event->getStatusID() === 0)
+                                        <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Em breve
+                                        </div>
+                                    @elseif($event->getStatusID() === 1)
+                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Abertas
+                                        </div>
+                                    @else
+                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Encerradas
+                                        </div>
+                                    @endif
+                                </td>
+
                                 <td headers="t7">
+                                    @if($event->getStatusID() < 3)
+                                        <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Em breve
+                                        </div>
+                                    @elseif($event->getStatusID() === 3)
+                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Abertas
+                                        </div>
+                                    @else
+                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                            Encerradas
+                                        </div>
+                                    @endif
+                                </td>
+                                <td headers="t8">
                                     <div class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Operações

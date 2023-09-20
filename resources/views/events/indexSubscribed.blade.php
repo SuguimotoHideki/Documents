@@ -51,11 +51,11 @@
                                 <tr class="align-middle" style="height: 4rem">
                                     <td headers="t1">{{$event->pivot->id}}</td>
                                     <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
-                                    <td headers="t3" class="text-truncate">
-                                        @if($event->userSubmission($user) !== null)
-                                            <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}">{{$event->userSubmission($user)->document->title}}</a>
+                                    <td headers="t3" class="text-center">
+                                        @if ($event->userSubmission($user) !== null)
+                                            <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}" class="btn btn-success mx-3 py-1 rounded-2">Ver submissão</a></td>
                                         @else
-                                            <a href="{{ route('createDocument', $event)}}">Fazer submissão</a>
+                                            <div class="btn btn-secondary mx-3 py-1 rounded-2 disabled">Pendente</div>
                                         @endif
                                     </td>
                                     <td headers="t4">{{$event->formatDateTime($event->pivot->created_at)}}</td>
@@ -126,7 +126,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered border-light table-hover bg-white table-fixed">
                             <colgroup>
-                                <col width="15%">
+                                <col width="8%">
                                 <col width="15%">
                                 <col width="15%">
                                 <col width ="15%">
@@ -138,8 +138,8 @@
                                 <tr class="align-middle">
                                     <th id="t1">@sortablelink('event_user.id', 'Inscrição')</th>
                                     <th id="t2">@sortablelink('name', 'Evento')</th>
-                                    <th id="t3">@sortablelink('email', 'Email do evento')</th>
-                                    <th id="t4">@sortablelink('status', 'Status')</th>
+                                    <th id="t3">@sortablelink('email', 'Email')</th>
+                                    <th id="t4">@sortablelink('status', 'Submissões')</th>
                                     <th id="t5">@sortablelink('subscription_deadline', 'Prazo para submissão')</th>
                                     <th id="t6">Submissão</th>
                                     <th id="t7">@sortablelink('event_user.created_at', 'Inscrito em')</th>
@@ -147,17 +147,34 @@
                             </thead>
                             <tbody>
                                 @foreach($events as $event)
+                                @php
+                                    $event->updateStatus()
+                                @endphp
                                 <tr class="align-middle" style="height: 4rem">
                                     <td headers="t1">{{$event->pivot->id}}</td>
                                     <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
                                     <td headers="t3" class="text-truncate">{{$event->email}}</td>
-                                    <td headers="t4">{{$event->updateStatus()}}</td>
-                                    <td headers="t5">{{$event->getSubmissionDates()}}</td>
-                                    <td headers="t6" class="text-truncate">
-                                        @if($event->userSubmission($user) !== null)
-                                            <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}">{{$event->userSubmission($user)->document->title}}</a>
+                                    <td headers="t4">
+                                        @if($event->getStatusID() < 3)
+                                            <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
+                                                Em breve
+                                            </div>
+                                        @elseif($event->getStatusID() === 3)
+                                            <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                                Abertas
+                                            </div>
                                         @else
-                                            <a href="{{ route('createDocument', $event)}}">Fazer submissão</a>
+                                            <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                                Encerradas
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td headers="t5">{{$event->getSubmissionDates()}}</td>
+                                    <td headers="t6" class="text-center">
+                                        @if ($event->userSubmission($user) !== null)
+                                            <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}" class="btn btn-primary mx-3 py-1 rounded-2">Ver submissão</a></td>
+                                        @else
+                                            <div class="btn btn-secondary mx-3 py-1 rounded-2 disabled">Pendente</div>
                                         @endif
                                     </td>
                                     <td headers="t7">{{$event->formatDateTime($event->pivot->created_at)}}</td>

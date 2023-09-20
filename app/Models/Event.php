@@ -54,13 +54,10 @@ class Event extends Model
 
     public const STATUSES = [
         0 => 'Em breve',
-        1 => 'Encerrado',
-        2 => 'Inscrições abertas',
-        3 => 'Inscrições encerradas',
-        4 => 'Submissões abertas',
-        5 => 'Submissões encerradas',
-        6 => 'Adiado',
-        7 => 'Cancelado',
+        1 => 'Inscrições abertas',
+        2 => 'Inscrições encerradas',
+        3 => 'Submissões abertas',
+        4 => 'Submissões encerradas',
     ];
 
     public const TYPES = [
@@ -154,41 +151,41 @@ class Event extends Model
      */
     public function updateStatus()
     {
-        if($this->getStatusID() < 6)
+        $today = Carbon::today();
+
+        if($today < $this->submission_start)
         {
-            $today = Carbon::today();
-        
-            if($today < $this->submission_start)
+            if($today < $this->subscription_start)
             {
-                if($today < $this->subscription_start)
-                {
-                    $this->status = 0;
-                }
-                else if($today >= $this->subscription_start && $today <= $this->subscription_deadline)
-                {
-                    $this->status = 2;
-                }
-                else if($today > $this->subscription_deadline)
-                {
-                    $this->status = 3;
-                }
+                $this->status = 0;
             }
-            else
+            else if($today >= $this->subscription_start && $today <= $this->subscription_deadline)
             {
-                if($today >= $this->submission_start && $today <= $this->submission_deadline)
-                {
-                    $this->status = 4;
-                }
-                else if($today > $this->submission_deadline)
-                {
-                    $this->status = 5;
-                }
+                $this->status = 1;
             }
-            $this->save();
+            else if($today > $this->subscription_deadline)
+            {
+                $this->status = 2;
+            }
         }
+        else
+        {
+            if($today >= $this->submission_start && $today <= $this->submission_deadline)
+            {
+                $this->status = 3;
+            }
+            else if($today > $this->submission_deadline)
+            {
+                $this->status = 4;
+            }
+        }
+        
+        $this->save();
         
         return $this->getStatusValue();
     }
+
+    
 
     /**
      * Checks if a given user is subscribbed to the event

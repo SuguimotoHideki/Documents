@@ -3,25 +3,13 @@
 @role('user')
     @if($event->hasUser(Auth::user()))
         @if($event->userSubmission(Auth::user()) !== null)
-        <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-            <div class="navbar-nav me-auto">
-                <a href="{{route('showDocument', $event->userSubmission(Auth::user())->document)}}" class="nav-item nav-link">Ver submissão</a>
-                <a href="{{route('editDocument', $event->userSubmission(Auth::user())->document)}}" class="nav-item nav-link">Editar submissão</a>
-            </div>
-        </nav>
-        @else
-        <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-            <div class="navbar-nav me-auto">
-                <a href="{{route('createDocument', $event)}}" class="nav-item nav-link">Submissão</a>
-            </div>
-        </nav>
+            <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
+                <div class="navbar-nav me-auto">
+                    <a href="{{route('showDocument', $event->userSubmission(Auth::user())->document)}}" class="nav-item nav-link">Ver submissão</a>
+                    <a href="{{route('editDocument', $event->userSubmission(Auth::user())->document)}}" class="nav-item nav-link">Editar submissão</a>
+                </div>
+            </nav>
         @endif
-    @else
-    <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-        <div class="navbar-nav me-auto">
-            <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">Inscrever</a>
-        </div>
-    </nav>
     @endif
 @endif
 @can(['events.manage'])

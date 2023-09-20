@@ -26,9 +26,19 @@
                                 @if (Auth::user()->events->contains($event) && Auth::user()->submission()->where('event_id', $event->id)->exists())
                                     <a href="{{route('showDocument', $event->userSubmission(Auth::user())->document)}}" class="btn btn-primary width-100 mb-3">Ver submissão</a>
                                 @else
-                                <a href="{{route('createDocument', $event)}}" class="btn btn-primary width-100 mb-3">
-                                    Submeter artigo
-                                </a>
+                                    @if($event->getStatusID() < 3)
+                                        <a class="btn btn-primary width-100 mb-3 disabled">
+                                            Submissões em breve
+                                        </a>
+                                    @elseif($event->getStatusID() === 3)
+                                        <a href="{{route('createDocument', $event)}}" class="btn btn-primary width-100 mb-3">
+                                            Submeter artigo
+                                        </a>
+                                    @else
+                                        <a class="btn btn-primary width-100 mb-3 disabled">
+                                            Submissões encerradas
+                                        </a>
+                                    @endif
                                 @endif
                             @else
                                 @if($event->status > 2)

@@ -38,11 +38,11 @@
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1">{{$user->pivot->id}}</td>
                                 <td headers="t2"><a href="{{ route('showUser', $user)}}">{{$user->user_name}}</a></td>
-                                <td headers="t3" class="text-truncate">
+                                <td headers="t3" class="text-center">
                                     @if ($user->eventSubmission($event) !== null)
-                                        <a href="{{ route("showDocument", $user->eventSubmission($event)->document)}}">{{$user->eventSubmission($event)->document->title}}</a></td>
+                                        <a href="{{ route("showDocument", $user->eventSubmission($event)->document)}}" class="btn btn-primary mx-3 py-1 rounded-2">Ver submissão</a></td>
                                     @else
-                                        Submissão pendente
+                                        <div class="btn btn-secondary mx-3 py-1 rounded-2 disabled">Pendente</div>
                                     @endif
                                 </td>
                                 <td headers="t4">{{$user->formatDateTime($user->pivot->created_at)}}</td>

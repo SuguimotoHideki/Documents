@@ -20,9 +20,14 @@ class EventObserver
      */
     public function updated(Event $event): void
     {
-        //dd($event->logo);
         if ($event->isDirty('logo')) {
-            Storage::disk('public')->delete($event->getOriginal('logo'));
+            $originalLogo = $event->getOriginal('logo');
+            $placeholderLogo = 'event_logos/Placeholder.jpg'; // Change this to match your placeholder file name
+    
+            // Check if the logo is not the placeholder before deleting
+            if ($originalLogo !== $placeholderLogo) {
+                Storage::disk('public')->delete($originalLogo);
+            }
         }
     }
 
@@ -31,8 +36,13 @@ class EventObserver
      */
     public function deleted(Event $event): void
     {
-        if (! is_null($event->logo)) {
-            Storage::disk('public')->delete($event->logo);
+        if (!is_null($event->logo)) {
+            $placeholderLogo = 'event_logos/Placeholder.jpg'; // Change this to match your placeholder file name
+    
+            // Check if the logo is not the placeholder before deleting
+            if ($event->logo !== $placeholderLogo) {
+                Storage::disk('public')->delete($event->logo);
+            }
         }
     }
 

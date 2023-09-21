@@ -152,7 +152,6 @@ class Event extends Model
     public function updateStatus()
     {
         $today = Carbon::today();
-
         if($today < $this->submission_start)
         {
             if($today < $this->subscription_start)
@@ -207,6 +206,16 @@ class Event extends Model
         return $this->submission()
         ->where('user_id', $userId)
         ->first();
+    }
+
+    /**
+     * Returns a given user's submission to a given event
+     */
+    public function isMod(User $user)
+    {
+        if($user->hasRole("event moderator") && $this->moderators->contains($user))
+            return true;
+        return false;
     }
 
     /**

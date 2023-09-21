@@ -23,7 +23,7 @@ class EventPolicy
 
     public function update(User $user, Event $event)
     {
-        if($user->hasRole('event moderator') && $event->moderators->contains($user))
+        if($user->hasRole('event moderator') && $event->isMod($user))
         {
             return true;
         }
@@ -74,7 +74,7 @@ class EventPolicy
 
     public function indexSubscribers(User $user, Event $event)
     {
-        if($user->hasRole('event moderator') && $event->moderators->contains($user))
+        if($user->hasRole('event moderator') && $event->isMod($user))
         {
             return true;
         }
@@ -85,9 +85,9 @@ class EventPolicy
         return false;
     }
 
-    public function deleteSubscription(User $user)
+    public function deleteSubscription(User $user, Event $event)
     {
-        return ($user->hasRole('admin') || $user->id === 1)
+        return ($user->hasRole('admin') || $user->id === 1 || $event->isMod($user))
         ? Response::allow()
         : Response::deny('Você não ter permissão para cancelar inscrições.');
     }

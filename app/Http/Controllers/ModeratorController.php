@@ -29,7 +29,7 @@ class ModeratorController extends Controller
             $user = User::find($userId);
             if($permissions[0] === '1')
             {
-                if(!$event->moderators->contains($user))
+                if(!$event->isMod($user))
                 {
                     $event->moderators()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
                 }

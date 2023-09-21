@@ -90,7 +90,7 @@ class SubscriptionController extends Controller
 
     public function delete(Request $request)
     {
-        $response = Gate::inspect('deleteSubscription', Event::class);
+        $response = Gate::inspect('deleteSubscription', Event::find($request['event']));
         if($response->allowed())
         {
             $event = Event::find($request['event']);

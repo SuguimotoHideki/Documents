@@ -28,6 +28,8 @@ class EventController extends Controller
         if($event->hasUser($user))
             $pivotData = $user->events->find($event->id)->pivot;
 
+        $event->updateStatus();
+
         return view('events.show', [
             'event' => $event,
             'subscription' => $pivotData

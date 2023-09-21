@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1 class='fs-2'>Eventos abertos</h1>
+            <h1 class='fs-2'>Eventos em andamento</h1>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
@@ -28,6 +28,9 @@
                         </thead>
                         <tbody>
                             @foreach($events as $event)
+                            @php
+                                $event->updateStatus();
+                            @endphp
                             <tr class="align-middle" style="height:4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
                                 <td headers="t5" class="text-truncate">{{$event->email}}</td>

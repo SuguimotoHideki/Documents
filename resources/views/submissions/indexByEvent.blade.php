@@ -3,19 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <x-event-nav-menu :event="$event"/>
+        <div class="col-md-9">
             <div class="row mb-2">
                 <h1 class='fs-2 col'>Submissões em {{$event->name}}</h1>
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
-                <nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-                    <div class="navbar-nav me-auto">
-                        <a href="{{route('indexSubscribers', $event->id)}}" class="nav-item nav-link">Ver inscrições</a>
-                        <a href="{{ route('showEvent', $event->id)}}" class="nav-item nav-link">Ver evento</a>
-                    </div>
-                </nav>
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white caption-top table-fixed">
+                    <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <caption>N⁰ submissões: {{count($submissions)}}</caption>
                             <colgroup>
                                 <col width ="11%">

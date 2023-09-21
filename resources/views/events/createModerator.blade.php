@@ -3,14 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <x-event-nav-menu :event="$event"/>
+        <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ __('Moderadores do evento ' . $event->name) }}</div>
+                <div class="card-header fw-bold fs-5">{{ __('Moderadores') }}</div>
                 <form method="POST" action="{{ route('storeModerator', $event)}}">
                     @csrf
-                    <div class="list-group list-group-flush p-3 shadow-sm">
+                    <div class="list-group list-group-flush px-3 shadow-sm">
                         <div class="table-responsive">
-                            <table class="table table-bordered border-light table-hover">
+                            <table class="table table-bordered border-light table-hover caption-top">
+                                <caption><i class="fa-regular fa-circle-question"></i> Permitir edição do evento, ver inscrições e submissões, atribuir avaliadores para submissões.</caption>
                                 <colgroup>
                                     <col width="50%">
                                     <col width="50%">
@@ -28,12 +30,12 @@
                                         <td headers="t2">
                                             <div class="form-check form-check-inline">
                                                 <input type="hidden" name="permissions[{{$user->id}}]" value=0>
-                                                @if($event->moderators->contains($user))
+                                                @if($event->isMod($user))
                                                     <input type="checkbox" class="form-check-input" id="{{$user->id}}_manage" name="permissions[{{$user->id}}]" value="1" checked>
                                                 @else
                                                     <input type="checkbox" class="form-check-input" id="{{$user->id}}_manage" name="permissions[{{$user->id}}]" value="1">
                                                 @endif
-                                                <label for="{{$user->id}}_manage" class="form-check-label">{{'Moderar ' . $event->name}}</label>
+                                                <label for="{{$user->id}}_manage" class="form-check-label">{{'Moderador'}}</label>
                                             </div>
                                         </td>
                                     </tr>

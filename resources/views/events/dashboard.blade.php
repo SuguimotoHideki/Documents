@@ -110,15 +110,17 @@
                                             <a class="dropdown-item btn rounded-0" href="{{route('editEvent', $event)}}">
                                                 Editar evento
                                             </a>
-                                            @if($event->users->isNotEmpty() || $event->submission)
-                                                <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#eventDeleteWarning{{$event->id}}">
-                                                    Excluir evento
-                                                </button>
-                                            @else
-                                                <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">
-                                                    Excluir evento
-                                                </button>
-                                            @endif
+                                            @role('admin')
+                                                @if($event->users->isNotEmpty() || $event->submission)
+                                                    <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#eventDeleteWarning{{$event->id}}">
+                                                        Excluir evento
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="dropdown-item btn rounded-0" data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}">
+                                                        Excluir evento
+                                                    </button>
+                                                @endif
+                                            @endrole
                                         </div>
                                     </div>
                                 </td>

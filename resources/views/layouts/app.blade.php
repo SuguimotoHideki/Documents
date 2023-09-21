@@ -74,20 +74,37 @@
                                     {{ "Meus eventos" }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    @php
-                                        $events = Auth::user()->events()->get();
-                                    @endphp
-                                    @if($events->isEmpty())
-                                        <div class="dropdown-item rounded-0 disabled">
-                                            Não há eventos inscritos
-                                        </div>
+                                    @can('events.subscribe')
+                                        @php
+                                            $events = Auth::user()->events()->get();
+                                        @endphp
+                                        @if($events->isEmpty())
+                                            <div class="dropdown-item rounded-0 disabled">
+                                                Não há eventos inscritos
+                                            </div>
+                                        @else
+                                            @foreach ($events as $event)
+                                                <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
+                                                    {{$event->name}}
+                                                </a>
+                                            @endforeach
+                                        @endif
                                     @else
-                                        @foreach ($events as $event)
-                                            <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
-                                                {{$event->name}}
-                                            </a>
-                                        @endforeach
-                                    @endif
+                                        @php
+                                            $events = Auth::user()->eventsmoderated()->get();
+                                        @endphp
+                                        @if($events->isEmpty())
+                                            <div class="dropdown-item rounded-0 disabled">
+                                                Não há eventos
+                                            </div>
+                                        @else
+                                            @foreach ($events as $event)
+                                                <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
+                                                    {{$event->name}}
+                                                </a>
+                                            @endforeach
+                                        @endif
+                                    @endcan
                                 </div>
                             </li>
                             <li class="nav-item dropdown">

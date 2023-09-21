@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <x-event-nav-menu :event="$event"/>
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header fw-bold fs-5">{{ __('Editar evento') }}</div>

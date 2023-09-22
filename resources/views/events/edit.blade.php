@@ -20,6 +20,7 @@
                             <div class="mb-3">
                                 <label for="published">{{ __('Publicar evento') }}</label>
                                 <div class="form-control">
+                                    <input type="hidden" name="published" value="0">
                                     <input id="published" type="checkbox" name="published" value='1' @checked(old('1', $event->published )) autofocus>
                                     <small> Tornar o evento visível para usuários</small>
                                 </div>
@@ -88,7 +89,7 @@
                                 <label for="name">{{ __('Ícone do evento') }}</label>
                                 <div>
                                     <input id="logo" type="file" class="form-control @error('logo') is-invalid @enderror" name="logo" value="{{ old('logo') }}" accept="image/png, image/jpeg, image/jpg">
-                                    <div class="text-muted">Arquivos permitidos: .jpg, .png, .jpeg.</div>
+                                    <small class="text-muted">Arquivos permitidos: .jpg, .png, .jpeg.</small>
 
                                     @error('logo')
                                         <span class="invalid-feedback" role="alert">
@@ -116,12 +117,13 @@
                                         <span style="color: red">*</span>
                                     </label>
                                     <div>
-                                        <input id="subscription_start" type="date" class="form-control @error('subscription_start') is-invalid @enderror" name="subscription_start" value="{{ old('subscription_start', $event->subscription_start) }}" required autocomplete="subscription_start" autofocus>
+                                        <input id="subscription_start" type="date" class="form-control @error('subscription_start') is-invalid @enderror" name="subscription_start" value="{{ old('subscription_start', formatYMD($event->subscription_start)) }}" required autocomplete="subscription_start" autofocus>
                                         @error('subscription_start')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Inicia às 00:00:00</small>
                                     </div>
                                 </div>
                         
@@ -130,12 +132,13 @@
                                         <span style="color: red">*</span>
                                     </label>
                                     <div>
-                                        <input id="subscription_deadline" type="date" class="form-control @error('subscription_deadline') is-invalid @enderror" name="subscription_deadline" value="{{ old('subscription_deadline', $event->subscription_deadline) }}" required autocomplete="subscription_deadline" autofocus>
+                                        <input id="subscription_deadline" type="date" class="form-control @error('subscription_deadline') is-invalid @enderror" name="subscription_deadline" value="{{ old('subscription_deadline', formatYMD($event->subscription_deadline)) }}" required autocomplete="subscription_deadline" autofocus>
                                         @error('subscription_deadline')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Encerra às 23:59:59</small>
                                     </div>
                                 </div>
                             </div>
@@ -145,12 +148,13 @@
                                         <span style="color: red">*</span>
                                     </label>
                                     <div>
-                                        <input id="submission_start" type="date" class="form-control @error('submission_start') is-invalid @enderror" name="submission_start" value="{{ old('submission_start', $event->submission_start) }}" required autocomplete="submission_start" autofocus>
+                                        <input id="submission_start" type="date" class="form-control @error('submission_start') is-invalid @enderror" name="submission_start" value="{{ old('submission_start', formatYMD($event->submission_start)) }}" required autocomplete="submission_start" autofocus>
                                         @error('submission_start')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Inicia às 00:00:00</small>
                                     </div>
                                 </div>
                         
@@ -159,12 +163,13 @@
                                         <span style="color: red">*</span>
                                     </label>
                                     <div>
-                                        <input id="submission_deadline" type="date" class="form-control @error('submission_deadline') is-invalid @enderror" name="submission_deadline" value="{{ old('submission_deadline', $event->submission_deadline) }}" required autocomplete="submission_deadline" autofocus>
+                                        <input id="submission_deadline" type="date" class="form-control @error('submission_deadline') is-invalid @enderror" name="submission_deadline" value="{{ old('submission_deadline', formatYMD($event->submission_deadline)) }}" required autocomplete="submission_deadline" autofocus>
                                         @error('submission_deadline')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Encerra às 23:59:59</small>
                                     </div>
                                 </div>
                             </div>

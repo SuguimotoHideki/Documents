@@ -27,10 +27,10 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('submission_type');
             //
-            $table->date('subscription_start');
-            $table->date('subscription_deadline');
-            $table->date('submission_start');
-            $table->date('submission_deadline');
+            $table->dateTime('subscription_start');
+            $table->dateTime('subscription_deadline');
+            $table->dateTime('submission_start');
+            $table->dateTime('submission_deadline');
             $table->timestamps();
         });
     }

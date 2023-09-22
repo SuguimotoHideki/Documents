@@ -78,7 +78,7 @@
                                 <label for="name">{{ __('Ícone do evento') }}</label>
                                 <div>
                                     <input id="logo" type="file" class="form-control @error('logo') is-invalid @enderror" name="logo" value="{{ old('logo') }}" accept="image/png, image/jpeg, image/jpg">
-                                    <div class="text-muted">Arquivos permitidos: .jpg, .png, .jpeg.</div>
+                                    <small class="text-muted">Arquivos permitidos: .jpg, .png, .jpeg.</small>
 
                                     @error('logo')
                                         <span class="invalid-feedback" role="alert">
@@ -107,6 +107,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Inicia às 00:00:00</small>
                                     </div>
                                 </div>
                         
@@ -121,6 +122,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Encerra às 23:59:59</small>
                                     </div>
                                 </div>
                             </div>
@@ -136,6 +138,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Inicia às 00:00:00</small>
                                     </div>
                                 </div>
                         
@@ -150,6 +153,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                        <small class="text-muted">Encerra às 23:59:59</small>
                                     </div>
                                 </div>
                             </div>

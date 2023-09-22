@@ -31,10 +31,10 @@ class EventFactory extends Factory
             'organizer' => fake()->company(),
             'organizer_email' => fake()->companyEmail(),
             'organizer_website' => fake()->url(),
-            'subscription_start' => fake()->dateTimeBetween('-2 days', '+2 days'),
-            'subscription_deadline' => fake()->dateTimeInInterval('+2 days', '+4 days'),
-            'submission_start' => fake()->dateTimeInInterval('+4 days', '+6 days'),
-            'submission_deadline' => fake()->dateTimeInInterval('+6 days', '+8 days'),
+            'subscription_start' => fake()->dateTimeBetween('-2 days', '+2 days')->setTime(0,0,0),
+            'subscription_deadline' => fake()->dateTimeInInterval('+2 days', '+4 days')->setTime(23,59,59),
+            'submission_start' => fake()->dateTimeInInterval('+4 days', '+6 days')->setTime(0,0,0),
+            'submission_deadline' => fake()->dateTimeInInterval('+6 days', '+8 days')->setTime(23,59,59),
         ];
     }
 }

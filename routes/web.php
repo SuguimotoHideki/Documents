@@ -9,6 +9,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ReviewerController;
 use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\SubmissionTypeController;
 use App\Http\Controllers\SubscriptionController;
 
 /*
@@ -134,4 +135,14 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/manage/events/{event}/submissions', [SubmissionController::class, 'indexByEvent'])->name('indexEventSubmissions');
     //Get events subscribed by the logged user
     Route::get('/users/{user}/events/subscribed', [SubscriptionController::class, 'indexSubscribed'])->name('indexSubscribed');
+
+    //SUBMISSION TYPES
+    //Create
+    Route::post('/submission-types', [SubmissionTypeController::class, 'store'])->name("createSubType");
+    //Update
+    Route::put('/submission-types/{type}/update', [SubmissionTypeController::class, 'update'])->name("updateSubType");
+    //Index
+    Route::get('/submission-types', [SubmissionTypeController::class, 'index'])->name("indexSubType");
+    //Delete
+    Route::delete('/submission-types/{type}/delete', [SubmissionTypeController::class, 'destroy'])->name("deleteSubType");
 });

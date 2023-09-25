@@ -11,11 +11,11 @@ class SubmissionType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type',
+        'name',
     ];
 
     public function events(): BelongsToMany
     {
-        return $this->belongsToMany(Event::class, 'event_submission_type', 'event_id', 'submission_type_id');
+        return $this->belongsToMany(Event::class, 'event_submission_type', 'submission_type_id', 'event_id');
     }
 }

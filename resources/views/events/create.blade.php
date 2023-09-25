@@ -170,11 +170,10 @@
                                     <span style="color: red">*</span>
                                 </label>
                                 <div id="submission_type" class="form-control @error('submission_type') is-invalid @enderror">
-                                    @foreach(\App\Models\Event::TYPES as $type)
+                                    @foreach($types as $type)
                                         <div>
-                                            <input type="hidden" name="submission_type[{{$type}}]" value="0">
-                                            <input type="checkbox"  name="submission_type[{{$type}}]" value="{{$type}}">
-                                            <small>{{ $type }}</small>
+                                            <input type="checkbox"  name="submission_type[]" value="{{$type->id}}">
+                                            <small>{{ ucfirst($type->name) }}</small>
                                         </div>
                                     @endforeach
                                 </div>

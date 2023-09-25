@@ -22,7 +22,6 @@ class Event extends Model
         'status',
         'published',
         'logo',
-        'submission_type',
         'organizer', 
         'organizer_email', 
         'organizer_website',
@@ -42,7 +41,6 @@ class Event extends Model
         'status',
         'published',
         'logo',
-        'submission_type',
         'organizer', 
         'organizer_email', 
         'organizer_website',
@@ -58,13 +56,6 @@ class Event extends Model
         2 => 'Inscrições encerradas',
         3 => 'Submissões abertas',
         4 => 'Submissões encerradas',
-    ];
-
-    public const TYPES = [
-        'Artigo',
-        'Resumo',
-        'TCC',
-        'Monografia'
     ];
 
     /**
@@ -184,8 +175,6 @@ class Event extends Model
         return $this->getStatusValue();
     }
 
-    
-
     /**
      * Checks if a given user is subscribbed to the event
      */
@@ -248,5 +237,13 @@ class Event extends Model
     public function moderators(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'event_moderator', 'event_id', 'user_id');
+    }
+
+    /**
+     * Defines many-to-many relationship with SubmissionType
+     */
+    public function submissionTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(SubmissionType::class, 'event_submission_type', 'event_id', 'submission_type_id');
     }
 }

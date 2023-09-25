@@ -180,22 +180,17 @@
                                 <h2 class="fs-5 fw-bold">Tipos de submissão</h2>
                                 <p class="text-muted">Escolha os tipos de submissão do evento, mais de um tipo pode ser selecionado.</p>
                             </div>
-                            @php
-                                $checkedTypes = explode(', ', $event->submission_type);
-                                $types = \App\Models\Event::TYPES;
-                            @endphp
                             <div class="mb-3">
                                 <label for="submission_type">{{ __('Tipos de submissão') }}
                                     <span style="color: red">*</span>
                                 </label>
                                 <div id="submission_type" class="form-control @error('submission_type') is-invalid @enderror">
-                                    @for($i = 0; $i < sizeof($types); ++$i)
+                                    @foreach($types as $type)
                                         <div>
-                                            <input type="hidden" name="submission_type[{{$types[$i]}}]" value="0">
-                                            <input type="checkbox"  name="submission_type[{{$types[$i]}}]" value="{{$types[$i]}}" @checked(old($types[$i], $checkedTypes[$i]))>
-                                            <small>{{ $types[$i] }}</small>
+                                            <input type="checkbox"  name="submission_type[]" value="{{$type->id}}" @checked($event->submissionTypes->contains($type->id))>
+                                            <small>{{ ucfirst($type->name) }}</small>
                                         </div>
-                                    @endfor
+                                    @endforeach
                                 </div>
                                 @error('submission_type')
                                     <span class="invalid-feedback" role="alert">

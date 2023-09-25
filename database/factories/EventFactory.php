@@ -27,7 +27,6 @@ class EventFactory extends Factory
             'published' => true,
             'status' => 0,
             'logo' => 'event_logos/Placeholder.jpg',
-            'submission_type' => 'Artigo, 0, TCC, 0',
             'organizer' => fake()->company(),
             'organizer_email' => fake()->companyEmail(),
             'organizer_website' => fake()->url(),

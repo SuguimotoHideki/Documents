@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\SubmissionType;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\Auth;
@@ -60,9 +61,11 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $this->authorize('update', $event);
+        $types = SubmissionType::all();
 
         return view('events.edit', [
-            'event' => $event
+            'event' => $event,
+            'types' => $types,
         ]);
     }
 
@@ -89,14 +92,14 @@ class EventController extends Controller
         if($request->hasFile('logo'))
             $formFields['logo'] = $request->file('logo')->store('event_logos', 'public');
 
-        $formFields['submission_type'] = implode(", ", $formFields['submission_type']);
-
         $formFields['subscription_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['subscription_start'] . ' ' . "00:00:00");
         $formFields['subscription_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['subscription_deadline'] . ' ' . "23:59:59");
         $formFields['submission_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_start'] . ' ' . "00:00:00");
         $formFields['submission_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_deadline'] . ' ' . "23:59:59");
 
         $event->update($formFields);
+
+        $event->submissionTypes()->sync($formFields['submission_type']);
 
         return redirect()->route('showEvent', $event->id)->with('success', 'Evento ' . $event->name . ' atualizado.');
     }
@@ -105,8 +108,11 @@ class EventController extends Controller
     public function create()
     {
         $this->authorize('create', Event::class);
+        $types = SubmissionType::all();
 
-        return view('events.create');
+        return view('events.create', [
+            "types" => $types,
+        ]);
     }
 
     //Store event
@@ -134,7 +140,6 @@ class EventController extends Controller
             $formFields['logo'] = $request->file('logo')->store('event_logos', 'public');
         }
 
-        $formFields['submission_type'] = implode(", ", $formFields['submission_type']);
         $formFields['published'] = false;
         $formFields['status'] = 0;
 
@@ -143,9 +148,10 @@ class EventController extends Controller
         $formFields['submission_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_start'] . ' ' . "00:00:00");
         $formFields['submission_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_deadline'] . ' ' . "23:59:59");
 
-        Event::create($formFields);
+        $event = Event::create($formFields);
+        $event->submissionTypes()->sync($formFields['submission_type']);
 
-        return redirect()->route('manageEvents')->with('success', 'Evento ' . $formFields['name'] . ' criado.');
+        return redirect()->route('manageEvents')->with('success', 'Evento ' . $event->name . ' criado.');
     }
 
     public function destroy(Event $event)

@@ -16,8 +16,8 @@
                         <div>{{$document->institution}}</div>
                     </div>
                     <div class="col-md mt-3">
-                        <h2 class="fs-5 fw-bold">Tipo de documento:</h2>
-                        <div>{{$document->type}}</div>
+                        <h2 class="fs-5 fw-bold">Modalidade:</h2>
+                        <div>{{ucfirst($document->submissionType->name)}}</div>
                     </div>
                 </div>
                 <div class="row">

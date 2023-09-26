@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\CoAuthor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Kyslik\ColumnSortable\Sortable;
@@ -86,8 +87,8 @@ class Document extends Model
     /**
      * Defines one-to-one relationship with SubmissionType
      */
-    public function submissionType(): HasOne
+    public function submissionType(): BelongsTo
     {
-        return $this->hasOne(SubmissionType::class);
+        return $this->belongsTo(SubmissionType::class);
     }
 }

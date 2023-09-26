@@ -28,7 +28,7 @@
                                     <th id="t1">@sortablelink('id', 'Submissão')</th>
                                     <th id="t2">@sortablelink('title', 'Título')</th>
                                     <th id="t3">@sortablelink('user', 'Autor')</th>
-                                    <th id="t4">@sortablelink('type', 'Tipo')</th>
+                                    <th id="t4">@sortablelink('type', 'Modalidade')</th>
                                     <th id="t5">@sortablelink('status', 'Status')</th>
                                     <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
                                     <th id="t7">@sortablelink('created_at','Publicado em')</th>
@@ -45,7 +45,7 @@
                                     <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
                                     <td headers="t2" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                     <td headers="t3"><a href="{{ route('showUser', $submission->user)}}">{{$submission->user->user_name}}</a></td>
-                                    <td headers="t4">{{$submission->document->type}}</td>
+                                    <td headers="t4">{{ucfirst($submission->document->submissionType->name)}}</td>
                                     <td headers="t5">
                                         @if($status === 0)
                                         <i class="fas fa-circle text-success"></i>

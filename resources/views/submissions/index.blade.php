@@ -56,7 +56,7 @@
                                 @endphp
                                 <tr class="align-middle" style="height:4rem">
                                     <td headers="t1"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->id}}</a></td>
-                                    <td headers="t2">{{$submission->document->type}}</td>
+                                    <td headers="t2">{{ucfirst($submission->document->submissionType->name)}}</td>
                                     <td headers="t3" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                     <td headers="t4">
                                         @if($status === 0)

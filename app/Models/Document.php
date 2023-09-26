@@ -20,7 +20,7 @@ class Document extends Model
         'user_id',
         'keyword',
         'institution',
-        'type',
+        'submission_type_id',
         'attachment_author',
         'attachment_no_author'
     ];
@@ -31,7 +31,7 @@ class Document extends Model
         'user_id',
         'keyword',
         'institution',
-        'type',
+        'submission_type_id',
         'created_at',
         'updated_at'
     ];
@@ -81,5 +81,13 @@ class Document extends Model
     public function review(): HasOne
     {
         return $this->hasOne(Review::class);
+    }
+
+    /**
+     * Defines one-to-one relationship with SubmissionType
+     */
+    public function submissionType(): HasOne
+    {
+        return $this->hasOne(SubmissionType::class);
     }
 }

@@ -17,18 +17,19 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="type" class="col-md-2 col-form-label text-md-center text-break">
+                            <label for="submission_type_id" class="col-md-2 col-form-label text-md-center text-break">
                                 {{ __('Modalidade') }}
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
-                                <select name="type" id="type" class="col-md-12 my-auto" required>
+                                <select name="submission_type_id" id="submission_type_id" class="col-md-12 my-auto" required>
                                     <option value="" disabled selected>Escolha uma opção</option>
-                                    <option value="Artigo" {{old ('type') == 'Artigo' ? 'selected' : ''}}>Artigo</option>
-                                    <option value="Resumo" {{old ('type') == 'Resumo' ? 'selected' : ''}}>Resumo</option>
+                                    @foreach ($event->submissionTypes as $type)
+                                        <option value="{{$type->id}}" @selected(old('submission_type_id') === $type->id)>{{ucfirst($type->name)}}</option>
+                                    @endforeach
                                 </select>
                             </div>
-                            @error('type')
+                            @error('submission_type_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

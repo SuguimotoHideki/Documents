@@ -70,12 +70,14 @@ class DocumentController extends Controller
             'title' => ['required', 'string', Rule::unique('documents', 'title')],
             'keyword' => ['required', 'string'],
             'institution' => ['required', 'string'],
-            'type' => ['required', 'string'],
+            'submission_type_id' => ['required', 'numeric'],
             'attachment_author' => ['required'],
             'attachment_no_author' => ['required']
         ];
 
         $formFields = $request->validate($validationRules);
+
+        //dd($request, $formFields);
 
         $formFields['attachment_author'] = $request->file('attachment_author')->store('submission_attachments', 'public');
         $formFields['attachment_no_author'] = $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public');
@@ -92,7 +94,7 @@ class DocumentController extends Controller
                 'title' => $formFields['title'],
                 'keyword' => $formFields['keyword'],
                 'institution' => $formFields['institution'],
-                'type' => $formFields['type'],
+                'submission_type_id' => $formFields['submission_type_id'],
                 'attachment_author' => $formFields['attachment_author'],
                 'attachment_no_author' => $formFields['attachment_no_author'],
             ]);
@@ -126,7 +128,7 @@ class DocumentController extends Controller
             'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
             'keyword' => ['required', 'string'],
             'institution' => ['required', 'string'],
-            'type' => ['required', 'string']
+            'submission_type_id' => ['required', 'numeric']
         ]);
 
         if($request->hasFile('attachment_author'))

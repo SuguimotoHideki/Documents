@@ -16,9 +16,14 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('institution');
             $table->string('keyword');
-            $table->string('type');
             $table->string('attachment_author');
             $table->string('attachment_no_author');
+            $table->unsignedBigInteger('submission_type_id');
+
+            $table->foreign('submission_type_id')
+            ->references('id')
+            ->on('submission_types');
+
             $table->timestamps();
         });
     }

@@ -16,7 +16,10 @@ class SubmissionTypeSeeder extends Seeder
         $submission_types = [
             'artigo',
             'resumo',
-            'monografia'
+            'monografia',
+            'tcc',
+            'revista',
+            'journal'
         ];
 
         foreach($submission_types as $type)

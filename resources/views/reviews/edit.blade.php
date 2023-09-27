@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <x-document-nav-menu :document="$document"/>
+        <x-review-nav-menu :document="$document" :review="$review"/>
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header fw-bold fs-5">{{ __("Editar avaliação de $document->title") }}</div>

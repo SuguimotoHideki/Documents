@@ -1,7 +1,7 @@
 @props(['document'])
 
 <div class="col-md-3">
-    <div class="shadow-sm p-3 mb-5 bg-white h-100">
+    <div class="shadow-sm p-3 bg-white h-100">
         <div class="fw-bold fs-4 mb-2 border-bottom">
             <a href="{{route('showDocument', $document)}}">Submissão</a>
         </div>
@@ -9,7 +9,7 @@
             @can('submissions.edit')
                 <li class="mb-2">
                     <a href="{{route('editDocument', $document)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
-                        <i class="fa-regular fa-pen-to-square"></i> Editar submissão
+                        <i class="fa-solid fa-pen-to-square"></i> Editar submissão
                     </a>
                 </li>
             @endcan
@@ -41,18 +41,13 @@
                 @if($review !== null)
                     <li class="mb-2">
                         <a href="{{route('showReview', [$document, $review])}}" class="btn btn-light w-100 py-2 text-start">
-                            Ver avaliação
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{{route('editReview', [$document, $review])}}" class="btn btn-light w-100 py-2 text-start">
-                            Editar avaliação
+                            <i class="fa-solid fa-comments"></i> Ver avaliação
                         </a>
                     </li>
                 @else
                     <li class="mb-2">
                         <a href="{{route('createReview', $document)}}" class="btn btn-light w-100 py-2 text-start">
-                            Avaliar
+                            <i class="fa-solid fa-square-plus"></i> Criar avaliação
                         </a>
                     </li>
                 @endif
@@ -60,38 +55,6 @@
         </ul>
     </div>
 </div>
-
-
-<!--<nav class="mb-3 navbar navbar-expand navbar-light bg-white py-0 border-bottom">
-    <div class="navbar-nav me-auto">
-        @can('submissions.edit')
-            <a href="{{route('editDocument', $document->id)}}" class="nav-item nav-link">Editar submissão</a>
-        @endcan
-        @can('reviews.index')
-            <a href="{{ route('indexByDocument', $document->id)}}" class="nav-item nav-link">Ver avaliações</a>
-        @endcan
-        @can('reviews.manage')
-            <a href="{{route('assignReviewer', $document->id)}}" class="nav-item nav-link">Adicionar avaliadores</a>
-        @endcan
-        @can('submissions.delete')
-            <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#documentDeletePrompt{{$document->id}}">Excluir submissão</a>
-        @endcan
-
-        @role('reviewer')
-            @php
-                $review = $document->review()->where('user_id', Auth::user()->id)->first();
-            @endphp
-            @if($review !== null)
-                <a href="{{route('showReview', [$document, $review])}}" class="nav-item nav-link">Ver avaliação</a>
-                <a href="{{route('editReview', [$document, $review])}}" class="nav-item nav-link">Editar avaliação</a>
-            @else
-                <a href="{{route('createReview', $document)}}" class="nav-item nav-link">Avaliar</a>
-            @endif
-        @endif
-    </div>
-</nav>-->
-
-
 
 <div class="modal fade" id="documentDeletePrompt{{$document->id}}" tabindex="-1" aria-labelledby="documentDeletePromptLabel" aria-hidden="true">
     <div class="modal-dialog">

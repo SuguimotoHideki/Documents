@@ -51,11 +51,11 @@
                                     {{$document->submission->getStatusValue()}}
                                 </div>
                             @elseif($status === 1)
-                                <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center w-25">
+                                <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-25">
                                     {{$document->submission->getStatusValue()}}
                                 </div>
                             @elseif($status === 2)
-                                <div class="bg-warning text-white mx-3 py-1 rounded-2 text-md-center w-25">
+                                <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-25">
                                     {{$document->submission->getStatusValue()}}
                                 </div>
                             @else
@@ -68,31 +68,41 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="shadow-sm p-3 mb-3 bg-white h-100">
-                        <h2 class="fs-default fw-bold mb-1 mt-3">
-                            <i class="fa-regular fa-clock"></i> Enviado em:</h2>
-                        <div class="mt-2">{{$document->formatDate($document->created_at)}}</div>
-                        <h2 class="fs-default fw-bold mb-1 mt-3">
-                            <i class="fa-regular fa-clock"></i> Atualizado em:</h2>
-                        <div class="mt-2">{{$document->formatDate($document->updated_at)}}</div>
-                        @if(!Auth::user()->hasRole("reviewer"))
-                            <h2 class="fs-default fw-bold mb-1 mt-3">
-                                <i class="fa-regular fa-clock"></i> Aprovado em:</h2>
-                            <div class="mt-2">{{$document->submission->formatDate($document->submission->approved_at)}}</div>
-                        @endif
+                <div class="col-md-6 mb-3">
+                    <div class="shadow-sm p-3 bg-white h-100">
+                        <div class="col-md">
+                            <h2 class="fs-default fw-bold mb-1">
+                                <i class="fa-regular fa-clock"></i> Enviado em:</h2>
+                            <div>{{$document->formatDate($document->created_at)}}</div>
+                        </div>
+                        <div class="col-md mt-3">
+                            <h2 class="fs-default fw-bold mb-1">
+                                <i class="fa-regular fa-clock"></i> Atualizado em:</h2>
+                            <div>{{$document->formatDate($document->updated_at)}}</div>
+                        </div>
+                        <div class="col-md mt-3">
+                            @if(!Auth::user()->hasRole("reviewer"))
+                                <h2 class="fs-default fw-bold mb-1">
+                                    <i class="fa-regular fa-clock"></i> Aprovado em:</h2>
+                                <div>{{$document->submission->formatDate($document->submission->approved_at)}}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="shadow-sm p-3 mb-3 bg-white h-100">
-                        @if(!Auth::user()->hasRole("reviewer"))
-                            <h2 class="fs-default fw-bold mb-1 mt-3">
-                                <i class="fa-regular fa-eye"></i> Trabalho com identificação:</h2>
-                            <div class="mt-2"><a href="/storage/{{$document->attachment_author}}">Clique aqui para abrir o arquivo</a></div>
-                        @endif
-                        <h2 class="fs-default fw-bold mb-1 mt-3">
-                            <i class="fa-regular fa-eye-slash"></i> Trabalho sem identificação:</h2>
-                        <div class="mt-2"><a href="/storage/{{$document->attachment_no_author}}">Clique aqui para abrir o arquivo</a></div>
+                <div class="col-md-6 mb-3">
+                    <div class="shadow-sm p-3 bg-white h-100">
+                        <div class="col-md">
+                            @if(!Auth::user()->hasRole("reviewer"))
+                                <h2 class="fs-default fw-bold mb-1">
+                                    <i class="fa-regular fa-eye"></i> Trabalho com identificação:</h2>
+                                <div><a href="/storage/{{$document->attachment_author}}">Clique aqui para abrir o arquivo</a></div>
+                            @endif
+                        </div>
+                        <div class="col-md mt-3">
+                            <h2 class="fs-default fw-bold mb-1">
+                                <i class="fa-regular fa-eye-slash"></i> Trabalho sem identificação:</h2>
+                            <div><a href="/storage/{{$document->attachment_no_author}}">Clique aqui para abrir o arquivo</a></div>
+                        </div>
                     </div>
                 </div>
             </div>

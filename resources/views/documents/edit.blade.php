@@ -3,9 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <x-document-nav-menu :document="$document"/>
+        <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ __('Editar submissão') }}</div>
+                <div class="card-header fw-bold fs-5">{{ __('Editar submissão') }}</div>
                 <div class="card-body">
                         <form method="POST" action="/documents/{{$document->id}}/update" enctype="multipart/form-data">
                         @csrf

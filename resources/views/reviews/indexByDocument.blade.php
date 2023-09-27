@@ -3,15 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="row mb-2">
-                <div class="col-md-10">
-                    <h1 class='fs-2 text-truncate'>{{"Avaliações de $document->title"}}</h1>
-                </div>
-                <div class="col-md-2 text-end">
-                    <a href="{{route('showDocument', $document)}}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left"></i> Ver submissão</a>
-                </div>
-            </div>
+        <x-document-nav-menu :document="$document"/>
+        <div class="col-md-9">
+            <h1 class='fs-2 mb-2 text-truncate'>{{"Avaliações de $document->title"}}</h1>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">

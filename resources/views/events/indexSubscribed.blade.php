@@ -148,18 +148,18 @@
                             <tbody>
                                 @foreach($events as $event)
                                 @php
-                                    $event->updateStatus()
+                                    $status = $event->updateStatus()
                                 @endphp
                                 <tr class="align-middle" style="height: 4rem">
                                     <td headers="t1">{{$event->pivot->id}}</td>
                                     <td headers="t2"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
                                     <td headers="t3" class="text-truncate">{{$event->email}}</td>
-                                    <td headers="t4">
-                                        @if($event->getStatusID() < 3)
+                                    <td headers="t4" class="text-center">
+                                        @if($status < 3)
                                             <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
                                                 Em breve
                                             </div>
-                                        @elseif($event->getStatusID() === 3)
+                                        @elseif($status === 3)
                                             <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
                                                 Abertas
                                             </div>
@@ -172,7 +172,9 @@
                                     <td headers="t5">{{$event->getSubmissionDates()}}</td>
                                     <td headers="t6" class="text-center">
                                         @if ($event->userSubmission($user) !== null)
-                                            <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}" class="btn btn-primary mx-3 py-1 rounded-2">Ver submissão</a></td>
+                                            <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}" class="btn btn-primary mx-3 py-1 rounded-2">Ver submissão</a>
+                                        @elseif($status === 3 && $event->userSubmission($user) === null)
+                                            <a href="{{ route('createDocument', $event)}}" class="btn btn-success mx-3 py-1 rounded-2">Fazer submissão</a>
                                         @else
                                             <div class="btn btn-secondary mx-3 py-1 rounded-2 disabled">Pendente</div>
                                         @endif

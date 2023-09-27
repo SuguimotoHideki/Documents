@@ -26,6 +26,10 @@ a:hover:not(.btn){
     background-color: transparent;
 }
 
+.fs-default{
+    font-size: 1rem;
+}
+
 @media (max-width: 1399px) {
     .table col {
       width: 135px; /* Allow columns to stack vertically */

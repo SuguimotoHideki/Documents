@@ -3,18 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <x-document-nav-menu :document="$document"/>
+
+        <div class="col-md-9">
             <div class="row mb-2">
-                <div class="col-md-9">
-                    <h1 class="fs-3 fw-bold text-uppercase text-center mb-3">{{"Avaliação"}}</h1>
-                </div>
-                <div class="col-md-3 float-right">
-                    @role('reviewer')
-                        <a href="{{route('manageReviews')}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Ver avaliações</a>
-                    @else
-                        <a href="{{route('indexByDocument', $document)}}" class="btn btn-outline-dark float-end"><i class="fa-solid fa-arrow-left"></i> Ver avaliações</a>
-                    @endif
-                </div>
+                <h1 class="fs-3 fw-bold mb-2">{{"Avaliação"}}</h1>
             </div>
             <div class="row">
             @role(['admin', 'event moderator', 'reviewer'])

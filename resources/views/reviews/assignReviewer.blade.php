@@ -3,9 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <x-document-nav-menu :document="$document"/>
+        <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ __('Avaliadores da submissão ' . $document->title) }}</div>
+                <div class="card-header fw-bold fs-5">{{ __('Avaliadores da submissão ' . $document->title) }}</div>
                 <form method="POST" action="{{ route('storeReviewer', $document)}}">
                     @csrf
                     <div class="list-group list-group-flush p-3 shadow-sm">
@@ -33,7 +34,7 @@
                                                 @else
                                                     <input type="checkbox" class="form-check-input" id="{{$user->id}}_manage" name="permissions[{{$user->id}}]" value="1">
                                                 @endif
-                                                <label for="{{$user->id}}_manage" class="form-check-label">{{'Avaliar ' . $document->title}}</label>
+                                                <label for="{{$user->id}}_manage" class="form-check-label">{{'Avaliador'}}</label>
                                             </div>
                                         </td>
                                     </tr>

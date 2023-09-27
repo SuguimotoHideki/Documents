@@ -172,7 +172,7 @@ class Event extends Model
         
         $this->save();
         
-        return $this->getStatusValue();
+        return $this->getStatusId();
     }
 
     /**

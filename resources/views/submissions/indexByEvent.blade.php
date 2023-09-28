@@ -10,7 +10,7 @@
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
                 <div class="table-responsive">
-                    <table class="table table-bordered border-light table-hover bg-white table-fixed">
+                    <table class="table table-bordered border-light table-hover bg-white table-fixed x-scroll">
                         <caption>N⁰ submissões: {{count($submissions)}}</caption>
                             <colgroup>
                                 <col width ="11%">

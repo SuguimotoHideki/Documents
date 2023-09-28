@@ -1,6 +1,12 @@
 .table-fixed{
     table-layout: fixed;
 }
+
+.x-scroll{
+    width: 80vw !important;
+    overflow-x: scroll;
+}
+
 .truncate-cell{
     overflow: hidden;
     text-overflow: ellipsis;

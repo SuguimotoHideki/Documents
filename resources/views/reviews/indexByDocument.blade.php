@@ -41,13 +41,18 @@
                                     <td headers="t3">{{$review->score}}</td>
                                     <td headers="t4">
                                         @if($status === 0)
-                                        <i class="fas fa-circle text-success"></i>
+                                            <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                                {{$review->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 1)
-                                        <i class="fas fa-circle text-warning"></i>
+                                            <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
+                                                {{$review->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 2)
-                                        <i class="fas fa-circle text-danger"></i>
+                                            <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                                {{$review->getStatusValue()}}
+                                            </div>
                                         @endif
-                                        {{$review->getStatusValue()}}
                                     </td>
                                     <td headers="t5">{{$review->formatDate($review->created_at)}}</td>
                                     <td headers="t6">{{$review->formatDate($review->updated_at)}}</td>
@@ -120,13 +125,18 @@
                                     <td headers="t2">{{$review->score}}</td>
                                     <td headers="t3">
                                         @if($status === 0)
-                                        <i class="fas fa-circle text-success"></i>
+                                            <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                                {{$review->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 1)
-                                        <i class="fas fa-circle text-warning"></i>
+                                            <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
+                                                {{$review->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 2)
-                                        <i class="fas fa-circle text-danger"></i>
+                                            <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                                {{$review->getStatusValue()}}
+                                            </div>
                                         @endif
-                                        {{$review->getStatusValue()}}
                                     </td>
                                     <td headers="t4">{{$review->formatDate($review->created_at)}}</td>
                                 </tr>

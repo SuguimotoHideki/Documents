@@ -156,15 +156,15 @@
                                     <td headers="t3" class="text-truncate">{{$event->email}}</td>
                                     <td headers="t4" class="text-center">
                                         @if($status < 3)
-                                            <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
+                                            <div class="bg-secondary text-white mx-3 py-1 rounded-2">
                                                 Em breve
                                             </div>
                                         @elseif($status === 3)
-                                            <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                            <div class="bg-success text-white mx-3 py-1 rounded-2">
                                                 Abertas
                                             </div>
                                         @else
-                                            <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                            <div class="bg-danger text-white mx-3 py-1 rounded-2">
                                                 Encerradas
                                             </div>
                                         @endif

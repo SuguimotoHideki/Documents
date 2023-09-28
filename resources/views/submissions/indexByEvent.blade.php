@@ -48,15 +48,22 @@
                                     <td headers="t4">{{ucfirst($submission->document->submissionType->name)}}</td>
                                     <td headers="t5">
                                         @if($status === 0)
-                                        <i class="fas fa-circle text-success"></i>
+                                            <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 1)
-                                        <i class="fas fa-circle text-danger"></i>
+                                            <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @elseif($status === 2)
-                                        <i class="fas fa-circle text-warning"></i>
+                                            <div class="bg-warning mx-3 py-1 rounded-2 text-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @else
-                                        <i class="fas fa-circle text-primary"></i>
+                                            <div class="bg-primary text-white mx-3 py-1 rounded-2 text-center">
+                                                {{$submission->getStatusValue()}}
+                                            </div>
                                         @endif
-                                        {{ $submission->getStatusValue()}}
                                     </td>
                                     <td headers="t6">{{$submission->formatDate($submission->approved_at)}}</td>
                                     <td headers="t7">{{$submission->formatDate($submission->created_at)}}</td>

@@ -34,11 +34,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Deseja excluir a avaliação da submissão <strong>{{$review->document->title}}</strong> ?</p>
+                <p>Deseja excluir a avaliação da submissão <strong>{{$document->title}}</strong> ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <form action="{{ route('deleteReview', [$review->document, $review])}}" method="POST">
+                <form action="{{ route('deleteReview', [$document, $review])}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">

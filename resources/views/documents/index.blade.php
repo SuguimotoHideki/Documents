@@ -42,7 +42,7 @@
                                     $review = $document->review()->where('user_id', Auth::user()->id)->first();
                                     if($review !== null)
                                     {
-                                        $reviewStatus = $review->getStatusID();
+                                        $status = $review->getStatusID();
                                     }
                                 @endphp
                                 <tr class="align-middle" style="height:4rem">
@@ -52,16 +52,19 @@
                                     @if($review !== null)
                                         <td headers="t4">{{$review->score}}</td>
                                         <td headers="t5">
-                                            @if($reviewStatus === 0)
-                                            <i class="fas fa-circle text-success"></i>
-                                            @elseif($reviewStatus === 1)
-                                            <i class="fas fa-circle text-warning"></i>
-                                            @elseif($reviewStatus === 2)
-                                            <i class="fas fa-circle text-danger"></i>
-                                            @else
-                                            <i class="fas fa-circle text-primary"></i>
+                                            @if($status === 0)
+                                                <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                                    {{$review->getStatusValue()}}
+                                                </div>
+                                            @elseif($status === 1)
+                                                <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
+                                                    {{$review->getStatusValue()}}
+                                                </div>
+                                            @elseif($status === 2)
+                                                <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                                    {{$review->getStatusValue()}}
+                                                </div>
                                             @endif
-                                            {{ $review->getStatusValue()}}
                                         </td>
                                         <td headers="t6">{{$review->formatDate($review->created_at)}}</td>
                                     @else
@@ -171,19 +174,19 @@
                                     <td headers="t4">{{ucfirst($document->submissionType->name)}}</td>
                                     <td headers="t5">
                                         @if($status === 0)
-                                            <div class="bg-success text-white mx-3 py-1 rounded-1 text-md-center">
+                                            <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                                 {{$document->submission->getStatusValue()}}
                                             </div>
                                         @elseif($status === 1)
-                                            <div class="bg-danger text-white mx-3 py-1 rounded-1 text-md-center">
+                                            <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                                 {{$document->submission->getStatusValue()}}
                                             </div>
                                         @elseif($status === 2)
-                                            <div class="bg-warning text-white mx-3 py-1 rounded-1 text-md-center">
+                                            <div class="bg-warning mx-3 py-1 rounded-2 text-center">
                                                 {{$document->submission->getStatusValue()}}
                                             </div>
                                         @else
-                                            <div class="bg-primary text-white mx-3 py-1 rounded-1 text-md-center">
+                                            <div class="bg-primary text-white mx-3 py-1 rounded-2 text-center">
                                                 {{$document->submission->getStatusValue()}}
                                             </div>
                                         @endif

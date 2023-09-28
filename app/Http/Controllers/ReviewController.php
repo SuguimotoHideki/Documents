@@ -166,7 +166,7 @@ class ReviewController extends Controller
      */
     public function destroy(Document $document, Review $review)
     {
-        $response = Gate::inspect('deleteReview', [Document::class, $review]);
+        $response = Gate::inspect('deleteReview', $review);
 
         if($response->allowed())
         {

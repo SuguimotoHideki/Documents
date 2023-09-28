@@ -42,19 +42,15 @@
                                 $status = $review->getStatusID()
                             @endphp
                             @if($status === 0)
-                                <div class="bg-success text-white py-1 px-2 rounded-2 text-md-center w-50">
+                                <div class="bg-success text-white py-1 px-2 rounded-2 text-center w-50">
                                     {{$review->getStatusValue()}}
                                 </div>
                             @elseif($status === 1)
-                                <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-50">
+                                <div class="bg-warning py-1 px-2 rounded-2 text-center w-50">
                                     {{$review->getStatusValue()}}
                                 </div>
                             @elseif($status === 2)
-                                <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-50">
-                                    {{$review->getStatusValue()}}
-                                </div>
-                            @else
-                                <div class="bg-primary text-white py-1 px-2 rounded-2 text-md-center w-50">
+                                <div class="bg-danger text-white py-1 px-2 rounded-2 text-center w-50">
                                     {{$review->getStatusValue()}}
                                 </div>
                             @endif

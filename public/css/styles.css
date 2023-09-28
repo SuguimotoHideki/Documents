@@ -32,6 +32,6 @@ a:hover:not(.btn){
 
 @media (max-width: 1399px) {
     .table col {
-      width: 135px; /* Allow columns to stack vertically */
+      width: 135px;
     }
   }

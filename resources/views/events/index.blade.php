@@ -37,15 +37,15 @@
                                 <td headers="t3">{{$event->organizer}}</td>
                                 <td headers="t4">
                                     @if($event->getStatusID() === 0)
-                                        <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
+                                        <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
                                     @elseif($event->getStatusID() === 1)
-                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>
                                     @else
-                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             Encerradas
                                         </div>
                                     @endif
@@ -53,15 +53,15 @@
 
                                 <td headers="t5">
                                     @if($event->getStatusID() < 3)
-                                        <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-md-center">
+                                        <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
                                     @elseif($event->getStatusID() === 3)
-                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-md-center">
+                                        <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>
                                     @else
-                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-md-center">
+                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             Encerradas
                                         </div>
                                     @endif

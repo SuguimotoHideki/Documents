@@ -82,4 +82,11 @@ class ReviewPolicy
         ? Response::allow()
         : Response::deny('Você não ter permissão para ver essa avaliação.');
     }
+
+    public function deleteReview(User $user, Review $review)
+    {
+        return ($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $review->user->id === $user->id))
+        ? Response::allow()
+        : Response::deny('Você não ter permissão para deletar essa avaliação.');
+    }
 }

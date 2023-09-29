@@ -19,7 +19,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
+            'name' => implode(' ', [fake()->company(), fake()->bs()]),
             'website' => fake()->url(),
             'information' => fake()->paragraph(6),
             //'paper_topics' => implode(', ', [Str::random(30), Str::random(30), Str::random(30)]),

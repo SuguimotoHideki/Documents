@@ -24,13 +24,22 @@
                     <h2 class="fs-default fw-bold mb-1 text-start">Comentário:</h2>
                     <div>{{$review->comment}}</div>
                 </div>
-                <div class="col-md text-break mt-3">
-                    <h2 class="fs-default fw-bold mb-1 text-start">Comentário privado:</h2>
-                    <div>{{$review->moderator_comment}}</div>
-                </div>
+                @if(!Auth::user()->hasRole('user'))
+                    <div class="col-md text-break mt-3">
+                        <h2 class="fs-default fw-bold mb-1 text-start">Comentário privado:</h2>
+                        <div>{{$review->moderator_comment}}</div>
+                    </div>
+                @endif
+                @if($review->attachment !== null)
+                    <div class="col-md mt-3">
+                        <h2 class="fs-default fw-bold mb-1">
+                            <i class="fa-regular fa-file"></i> Visualizar anexo:</h2>
+                        <div><a href="/storage/{{$review->attachment}}">Clique aqui para abrir o arquivo</a></div>
+                    </div>
+                @endif
             </div>
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="shadow-sm p-3 bg-white h-100">
                         <div class="col-md">
                             <h2 class="fs-default fw-bold mb-1">Pontuação:</h2>
@@ -57,16 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="shadow-sm p-3 bg-white h-100">
-                        <div class="col-md">
-                            <h2 class="fs-default fw-bold mb-1">
-                                <i class="fa-regular fa-file"></i> Visualizar anexo:</h2>
-                            <div><a href="/storage/{{$review->attachment}}">Clique aqui para abrir o arquivo</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="shadow-sm p-3 bg-white h-100">
                         <div class="col-md">
                             <h2 class="fs-default fw-bold mb-1">

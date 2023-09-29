@@ -29,11 +29,11 @@ class SubmissionController extends Controller
             $submissions = $user->submission()
             ->with($model)
             ->sortable([$request['sort'] => $direction])
-            ->paginate();
+            ->paginate(15);
         }
         else
         {
-            $submissions = $user->submission()->sortable()->paginate();
+            $submissions = $user->submission()->sortable()->paginate(15);
         }
 
         return view('submissions.index', ['user' => $user, 'submissions' => $submissions]);
@@ -41,7 +41,7 @@ class SubmissionController extends Controller
 
     public function indexByEvent(Request $request, Event $event)
     {
-        $submissions = $event->submission()->sortable()->paginate();
+        $submissions = $event->submission()->sortable()->paginate(15);
 
         return view('submissions.indexByEvent', ['event' => $event, 'submissions' => $submissions]);
     }

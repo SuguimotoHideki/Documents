@@ -26,11 +26,11 @@ class DocumentController extends Controller
         {
             if($user->hasRole(['admin', 'event moderator']))
             {
-                $userDocuments = Document::sortable()->paginate();
+                $userDocuments = Document::sortable()->paginate(15);
             }
             elseif($user->hasRole('reviewer'))
             {
-                $userDocuments = $user->documents()->sortable()->paginate();
+                $userDocuments = $user->documents()->sortable()->paginate(15);
             }
             return view('documents.index', [
                 'documents' => $userDocuments

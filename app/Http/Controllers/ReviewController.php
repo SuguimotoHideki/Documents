@@ -40,11 +40,11 @@ class ReviewController extends Controller
         {
             if($user->can('reviews.manage'))
             {
-                $review = Review::all();
+                $review = Review::paginate(15);
             }
             else
             {
-                $review = $user->review()->paginate();
+                $review = $user->review()->paginate(15);
             }
             return view('reviews.index', ['reviews' => $review]);
         }
@@ -61,8 +61,8 @@ class ReviewController extends Controller
 
         if($response->allowed())
         {
-            $review = $document->review()->paginate();
-            return view('reviews.indexByDocument', ['document' => $document, 'reviews' => $review]);
+            $reviews = $document->review()->paginate(15);
+            return view('reviews.indexByDocument', ['document' => $document, 'reviews' => $reviews]);
         }
         return redirect()->back()->with('error', $response->message());
     }

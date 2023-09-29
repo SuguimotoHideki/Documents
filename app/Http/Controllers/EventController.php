@@ -17,7 +17,7 @@ class EventController extends Controller
     //Returns all events
     public function index()
     {
-        $events = Event::where('published', true)->sortable()->paginate();
+        $events = Event::where('published', true)->sortable()->paginate(15);
         return view('events.index', compact('events'));
     }
 
@@ -47,11 +47,11 @@ class EventController extends Controller
 
         if($user->hasRole('event moderator'))
         {
-            $events = $user->eventsModerated()->sortable()->paginate();
+            $events = $user->eventsModerated()->sortable()->paginate(15);
         }
         elseif($user->hasRole('admin'))
         {
-            $events = Event::sortable()->paginate();
+            $events = Event::sortable()->paginate(15);
         }
 
         return view('events.dashboard', compact('events'));

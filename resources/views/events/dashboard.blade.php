@@ -12,8 +12,8 @@
                     </div>
                 @endif
             </div>
-            <div class="list-group list-group-flush shadow-sm p-3 mb-5 bg-white">
-                <div class="table-responsive">
+            <div class="list-group list-group-flush shadow-sm p-3 bg-white">
+                <div class="table-responsive mb-2">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
                             <col width="6%">
@@ -167,6 +167,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    {{$events->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>

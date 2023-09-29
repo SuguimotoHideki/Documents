@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         $users = User::where('id', '!=', 1)
         ->sortable()
-        ->paginate();
+        ->paginate(15);
         return view('auth.index',[
             'users' => $users
         ]);

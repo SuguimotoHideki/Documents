@@ -42,7 +42,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
@@ -73,7 +73,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ "Meus eventos" }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end scrollable-dropdown-menu" aria-labelledby="navbarDropdown">
                                     @can('events.subscribe')
                                         @php
                                             $events = Auth::user()->events()->get();
@@ -84,7 +84,7 @@
                                             </div>
                                         @else
                                             @foreach ($events as $event)
-                                                <a class="dropdown-item btn rounded-0" href="{{ route('showEvent', $event)}}">
+                                                <a class="dropdown-item btn rounded-0 truncate-cell" href="{{ route('showEvent', $event)}}">
                                                     {{$event->name}}
                                                 </a>
                                             @endforeach

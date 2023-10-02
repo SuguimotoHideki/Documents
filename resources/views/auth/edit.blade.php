@@ -3,9 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <x-user-nav-menu :user="$user"/>
+        <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ __('Editar dados') }}</div>
+                <div class="card-header fs-5 fw-bold">{{ __('Editar dados') }}</div>
                 <form method="POST" action="/users/{{$user->id}}/update">
                     @csrf
                     @method('PUT')

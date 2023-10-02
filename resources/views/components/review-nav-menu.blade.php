@@ -1,6 +1,6 @@
 @props(['document', 'review'])
 
-<div class="col-md-3">
+<div class="col-md-3 mb-2">
     <div class="shadow-sm p-3 bg-white h-100">
         <div class="fw-bold fs-4 mb-2 border-bottom">
             <a href="{{route('showReview', [$document, $review])}}">Avaliação</a>

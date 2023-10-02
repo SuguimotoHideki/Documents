@@ -3,8 +3,8 @@
 @role('user')
     @if($event->hasUser(Auth::user()))
         @if($event->userSubmission(Auth::user()) !== null)
-            <div class="col-md-3">
-                <div class="shadow-sm p-3 mb-5 bg-white h-100">
+            <div class="col-md-3 mb-2">
+                <div class="shadow-sm p-3 bg-white h-100">
                     <h2 class="fw-bold fs-4 pb-2 border-bottom">Evento</h2>
                     <ul class="nav flex-column mb-auto">
                         <li class="mb-2">
@@ -25,8 +25,8 @@
 @endif
 
 @can('events.manage')
-<div class="col-md-3">
-    <div class="shadow-sm p-3 mb-5 bg-white h-100">
+<div class="col-md-3 mb-2">
+    <div class="shadow-sm p-3 bg-white h-100">
         <div class="fw-bold fs-4 mb-2 border-bottom">
             <a href="{{route('showEvent', $event)}}">Gerenciar</a>
         </div>

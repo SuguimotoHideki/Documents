@@ -18,11 +18,13 @@ return new class extends Migration
 
             $table->foreign('event_id')
             ->references('id')
-            ->on('events');
+            ->on('events')
+            ->onDelete('cascade');
 
             $table->foreign('user_id')
             ->references('id')
-            ->on('users');
+            ->on('users')
+            ->onDelete('cascade');
 
             $table->unique(['event_id', 'user_id']);
 

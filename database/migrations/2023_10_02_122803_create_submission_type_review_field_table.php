@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_submission_type', function (Blueprint $table) {
+        Schema::create('submission_type_review_field', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('review_field_id');
             $table->unsignedBigInteger('submission_type_id');
 
-            $table->foreign('event_id')
+            $table->foreign('review_field_id')
             ->references('id')
-            ->on('events')
+            ->on('review_fields')
             ->onDelete('cascade');
 
             $table->foreign('submission_type_id')
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_submission_type');
+        Schema::dropIfExists('submission_type_review_field');
     }
 };

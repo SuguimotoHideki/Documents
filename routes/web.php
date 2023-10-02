@@ -9,8 +9,9 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ReviewerController;
 use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
-use App\Http\Controllers\SubmissionTypeController;
+use App\Http\Controllers\ReviewFieldController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SubmissionTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +99,16 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('/manage/documents/{document}', [ReviewerController::class, 'store'])->name('storeReviewer');
     //Delete review
     Route::delete('/documents/{document}}/review/{review}', [ReviewController::class, 'destroy'])->name('deleteReview');
+
+    //REVIEW FIELDS
+    //Create
+    Route::post('/review-fields', [ReviewFieldController::class, 'store'])->name("createReviewField");
+    //Update
+    Route::put('/review-fields/{field}/update', [ReviewFieldController::class, 'update'])->name("updateReviewField");
+    //Index
+    Route::get('/review-fields', [ReviewFieldController::class, 'index'])->name("indexReviewFields");
+    //Delete
+    Route::delete('/review-fields/{field}/delete', [ReviewFieldController::class, 'destroy'])->name("deleteReviewField");
 });
 
 Route::group(['middleware' => ['auth']], function()

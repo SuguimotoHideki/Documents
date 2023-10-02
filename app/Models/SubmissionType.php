@@ -24,4 +24,12 @@ class SubmissionType extends Model
     {
         return $this->hasOne(Document::class);
     }
+
+    /**
+     * Defines many-to-many relationship with ReviewField
+     */
+    public function reviewFields(): BelongsToMany
+    {
+        return $this->belongsToMany(ReviewField::class, 'submission_type_review_field', 'submission_type_id', 'review_field_id');
+    }
 }

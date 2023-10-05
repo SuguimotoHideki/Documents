@@ -23,7 +23,7 @@
                             </label>
                             <div class="col-md-9 my-auto">
                                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $review->title) }}" placeholder="Título da avaliação" required autocomplete="title" autofocus>
-                                <small class="form-text text-muted">Insira uma breve descrição da avaliação.</small>
+                                <small class="form-text text-muted">Uma breve descrição da avaliação.</small>
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -37,13 +37,48 @@
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
-                                <input id="score" type="number" step="0.01" min="0" max="10" class="form-control @error('score') is-invalid @enderror" name="score" value="{{ old('score', $review->score) }}" placeholder="Pontuação da submissão" required autocomplete="score" autofocus>
-                                <small class="form-text text-muted">Valor entre 0 e 10. Se for decimal, separe por '.'</small>
-                                @error('score')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="table-responsive">
+                                    <table id="score" class="table table-bordered table-striped border table-hover bg-white table-fixed">
+                                        @php
+                                            $colWidths = [20, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+                                        @endphp
+                                        <colgroup>
+                                            @foreach($colWidths as $width)
+                                                <col width="{{ $width }}%">
+                                            @endforeach
+                                        </colgroup>
+                                        <thead class="table-light">
+                                            <tr class="align-middle">
+                                                <th id="label"></th>
+                                                @for ($header = 0; $header < 11; $header++)
+                                                    <th id="t{{$header}}">{{$header}}</th>
+                                                @endfor
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($fields as $field)
+                                                <tr class="align-middle" style="height:4rem">
+                                                    <td headers="label" class="form-control @error('score.' . $field->id) is-invalid @enderror" style="display:table-cell">{{$field->name}}</td>
+                                                    <input type="hidden" name="score[{{$field->id}}]" value="-1">
+                                                    @for ($row = 0; $row < 11; $row++)
+                                                        <td headers="{{$row}}">
+                                                            @if($review->reviewFields->contains($field))
+                                                                <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ $row === $review->getScore($field) ? 'checked' : '' }}>
+                                                            @else
+                                                                <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ old("score.$field->id") === "$row" ? 'checked' : '' }}>
+                                                            @endif
+                                                        </td>
+                                                    @endfor
+                                                </tr>
+                                                @error('score.' . $field->id)
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -53,6 +88,7 @@
                             </label>
                             <div class="col-md-9 my-auto">
                                 <textarea id="comment" type="text" class="form-control @error('comment') is-invalid @enderror" rows="10" name="comment" required autocomplete="comment" placeholder="Digite nesse espaço a sua avaliação da submissão. O conteúdo será exibido para o autor da submissão." autofocus>{{ old('comment', $review->comment) }}</textarea>
+                                <small class="form-text text-muted">O comentário será visível para o autor da submissão.</small>
                                 @error('comment')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -66,6 +102,7 @@
                             </label>
                             <div class="col-md-9 my-auto">
                                 <textarea id="moderator_comment" type="text" class="form-control @error('moderator_comment') is-invalid @enderror" rows="10" name="moderator_comment" autocomplete="moderator_comment" placeholder="O conteúdo desse campo será exibido apenas para moderadores e administradores." autofocus>{{ old('moderator_comment', $review->moderator_comment) }}</textarea>
+                                <small class="form-text text-muted">O comentário confidencial será visível apenas para o avaliador, moderador e administradores.</small>
                                 @error('moderator_comment')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -99,21 +136,31 @@
                             <div class="col-md-9 my-auto">
                                 <div class="row">
                                     @if($review->attachment !== null)
-                                    <div class="col-md-4 my-auto">
-                                        <div>
-                                            <a href="/storage/{{$review->attachment}}">Visualizar anexo</a>
+                                        <div class="col-md-3 my-auto">
+                                            <a href="/storage/{{$review->attachment}}" class="btn btn-primary">Visualizar anexo</a>
                                         </div>
-                                    </div>
-                                    @endif
-                                    <div class="col-md-8 my-auto">
+                                        <div class="col-md-9 my-auto">
+                                            <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
+                                            <small class="form-text text-muted">Anexe um arquivo contendo sugestões de correção.</small>
+
+                                            @error('attachment')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    @else
+                                    <div class="col-md-12 my-auto">
                                         <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
-        
+                                        <small class="form-text text-muted">Anexe um arquivo contendo sugestões de correção.</small>
+
                                         @error('attachment')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

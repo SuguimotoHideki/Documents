@@ -89,4 +89,14 @@ class ReviewPolicy
         ? Response::allow()
         : Response::deny('Você não ter permissão para deletar essa avaliação.');
     }
+
+    /**
+     * Verifies if user can manage review fields
+     */
+    public function manageReviewFields(User $user)
+    {
+        return ($user->hasRole(['admin']))
+        ? Response::allow()
+        : Response::deny('Você não ter permissão para acessar essa página.');
+    }
 }

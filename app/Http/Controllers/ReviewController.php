@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use App\Actions\SyncReviewScores;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -75,7 +76,10 @@ class ReviewController extends Controller
         $response = Gate::inspect('createReview', [Review::class, $document]);
         if($response->allowed())
         {
-            return view('reviews.create', ['document' => $document]);
+            return view('reviews.create', [
+                'document' => $document,
+                'fields' => $document->submissionType->reviewFields
+            ]);
         }
         return redirect()->back()->with('error', $response->message());
     }
@@ -83,13 +87,13 @@ class ReviewController extends Controller
     /**
      * Stores review
      */
-    public function store(Request $request, Document $document)
+    public function store(Request $request, Document $document, SyncReviewScores $action)
     {
         $review = null;
 
         $formFields = $request->validate([
             'title' => ['required', 'string'],
-            'score' => ['required', 'max:10', 'min:0', 'numeric'],
+            'score.*' => ['required', 'integer', 'digits_between:0,10'],
             'comment' => ['required', 'string'],
             'moderator_comment' => ['nullable', 'string'],
             'recommendation' => ['required'],
@@ -104,8 +108,14 @@ class ReviewController extends Controller
 
         try
         {
-            DB::transaction(function() use ($formFields, &$review){
+            DB::transaction(function() use ($formFields, &$review, $action){
+                $reviewValues = $action->handle($formFields);
+
+                $formFields['score'] = $reviewValues[1];
+
                 $review = Review::create($formFields);
+
+                $review->reviewFields()->sync($reviewValues[0]);
             });
         }
         catch(QueryException $error)
@@ -131,7 +141,11 @@ class ReviewController extends Controller
 
         if($response->allowed())
         {
-            return view('reviews.edit', ['review' => $review, 'document' => $document]);
+            return view('reviews.edit', [
+                'review' => $review,
+                'document' => $document,
+                'fields' => $document->submissionType->reviewFields
+            ]);
         }
         return redirect()->back()->with('error', $response->message());
     }
@@ -139,25 +153,30 @@ class ReviewController extends Controller
     /**
      * Saves review changes
      */
-    public function update(Request $request, Document $document, Review $review)
+    public function update(Request $request, Document $document, Review $review, SyncReviewScores $action)
     {
         $formFields = $request->validate([
             'title' => ['required', 'string'],
-            'score' => ['required', 'max:10', 'min:0', 'numeric'],
             'comment' => ['required', 'string'],
+            'score' => ['required', 'array'],
+            'score.*' => ['required', 'integer', 'digits_between:0,10'],
             'moderator_comment' => ['nullable', 'string'],
             'recommendation' => ['required'],
         ]);
 
+        $reviewValues = $action->handle($formFields);
+
+        $formFields['score'] = $reviewValues[1];
+
         if($request->hasFile('attachment'))
         {
             $formFields['attachment'] = $request->file('attachment')->store('review_attachments', 'public');
-            $review->update($formFields);
         }
-        else
-        {
-            $review->update($request->except('attachment'));
-        }
+        
+        $review->update($formFields);
+
+        $review->reviewFields()->sync($reviewValues[0]);
+
         return redirect()->route('showReview', ['review' => $review, 'document' => $document])->with('success', "Avaliação atualizada.");
     }
 

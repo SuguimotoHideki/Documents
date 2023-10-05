@@ -6,52 +6,77 @@ use App\Models\ReviewField;
 use Illuminate\Http\Request;
 use App\Models\SubmissionType;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class ReviewFieldController extends Controller
 {
     //
     public function index()
     {
-        $fields = ReviewField::all();
-        $subTypes = SubmissionType::all();
-        
-        return view('review_fields.index', [
-            "fields" => $fields,
-            "types" => $subTypes
-        ]);
+
+        $response = Gate::inspect('manageReviewFields', Review::class);
+
+        if($response->allowed())
+        {
+            $fields = ReviewField::all();
+            $subTypes = SubmissionType::all();
+            
+            return view('review_fields.index', [
+                "fields" => $fields,
+                "types" => $subTypes
+            ]);
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 
     public function store(Request $request)
     {
-        $formFields = $request->validate([
-            'name' => ["required", "string", Rule::unique('review_fields', 'name')],
-            'submission_type' => ['required', 'array'],
-        ]);
+        $response = Gate::inspect('manageReviewFields', Review::class);
 
-        $field = ReviewField::create($formFields);
+        if($response->allowed())
+        {
+            $formFields = $request->validate([
+                'name' => ["required", "string", Rule::unique('review_fields', 'name')],
+                'submission_type' => ['required', 'array'],
+            ]);
 
-        $field->submissionTypes()->sync($formFields['submission_type']);
+            $field = ReviewField::create($formFields);
 
-        return redirect()->back()->with('success', "Campo de avaliação criado.");
+            $field->submissionTypes()->sync($formFields['submission_type']);
+
+            return redirect()->back()->with('success', "Campo de avaliação criado.");
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 
     public function update(Request $request, ReviewField $field)
     {
-        $formFields = $request->validate([
-            'name' => ["required", "string", Rule::unique('review_fields', 'name')->ignore($field, 'id')],
-            'submission_type' => ['required', 'array'],
-        ]);
-        
-        $field->update($formFields);
-        $field->submissionTypes()->sync($formFields['submission_type']);
+        $response = Gate::inspect('manageReviewFields', Review::class);
 
-        return redirect()->back()->with('success', "Campo de avaliação atualizado.");
+        if($response->allowed())
+        {
+            $formFields = $request->validate([
+                'name' => ["required", "string", Rule::unique('review_fields', 'name')->ignore($field, 'id')],
+                'submission_type' => ['required', 'array'],
+            ]);
+            
+            $field->update($formFields);
+            $field->submissionTypes()->sync($formFields['submission_type']);
+
+            return redirect()->back()->with('success', "Campo de avaliação atualizado.");
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 
     public function destroy(ReviewField $field)
-    {  
-        $field->delete();
+    {
+        $response = Gate::inspect('manageReviewFields', Review::class);
 
-        return redirect()->back()->with('success', "Campo de avaliação excluído.");
+        if($response->allowed())
+        {
+            $field->delete();
+            return redirect()->back()->with('success', "Campo de avaliação excluído.");
+        }
+        return redirect()->back()->with('error', $response->message());
     }
 }

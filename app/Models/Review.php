@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Review extends Model
 {
@@ -83,5 +84,25 @@ class Review extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Defines many-to-many relationship with ReviewField
+     */
+    public function reviewFields(): BelongsToMany
+    {
+        return $this->belongsToMany(ReviewField::class, 'review_review_field', 'review_id', 'review_field_id')->withPivot('score');
+    }
+
+    /**
+     * Returns field score if available in the pivot table
+     */
+    public function getScore(ReviewField $field)
+    {
+        if($this->reviewFields->contains($field))
+        {
+            return $field->reviews->where('id', $this->id)->first()->pivot->score;
+        }
+        return -1;
     }
 }

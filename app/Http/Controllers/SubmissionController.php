@@ -13,28 +13,7 @@ class SubmissionController extends Controller
     //
     public function index(Request $request, User $user)
     {
-        $sort = $request['sort'];
-
-        if (strpos($sort, '.') !== false) {
-            [$model, $column] = explode(".", $sort);
-        } else {
-            $column = $sort;
-            $model = null;
-        }
-
-        $direction = $request['direction'];
-
-        if($model !== null && $column !== null && $direction !== null)
-        {
-            $submissions = $user->submission()
-            ->with($model)
-            ->sortable([$request['sort'] => $direction])
-            ->paginate(15);
-        }
-        else
-        {
-            $submissions = $user->submission()->sortable()->paginate(15);
-        }
+        $submissions = $user->submission()->sortable()->paginate(15);
 
         return view('submissions.index', ['user' => $user, 'submissions' => $submissions]);
     }

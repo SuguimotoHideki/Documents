@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Gate;
 class DocumentController extends Controller
 {
     //Return all documents
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
@@ -26,14 +26,36 @@ class DocumentController extends Controller
         {
             if($user->hasRole(['admin', 'event moderator']))
             {
-                $userDocuments = Document::sortable()->paginate(15);
+                $documents = Document::sortable();
+                if(!empty($request->input('search')))
+                {
+                    $searchQuery = $request->get('search');
+    
+                    $documents = $documents->where('title', 'LIKE', '%' . $searchQuery . '%')
+                    ->orWhere('id', $searchQuery)
+                    ->orWhereHas('submission', function($submissionQuery) use($searchQuery){
+                        $submissionQuery->WhereHas('user', function($userQuery) use($searchQuery){
+                            $userQuery->where('user_name', 'LIKE', '%' . $searchQuery . '%');
+                        });
+                    });
+                }
             }
             elseif($user->hasRole('reviewer'))
             {
-                $userDocuments = $user->documents()->sortable()->paginate(15);
+                $documents = $user->documents()->sortable();
+                if(!empty($request->input('search')))
+                {
+                    $searchQuery = $request->get('search');
+    
+                    $documents = $documents->where('title', 'LIKE', '%' . $searchQuery . '%')
+                    ->orWhere('document_id', $searchQuery);
+                }
             }
+
+            $documents = $documents->paginate(15)->withQueryString();
+
             return view('documents.index', [
-                'documents' => $userDocuments
+                'documents' => $documents,
             ]);
         }
         return redirect()->back()->with('error', $response->message());

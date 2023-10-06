@@ -92,11 +92,20 @@ class EventPolicy
         : Response::deny('Você não ter permissão para cancelar inscrições.');
     }
 
-    public function Subscribe(User $user)
+    public function Subscribe(User $user, Event $event)
     {
-        return $user->can('events.subscribe')
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para se inscrever.');
+        if($user->can('events.subscribe'))
+        {
+            if($event->getStatusID() === 1 && $event->published === 1)
+            {
+                return Response::allow();
+            }
+            else
+            {
+                return Response::deny('As inscrições não estão disponíveis.');
+            }
+        }
+        return Response::deny('Você não ter permissão para se inscrever.');
     }
 
     public function manageModerator(User $user)

@@ -59,7 +59,7 @@ class SubscriptionController extends Controller
     
     public function create(Event $event)
     {
-        $response = Gate::inspect('Subscribe', Event::class);
+        $response = Gate::inspect('Subscribe', $event);
 
         if($response->allowed())
         {

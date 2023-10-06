@@ -15,9 +15,18 @@ use Carbon\Carbon;
 class EventController extends Controller
 {
     //Returns all events
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::where('published', true)->sortable()->paginate(15);
+        $eventQuery = Event::query();
+        $searchQuery = $request->get('search');
+
+        $events = $eventQuery->where('published', true)
+        ->where(function ($query) use ($searchQuery) {
+            $query->where('name', 'LIKE', '%' . $searchQuery . '%')
+                ->orWhere('organizer', 'LIKE', '%' . $searchQuery . '%');
+        })
+        ->sortable()->paginate(15)->withQueryString();
+
         return view('events.index', compact('events'));
     }
 
@@ -39,7 +48,7 @@ class EventController extends Controller
     }    
 
     //Returns event management page
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $user = Auth::user();
 
@@ -47,12 +56,23 @@ class EventController extends Controller
 
         if($user->hasRole('event moderator'))
         {
-            $events = $user->eventsModerated()->sortable()->paginate(15);
+            $events = $user->eventsModerated()->sortable();
         }
         elseif($user->hasRole('admin'))
         {
-            $events = Event::sortable()->paginate(15);
+            $events = Event::sortable();
         }
+
+        if(!empty($request->input('search')))
+        {
+            $searchQuery = $request->get('search');
+            
+            $events = $events->where('name', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('organizer', 'LIKE', '%' . $searchQuery . '%')
+            ->paginate(15)->withQueryString();
+        }
+        else
+            $events = $events->paginate(15)->withQueryString();
 
         return view('events.dashboard', compact('events'));
     }

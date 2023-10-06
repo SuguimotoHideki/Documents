@@ -6,6 +6,17 @@
         <div class="col-md-12">
             <h1 class='fs-2'>Eventos em andamento</h1>
             <div class="list-group list-group-flush shadow-sm p-3 bg-white">
+                <form action="{{route('indexEvents')}}" method="GET">
+                    <div class="row">
+                        <div class="col-md-10 mb-3">
+                            <input name="search" class="form-control" type="text" placeholder="Buscar pelo nome do evento ou organizador" aria-label="Search">
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <button class="btn btn-primary w-100"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="table-responsive mb-2">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>

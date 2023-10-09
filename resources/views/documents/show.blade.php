@@ -51,11 +51,11 @@
                                     {{$document->submission->getStatusValue()}}
                                 </div>
                             @elseif($status === 1)
-                                <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-25">
+                                <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-25">
                                     {{$document->submission->getStatusValue()}}
                                 </div>
                             @elseif($status === 2)
-                                <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-25">
+                                <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-25">
                                     {{$document->submission->getStatusValue()}}
                                 </div>
                             @else

@@ -34,8 +34,8 @@ class Submission extends Model
 
     public const STATUSES = [
         0 => 'Aprovado',
-        1 => 'Reprovado',
-        2 => 'Em revisão',
+        1 => 'Revisão',
+        2 => 'Reprovado',
         3 => 'Enviado'
     ];
 
@@ -53,13 +53,12 @@ class Submission extends Model
         return self::STATUSES[$this->attributes['status']];
     }
 
-    public function setStatus()
+    public function setStatus($statusID)
     {
-        $statusID = self::getStatusID();
-        if($statusID)
-        {
-            $this->attributes['status'] = $statusID;
-        }
+        $this->status = $statusID;
+
+        if(array_key_exists($statusID, self::STATUSES))
+            $this->save();
     }
 
     /**

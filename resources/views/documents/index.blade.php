@@ -201,11 +201,11 @@
                                             {{$document->submission->getStatusValue()}}
                                         </div>
                                     @elseif($status === 1)
-                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
+                                        <div class="bg-warning mx-3 py-1 rounded-2 text-center">
                                             {{$document->submission->getStatusValue()}}
                                         </div>
                                     @elseif($status === 2)
-                                        <div class="bg-warning mx-3 py-1 rounded-2 text-center">
+                                        <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             {{$document->submission->getStatusValue()}}
                                         </div>
                                     @else

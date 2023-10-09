@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\ReviewCreated;
+use App\Listeners\CompleteReview;
 use App\Observers\EventObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        ReviewCreated::class => [
+            CompleteReview::class,
         ],
     ];
 

@@ -6,6 +6,7 @@ use App\Models\Review;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Actions\SyncReviewScores;
+use App\Events\ReviewCreated;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -129,6 +130,9 @@ class ReviewController extends Controller
                 return redirect()->back()->with('error', 'Ocorreu um erro ao criar a avaliação.');
             }
         }
+
+        event (new ReviewCreated($document->submission));
+
         return redirect()->route('showReview', [$document, $review])->with('success', "Avaliação submetida.");
     }
 
@@ -147,6 +151,7 @@ class ReviewController extends Controller
                 'fields' => $document->submissionType->reviewFields
             ]);
         }
+
         return redirect()->back()->with('error', $response->message());
     }
 
@@ -177,6 +182,8 @@ class ReviewController extends Controller
 
         $review->reviewFields()->sync($reviewValues[0]);
 
+        event (new ReviewCreated($document->submission));
+
         return redirect()->route('showReview', ['review' => $review, 'document' => $document])->with('success', "Avaliação atualizada.");
     }
 
@@ -190,8 +197,12 @@ class ReviewController extends Controller
         if($response->allowed())
         {
             $review->delete();
+
+            event (new ReviewCreated($document->submission));
+
             return redirect()->back()->with('success', 'Avaliação de ' . $document->title . ' removida.');
         }
+
         return redirect()->back()->with('error', $response->message());
     }
 }

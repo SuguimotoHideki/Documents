@@ -3,8 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\ReviewCreated;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Notifications\ReviewNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Notification;
 
 class CompleteReview
 {
@@ -22,21 +26,38 @@ class CompleteReview
     public function handle(ReviewCreated $event): void
     {
         $submission = $event->submission;
+        $recommendations = array_count_values($submission->document->review()->pluck('recommendation')->toArray());
+
         $reviewers = $submission->document->users()->count();
         $reviews = $submission->document->review()->count();
 
         if($reviewers === $reviews)
         {
-            $recomArr = array_count_values($submission->document->review()->pluck('recommendation')->toArray());
-            arsort($recomArr);
-            $submission->setStatus(key($recomArr));
-            //dd($submission->status, $submission->document->review()->pluck('recommendation')->toArray(), array_count_values($submission->document->review()->pluck('recommendation')->toArray()));
+            $minAgreement = ($reviewers <= 2) ? $reviewers : ceil($reviewers / 2);
+
+            arsort($recommendations);
+
+            $scoreKey = key($recommendations);
+            $scoreVal = current($recommendations);
+
+            if ($scoreVal >= $minAgreement)
+            {
+                $submission->setStatus($scoreKey);
+            }
+            else
+            {
+                $submission->setStatus(3);
+
+                $user = User::role('admin')->get();
+                Notification::send($user, new ReviewNotification($submission));
+            }
         }
-        elseif($reviews < $reviewers)
+        else
         {
             $submission->setStatus(3);
+
+            $user = User::role('admin')->get();
+            Notification::send($user, new ReviewNotification($submission));
         }
-        
-        //dd($reviewers, $reviews);
     }
 }

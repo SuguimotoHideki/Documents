@@ -69,6 +69,7 @@
                                 </li>
                             @endif
                         @else
+                            @role('event moderator, reviewer, user')  
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ "Meus eventos" }}
@@ -107,6 +108,7 @@
                                     @endcan
                                 </div>
                             </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->user_name }}

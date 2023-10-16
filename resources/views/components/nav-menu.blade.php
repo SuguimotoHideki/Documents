@@ -42,6 +42,9 @@
     <li class="nav-item my-auto">
         <a href="{{route('manageUsers')}}" class="nav-link">Usuários</a>
     </li>
+    <li class="nav-item my-auto icon-badge-group">
+        <a href="{{route('indexUnread')}}" class="nav-link item">Notificações <div class="notify-badge">{{Auth::user()->unreadNotifications()->groupBy('notifiable_type')->count()}}</div></a>
+    </li>
 @endif
 @role('event moderator')
     <li class="nav-item my-auto">

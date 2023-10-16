@@ -10,6 +10,7 @@ use App\Http\Controllers\ReviewerController;
 use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\ReviewFieldController;
+use App\Http\Controllers\ReviewNotificationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SubmissionTypeController;
 
@@ -109,6 +110,14 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/review-fields', [ReviewFieldController::class, 'index'])->name("indexReviewFields");
     //Delete
     Route::delete('/review-fields/{field}/delete', [ReviewFieldController::class, 'destroy'])->name("deleteReviewField");
+
+    //REVIEW NOTIFICATIONS
+    //Index unread
+    Route::get('/manage/reviews/notifications', [ReviewNotificationController::class, 'indexUnread'])->name("indexUnread");
+    //Index read
+    Route::get('/manage/reviews/read-notifications', [ReviewNotificationController::class, 'indexRead'])->name("indexRead");
+    //Mark as read
+    Route::get('/manage/reviews/notifications/{id}', [ReviewNotificationController::class, 'markNotif'])->name("markRead");
 });
 
 Route::group(['middleware' => ['auth']], function()

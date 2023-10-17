@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('document_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status');
-            $table->date('approved_at')->nullable();
+            $table->dateTime('approved_at')->nullable();
 
             $table->foreign('event_id')
             ->references('id')

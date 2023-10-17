@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Notifications\ReviewNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
+use Carbon\Carbon;
 
 class CompleteReview
 {
@@ -43,21 +44,34 @@ class CompleteReview
             if ($scoreVal >= $minAgreement)
             {
                 $submission->setStatus($scoreKey);
+                if($submission->getStatusId() === 0)
+                {
+                    $submission->approved_at = now();
+                    $submission->save();
+                }
             }
             else
             {
                 $submission->setStatus(3);
+                $submission->approved_at = null;
+                $submission->save();
 
                 $user = User::role('admin')->get();
-                Notification::send($user, new ReviewNotification($submission));
+
+                if($event->changed)
+                {
+                    Notification::send($user, new ReviewNotification($submission));
+                }
             }
         }
         else
         {
-            $submission->setStatus(3);
-
-            $user = User::role('admin')->get();
-            Notification::send($user, new ReviewNotification($submission));
+            if($submission->getStatusID() !== 3)
+            {
+                $submission->setStatus(3);
+                $submission->approved_at = null;
+                $submission->save();
+            }
         }
     }
 }

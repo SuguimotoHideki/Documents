@@ -14,14 +14,15 @@ class ReviewCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $submission;
+    public $submission, $changed;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($submission)
+    public function __construct($submission, $changed)
     {
         $this->submission = $submission;
+        $this->changed = $changed;
     }
 
     /**

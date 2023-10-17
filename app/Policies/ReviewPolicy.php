@@ -66,9 +66,24 @@ class ReviewPolicy
      */
     public function indexByDocument(User $user, Document $document)
     {
-        return ($user->hasRole(['admin', 'event moderator']) || $document->submission->user->id === $user->id)
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para acessar essa página.');
+        if($user->hasRole(['admin', 'event moderator']))
+        {
+            return Response::allow();
+        }
+        else if($document->submission->user->id === $user->id)
+        {
+            $reviewers = $document->users()->count();
+            $reviews = $document->review()->count();
+            if($reviewers === $reviews)
+            {
+                return Response::allow();
+            }
+            else
+            {
+                return Response::deny('A submissão ainda está sendo avaliada, aguarde a finalização para ver os resultados.');
+            }
+        }
+        return Response::deny('Você não ter permissão para acessar essa página.');
     }
 
     /**

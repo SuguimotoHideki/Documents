@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use App\Events\ReviewCreated;
 
 class ReviewerController extends Controller
 {
@@ -39,6 +40,7 @@ class ReviewerController extends Controller
                 $document->users()->detach($user->id);
             }
         }
+        event (new ReviewCreated($document->submission, true));
         return back()->with('success', 'Permissões aplicadas.');
     }
 }

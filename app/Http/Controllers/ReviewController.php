@@ -131,7 +131,7 @@ class ReviewController extends Controller
             }
         }
 
-        event (new ReviewCreated($document->submission));
+        event (new ReviewCreated($document->submission, true));
 
         return redirect()->route('showReview', [$document, $review])->with('success', "Avaliação submetida.");
     }
@@ -177,12 +177,14 @@ class ReviewController extends Controller
         {
             $formFields['attachment'] = $request->file('attachment')->store('review_attachments', 'public');
         }
-        
+
         $review->update($formFields);
 
         $review->reviewFields()->sync($reviewValues[0]);
 
-        event (new ReviewCreated($document->submission));
+        $changed = $review->wasChanged('recommendation');
+
+        event (new ReviewCreated($document->submission, $changed));
 
         return redirect()->route('showReview', ['review' => $review, 'document' => $document])->with('success', "Avaliação atualizada.");
     }
@@ -198,7 +200,7 @@ class ReviewController extends Controller
         {
             $review->delete();
 
-            event (new ReviewCreated($document->submission));
+            event (new ReviewCreated($document->submission, true));
 
             return redirect()->back()->with('success', 'Avaliação de ' . $document->title . ' removida.');
         }

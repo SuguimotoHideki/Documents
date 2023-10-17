@@ -39,10 +39,43 @@ class DocumentPolicy
      */
     public function editDocument(User $user, Document $document)
     {
-        return ($user->hasRole(['admin', 'event moderator']) ||
-        ($user->hasRole('user') && $document->submission->user->id === $user->id))
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para editar essa submissão.');
+        if($user->hasRole('admin'))
+        {
+            return Response::allow();
+        }
+        else if($user->hasRole('event moderator'))
+        {
+            if($user->isModerator($document->submission->event))
+            {
+                return Response::allow();
+            }
+            return Response::deny('Você não ter permissão para editar essa submissão.'); 
+        }
+        else if($user->hasRole('user') && $document->submission->user->id === $user->id)
+        {
+            $reviewers = $document->users()->count();
+            $reviews = $document->review()->count();
+            if($reviews > 0)
+            {
+                if($reviewers === $reviews)
+                {
+                    if($document->submission->getStatusID() === 1)
+                    {
+                        return Response::allow();
+                    }
+                    else
+                    {
+                        return Response::deny("A submissão já foi avaliada, não é mais possível editá-la");
+                    }
+                }
+                else
+                {
+                    return Response::deny("Aguarde o fim da avaliação para editar a submissão");
+                }
+            }
+            return Response::allow();
+        }
+        return Response::deny('Você não ter permissão para editar essa submissão.');
     }
 
     /**

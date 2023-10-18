@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Events\ReviewCreated;
 
 class DatabaseSeeder extends Seeder
 {
@@ -83,6 +84,7 @@ class DatabaseSeeder extends Seeder
                     'user_id' => $reviewer->id,
                     'document_id' => $review->id,
                 ]);
+                event (new ReviewCreated($review->submission, true));
             }
         }
     }

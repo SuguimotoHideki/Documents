@@ -24,6 +24,8 @@ class ReviewerController extends Controller
     {
         $this->authorize('assignReviewer', Review::class);
 
+        $reviewers = $document->users()->pluck('user_id')->toArray();
+
         $parameters = $request['permissions'];
         foreach($parameters as $userId => $permissions)
         {
@@ -40,7 +42,11 @@ class ReviewerController extends Controller
                 $document->users()->detach($user->id);
             }
         }
-        event (new ReviewCreated($document->submission, true));
+
+        $newReviewers = $document->users()->pluck('user_id')->toArray();
+        $changed = ($reviewers !== $newReviewers);
+        event (new ReviewCreated($document->submission, $changed));
+
         return back()->with('success', 'Permissões aplicadas.');
     }
 }

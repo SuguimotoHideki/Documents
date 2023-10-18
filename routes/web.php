@@ -10,9 +10,9 @@ use App\Http\Controllers\ReviewerController;
 use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\ReviewFieldController;
-use App\Http\Controllers\ReviewNotificationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SubmissionTypeController;
+use App\Http\Controllers\ReviewNotificationController;
 
 /*
 |--------------------------------------------------------------------------

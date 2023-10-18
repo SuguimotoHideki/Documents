@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Events\ReviewCreated;
 use App\Listeners\CompleteReview;
+use App\Models\Document;
+use App\Observers\DocumentObserver;
 use App\Observers\EventObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -33,6 +35,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         EventModel::observe(EventObserver::class);
+        Document::observe(DocumentObserver::class);
+
     }
 
     /**

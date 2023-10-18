@@ -46,9 +46,25 @@ class ReviewPolicy
      */
     public function editReview(User $user, Review $review)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $review->user->id === $user->id))
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para editar essa avaliação.');
+        $document = $review->document;
+        $reviewers = $document->users()->count();
+        $reviews = $document->review()->count();
+        if($user->hasRole('admin') || $user->id === 1)
+        {
+            return Response::allow();
+        }
+        else if($user->hasRole('reviewer') && $review->user->id === $user->id)
+        {
+            if($reviewers === $reviews)
+            {
+                return Response::deny('A avaliação já foi finalizada, não é mais possível fazer alterações.');
+            }
+            else
+            {
+                return Response::allow();
+            }
+        }
+        Response::deny('Você não ter permissão para editar essa avaliação.');
     }
 
     /**
@@ -74,7 +90,7 @@ class ReviewPolicy
         {
             $reviewers = $document->users()->count();
             $reviews = $document->review()->count();
-            if($reviewers === $reviews)
+            if($reviewers === $reviews && $document->submission->getStatusID() !== 3)
             {
                 return Response::allow();
             }
@@ -100,9 +116,25 @@ class ReviewPolicy
 
     public function deleteReview(User $user, Review $review)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $review->user->id === $user->id))
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para deletar essa avaliação.');
+        $document = $review->document;
+        $reviewers = $document->users()->count();
+        $reviews = $document->review()->count();
+        if($user->hasRole('admin') || $user->id === 1)
+        {
+            return Response::allow();
+        }
+        else if($user->hasRole('reviewer') && $review->user->id === $user->id)
+        {
+            if($reviewers === $reviews)
+            {
+                return Response::deny('A avaliação já foi finalizada, não é mais possível fazer alterações.');
+            }
+            else
+            {
+                return Response::allow();
+            }
+        }
+        Response::deny('Você não ter permissão para deletar essa avaliação.');
     }
 
     /**

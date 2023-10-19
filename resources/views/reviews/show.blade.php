@@ -20,6 +20,47 @@
                         <div>{{$review->user->user_name}}</div>
                     </div>
                 @endif
+                <div class="col-md mt-3">
+                    <h2 class="fs-default fw-bold mb-1">Pontuações:</h2>
+                    <small class="form-text text-muted">Os seguintes critérios foram avaliados de 0 à 10. A pontuação final é a média dos critérios abaixo.</small>
+                    <div class="table-responsive">
+                        <table id="score" class="table table-bordered table-striped border table-hover bg-white table-fixed">
+                            @php
+                                $colWidths = [20, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+                            @endphp
+                            <colgroup>
+                                @foreach($colWidths as $width)
+                                    <col width="{{ $width }}%">
+                                @endforeach
+                            </colgroup>
+                            <thead class="table-light">
+                                <tr class="align-middle">
+                                    <th id="label"></th>
+                                    @for ($header = 0; $header < 11; $header++)
+                                        <th id="t{{$header}}">{{$header}}</th>
+                                    @endfor
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($fields as $field)
+                                    <tr class="align-middle" style="height:4rem">
+                                        <td headers="label">{{$field->name}}</td>
+                                        @for ($row = 0; $row < 11; $row++)
+                                            <td headers="{{$row}}">
+                                                <input type="radio" value="{{$row}}" disabled {{ $review->getScore($field) == "$row" ? 'checked' : '' }}>
+                                            </td>
+                                        @endfor
+                                    </tr>
+                                    @error('score.' . $field->id)
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div class="col-md text-break mt-3">
                     <h2 class="fs-default fw-bold mb-1 text-start">Comentário:</h2>
                     <div>{{$review->comment}}</div>

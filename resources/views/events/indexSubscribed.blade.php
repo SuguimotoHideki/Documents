@@ -143,7 +143,7 @@
                                     <th id="t2">@sortablelink('name', 'Evento')</th>
                                     <th id="t3">@sortablelink('email', 'Email')</th>
                                     <th id="t4">@sortablelink('status', 'Submissões')</th>
-                                    <th id="t5">@sortablelink('subscription_deadline', 'Prazo para submissão')</th>
+                                    <th id="t5">@sortablelink('submission_deadline', 'Prazo para submissão')</th>
                                     <th id="t6">Submissão</th>
                                     <th id="t7">@sortablelink('event_user.created_at', 'Inscrito em')</th>
                                 </tr>

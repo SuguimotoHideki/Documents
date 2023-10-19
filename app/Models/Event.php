@@ -134,7 +134,7 @@ class Event extends Model
     public function getSubmissionTypes()
     {
         $types = explode(",", $this->submission_types);
-        dd($types);
+        //dd($types);
     }
 
     /**

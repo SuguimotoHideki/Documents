@@ -13,14 +13,14 @@ class SubmissionController extends Controller
     //
     public function index(Request $request, User $user)
     {
-        $submissions = $user->submission()->sortable()->paginate(15);
+        $submissions = $user->submission()->sortable()->paginate(15)->withQueryString();
 
         return view('submissions.index', ['user' => $user, 'submissions' => $submissions]);
     }
 
     public function indexByEvent(Request $request, Event $event)
     {
-        $submissions = $event->submission()->sortable()->paginate(15);
+        $submissions = $event->submission()->sortable()->paginate(15)->withQueryString();
 
         return view('submissions.indexByEvent', ['event' => $event, 'submissions' => $submissions]);
     }

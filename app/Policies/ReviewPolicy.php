@@ -90,7 +90,7 @@ class ReviewPolicy
         {
             $reviewers = $document->users()->count();
             $reviews = $document->review()->count();
-            if($reviewers === $reviews && $document->submission->getStatusID() !== 3)
+            if($reviews === 0 || ($reviewers === $reviews && $document->submission->getStatusID() !== 3))
             {
                 return Response::allow();
             }

@@ -18,7 +18,7 @@ class Submission extends Model
         'document_id',
         'user_id',
         'status',
-        'approved_at'
+        'reviewed_at'
     ];
 
     protected $sortable = [
@@ -27,7 +27,7 @@ class Submission extends Model
         'event.name',
         'document.type',
         'status',
-        'approved_at',
+        'reviewed_at',
         'created_at',
         'updated_at'
     ];

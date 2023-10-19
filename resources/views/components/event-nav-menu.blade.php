@@ -52,11 +52,19 @@
                         <i class="fa-regular fa-pen-to-square"></i> Gerenciar moderadores
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}" class="btn btn-light w-100 py-2 text-start">
-                        <i class="fa-solid fa-trash-can"></i> Excluir evento
-                    </a>
-                </li>
+                @if($event->users->isNotEmpty() || $event->submission)
+                    <li class="mb-2">
+                        <a data-bs-toggle="modal" data-bs-target="#eventDeleteWarning{{$event->id}}" class="btn btn-light w-100 py-2 text-start">
+                            <i class="fa-solid fa-trash-can"></i> Excluir evento
+                        </a>
+                    </li>
+                @else
+                    <li class="mb-2">
+                        <a data-bs-toggle="modal" data-bs-target="#eventDeletePrompt{{$event->id}}" class="btn btn-light w-100 py-2 text-start">
+                            <i class="fa-solid fa-trash-can"></i> Excluir evento
+                        </a>
+                    </li>
+                @endif
             @endrole
         </ul>
     </div>
@@ -82,6 +90,23 @@
                     {{ __('Excluir') }}
                 </button>
             </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eventDeleteWarning{{$event->id}}" tabindex="-1" aria-labelledby="eventDeleteWarningLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Excluir evento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>O evento <strong>{{$event->name}}</strong> possui inscritos ou submissões. Remova-as antes de apagar o evento.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
         </div>
         </div>
     </div>

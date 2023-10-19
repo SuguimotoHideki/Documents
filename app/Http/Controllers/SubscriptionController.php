@@ -21,11 +21,11 @@ class SubscriptionController extends Controller
 
         if($column !== null && $direction !== null)
         {
-            $subscribedEvents = $user->events()->orderBy($column, $direction)->paginate(15);
+            $subscribedEvents = $user->events()->orderBy($column, $direction)->paginate(15)->withQueryString();
         }
         else
         {
-            $subscribedEvents = $user->events()->sortable()->paginate(15);
+            $subscribedEvents = $user->events()->sortable()->paginate(15)->withQueryString();
         }
         
         return view('events.indexSubscribed', [
@@ -44,11 +44,11 @@ class SubscriptionController extends Controller
 
         if($column !== null && $direction !== null)
         {
-            $subscribers = $event->users()->orderBy($column, $direction)->paginate(15);
+            $subscribers = $event->users()->orderBy($column, $direction)->paginate(15)->withQueryString();
         }
         else
         {
-            $subscribers = $event->users()->sortable()->paginate(15);
+            $subscribers = $event->users()->sortable()->paginate(15)->withQueryString();
         }
 
         return view('events.indexSubscribers', [

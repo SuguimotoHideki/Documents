@@ -20,10 +20,13 @@ class ReviewController extends Controller
     public function show(Document $document, Review $review)
     {
         $response = Gate::inspect('showReview', $review);
-
         if($response->allowed())
         {
-            return view('reviews.show', ['document' => $document, 'review' => $review]);
+            return view('reviews.show', [
+                'document' => $document,
+                'review' => $review,
+                'fields' => $document->review->reviewFields,
+            ]);
         }
 
         return redirect()->back()->with('error', $response->message());
@@ -32,7 +35,7 @@ class ReviewController extends Controller
     /**
      * Shows a table of reviews
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
@@ -42,12 +45,21 @@ class ReviewController extends Controller
         {
             if($user->can('reviews.manage'))
             {
-                $review = Review::paginate(15);
+                $reviewQuery = Review::query();
+                $searchQuery = $request->get('search');
+
+                $review = $reviewQuery->where('title', 'LIKE', '%' . $searchQuery . '%')
+                ->orWhereHas('user', function($userQuery) use($searchQuery){
+                    $userQuery->where('user_name', 'LIKE', '%' . $searchQuery . '%');
+                });
             }
             else
             {
-                $review = $user->review()->paginate(15);
+                $review = $user->review();
             }
+
+            $review = $review->paginate(15)->withQueryString();
+
             return view('reviews.index', ['reviews' => $review]);
         }
 

@@ -180,7 +180,7 @@
                                 <th id="t4">Modalidade</th>
                                 <th id="t5">Status</th>
                                 <th id="t6">Evento</th>
-                                <th id="t7">@sortablelink('approved_at', 'Aprovado em')</th>
+                                <th id="t7">@sortablelink('reviewed_at', 'Avaliado em')</th>
                                 <th id="t8">@sortablelink('created_at', 'Criado em')</th>
                                 <th id="t9">Operações</th>
                             </tr>
@@ -215,7 +215,7 @@
                                     @endif
                                 </td>
                                 <td headers="t6"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->name}}</a></td>
-                                <td headers="t7">{{$document->submission->formatDate($document->submission->approved_at)}}</td>
+                                <td headers="t7">{{$document->submission->formatDate($document->submission->reviewed_at)}}</td>
                                 <td headers="t8">{{$document->formatDate($document->created_at)}}</td>
                                 <td headers="t9">
                                     <div class="nav-item dropdown">

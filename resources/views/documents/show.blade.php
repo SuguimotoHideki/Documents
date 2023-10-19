@@ -83,8 +83,8 @@
                         <div class="col-md mt-3">
                             @if(!Auth::user()->hasRole("reviewer"))
                                 <h2 class="fs-default fw-bold mb-1">
-                                    <i class="fa-regular fa-clock"></i> Aprovado em:</h2>
-                                <div>{{$document->submission->formatDate($document->submission->approved_at)}}</div>
+                                    <i class="fa-regular fa-clock"></i> Avaliado em:</h2>
+                                <div>{{$document->submission->formatDate($document->submission->reviewed_at)}}</div>
                             @endif
                         </div>
                     </div>

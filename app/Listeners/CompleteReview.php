@@ -44,16 +44,16 @@ class CompleteReview
             if ($scoreVal >= $minAgreement)
             {
                 $submission->setStatus($scoreKey);
-                if($submission->getStatusId() === 0)
+                if($submission->getStatusId() !== 3)
                 {
-                    $submission->approved_at = now();
+                    $submission->reviewed_at = now();
                     $submission->save();
                 }
             }
             else
             {
                 $submission->setStatus(3);
-                $submission->approved_at = null;
+                $submission->reviewed_at = null;
                 $submission->save();
 
                 $user = User::role('admin')->get();
@@ -69,7 +69,7 @@ class CompleteReview
             if($submission->getStatusID() !== 3)
             {
                 $submission->setStatus(3);
-                $submission->approved_at = null;
+                $submission->reviewed_at = null;
                 $submission->save();
             }
         }

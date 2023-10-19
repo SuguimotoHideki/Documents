@@ -30,7 +30,7 @@
                                 <th id="t3">@sortablelink('user', 'Autor')</th>
                                 <th id="t4">@sortablelink('type', 'Modalidade')</th>
                                 <th id="t5">@sortablelink('status', 'Status')</th>
-                                <th id="t6">@sortablelink('approved_at','Aprovado em')</th>
+                                <th id="t6">@sortablelink('reviewed_at','Avaliado em')</th>
                                 <th id="t7">@sortablelink('created_at','Publicado em')</th>
                                 <th id="t8">@sortablelink('updated_at', 'Atualizado em')</th>
                                 <th id="t9">Operações</th>
@@ -65,7 +65,7 @@
                                         </div>
                                     @endif
                                 </td>
-                                <td headers="t6">{{$submission->formatDate($submission->approved_at)}}</td>
+                                <td headers="t6">{{$submission->formatDate($submission->reviewed_at)}}</td>
                                 <td headers="t7">{{$submission->formatDate($submission->created_at)}}</td>
                                 <td headers="t8">{{$submission->formatDate($submission->updated_at)}}</td>
                                 <td headers="t9">

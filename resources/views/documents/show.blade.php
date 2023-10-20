@@ -41,6 +41,7 @@
                             <h2 class="fs-default fw-bold mb-1">Evento:</h2>
                             <a href="{{ route('showEvent', $document->submission->event)}}" class="text-muted">{{$document->submission->event->name}}</a>
                         </div>
+                        @if(!Auth::user()->hasRole('reviewer'))
                         <div class="col-md mt-3">
                             @php
                                 $status = $document->submission->getStatusID();
@@ -64,6 +65,7 @@
                                 </div>
                             @endif
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

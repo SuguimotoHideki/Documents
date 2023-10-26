@@ -40,7 +40,7 @@
                                 <th id="t1">Submissão</th>
                                 <th id="t2">@sortablelink('type', 'Modalidade')</th>
                                 <th id="t3">@sortablelink('event', 'Evento')</th>
-                                <th id="t4">Nota</th>
+                                <th id="t4">Pontuação</th>
                                 <th id="t5">Recomendação</th>
                                 <th id="t6">Avaliado em</th>
                                 <th id="t7">Operações</th>

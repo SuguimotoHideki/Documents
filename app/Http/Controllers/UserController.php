@@ -22,11 +22,20 @@ class UserController extends Controller
     }
 
     //Returns all users
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('id', '!=', 1)
-        ->sortable()
-        ->paginate(15);
+        $users = User::sortable();
+
+        if(!empty($request->input('search')))
+        {
+            $searchQuery = $request->get('search');
+
+            $users = $users->where('user_name', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('cpf', 'LIKE', '%' . $searchQuery . '%');
+        }
+
+        $users = $users->paginate(15)->withQueryString();
+
         return view('auth.index',[
             'users' => $users
         ]);
@@ -35,10 +44,10 @@ class UserController extends Controller
     //Show edit form
     public function edit(User $user)
     {
-        $roleList = Role::all();
+        $userRoles = $user->roles('id')->pluck('id');
         return view('auth.edit', [
             'user' => $user,
-            'roles' => $roleList
+            'roles' => $userRoles
         ]);
     }
 
@@ -53,6 +62,7 @@ class UserController extends Controller
     //Update user data
     public function update(Request $request, User $user)
     {
+        //dd($request);
         $canManageUser = Auth::user()->hasPermissionTo('update any user');
 
         $request->validate([
@@ -63,9 +73,12 @@ class UserController extends Controller
             'birth_date' => ['required', 'date'],
             'current_password' => $canManageUser ? [] : ['required', 'string', 'min:3', new CurrentPassword],
             'user_phone_number' => ['required', 'string', 'digits:11', Rule::unique('users', 'user_phone_number')->ignore($user, 'id')],
+            'role' => ['required']
         ]);
 
         $user->update($request->except('current_password'));
+
+        $user->syncRoles($request['role']);
 
         return redirect()->route('showUser', $user)->with('success', 'Informações de perfil atualizadas.');
     }

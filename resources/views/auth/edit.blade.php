@@ -106,6 +106,30 @@
                                 @enderror
                             </div>
                         </div>
+                        @role(['admin'])
+                            <div class="row mb-3">
+                                <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Papel') }}
+                                    <span style="color: red">*</span>
+                                </label>
+                                <div class="col-md-6 my-auto">
+                                    <select name="role" id="role" class="col-md-12 my-auto" required>
+                                        <option value="" disabled selected>Escolha uma opção</option>
+                                        <option value="1" {{$roles[0] === 1 ? 'selected' : ''}}>Administrador</option>
+                                        <option value="2" {{$roles[0] === 2 ? 'selected' : ''}}>Moderador</option>
+                                        <option value="3" {{$roles[0] === 3 ? 'selected' : ''}}>Avaliador</option>
+                                        <option value="4" {{$roles[0] === 4 ? 'selected' : ''}}>Usuário</option>
+                                    </select>
+
+                                    @error('user_institution')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @else
+                            <input type="text" name="role" value={{$roles[0]}} hidden>
+                        @endif
                         @can('update any user', Auth::user())
                             <div class="row mb-3">
                                 <label for="current-password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}

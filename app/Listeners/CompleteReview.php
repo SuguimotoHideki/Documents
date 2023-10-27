@@ -27,22 +27,22 @@ class CompleteReview
     public function handle(ReviewCreated $event): void
     {
         $submission = $event->submission;
-        $recommendations = array_count_values($submission->document->review()->pluck('recommendation')->toArray());
 
         $reviewers = $submission->document->users()->count();
         $reviews = $submission->document->review()->count();
 
         if($reviewers === $reviews)
         {
-            $minAgreement = ($reviewers <= 2) ? $reviewers : ceil($reviewers / 2);
-
+            $recommendations = array_count_values($submission->document->review()->pluck('recommendation')->toArray());
             arsort($recommendations);
-
             $scoreKey = key($recommendations);
-            $scoreVal = current($recommendations);
 
-            if ($scoreVal >= $minAgreement)
+            $scoreFirst = current($recommendations);
+            $scoreSecond = next($recommendations);
+
+            if ($scoreFirst > $scoreSecond)
             {
+                //dump($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
                 $submission->setStatus($scoreKey);
                 if($submission->getStatusId() !== 3)
                 {
@@ -50,7 +50,7 @@ class CompleteReview
                     $submission->save();
                 }
             }
-            else
+            else 
             {
                 $submission->setStatus(3);
                 $submission->reviewed_at = null;
@@ -60,6 +60,7 @@ class CompleteReview
 
                 if($event->changed)
                 {
+                    //dump($submission->document->title. ' ' . 'sent');
                     Notification::send($user, new ReviewNotification($submission));
                 }
             }

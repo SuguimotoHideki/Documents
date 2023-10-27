@@ -178,7 +178,7 @@
                                 <th id="t2">@sortablelink('title', 'Título')</th>
                                 <th id="t3">Autor</th>
                                 <th id="t4">Modalidade</th>
-                                <th id="t5">Status</th>
+                                <th id="t5">@sortablelink('submission.status', 'Status')</th>
                                 <th id="t6">Evento</th>
                                 <th id="t7">@sortablelink('reviewed_at', 'Avaliado em')</th>
                                 <th id="t8">@sortablelink('created_at', 'Criado em')</th>

@@ -78,6 +78,12 @@ class DatabaseSeeder extends Seeder
         {
             $reviewDoc = $documents->random(rand(1, 30))->pluck('id')->toArray();
             $reviewer->documents()->attach($reviewDoc);
+        }
+
+        //Create reviews
+        //Assign reviewers and create reviews
+        foreach($reviewers as $reviewer)
+        {
             foreach($reviewer->documents as $review)
             {
                 \App\Models\Review::factory(1)->create([

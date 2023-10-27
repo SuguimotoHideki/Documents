@@ -25,7 +25,7 @@ class ReviewController extends Controller
             return view('reviews.show', [
                 'document' => $document,
                 'review' => $review,
-                'fields' => $document->review->reviewFields,
+                'fields' => $review->reviewFields,
             ]);
         }
 

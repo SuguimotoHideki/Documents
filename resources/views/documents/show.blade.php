@@ -42,29 +42,33 @@
                             <a href="{{ route('showEvent', $document->submission->event)}}" class="text-muted">{{$document->submission->event->name}}</a>
                         </div>
                         @if(!Auth::user()->hasRole('reviewer'))
-                        <div class="col-md mt-3">
-                            @php
-                                $status = $document->submission->getStatusID();
-                            @endphp
-                            <h2 class="fs-default fw-bold mb-1">Status:</h2>
-                            @if($status === 0)
-                                <div class="bg-success text-white py-1 px-2 rounded-2 text-md-center w-25">
-                                    {{$document->submission->getStatusValue()}}
-                                </div>
-                            @elseif($status === 1)
-                                <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-25">
-                                    {{$document->submission->getStatusValue()}}
-                                </div>
-                            @elseif($status === 2)
-                                <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-25">
-                                    {{$document->submission->getStatusValue()}}
-                                </div>
-                            @else
-                                <div class="bg-primary text-white py-1 px-2 rounded-2 text-md-center w-25">
-                                    {{$document->submission->getStatusValue()}}
-                                </div>
-                            @endif
-                        </div>
+                            <div class="col-md mt-3">
+                                @php
+                                    $status = $document->submission->getStatusID();
+                                @endphp
+                                <h2 class="fs-default fw-bold mb-1">Status:</h2>
+                                @if($status === 0)
+                                    <div class="bg-success text-white py-1 px-2 rounded-2 text-md-center w-25">
+                                        {{$document->submission->getStatusValue()}}
+                                    </div>
+                                @elseif($status === 1)
+                                    <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-25">
+                                        {{$document->submission->getStatusValue()}}
+                                    </div>
+                                @elseif($status === 2)
+                                    <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-25">
+                                        {{$document->submission->getStatusValue()}}
+                                    </div>
+                                @else
+                                    <div class="bg-primary text-white py-1 px-2 rounded-2 text-md-center w-25">
+                                        {{$document->submission->getStatusValue()}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-md mt-3">
+                                <h2 class="fs-default fw-bold mb-1">Pontuação:</h2>
+                                <span><strong>{{$document->submission->getScore()}}</strong></span>
+                            </div>
                         @endif
                     </div>
                 </div>

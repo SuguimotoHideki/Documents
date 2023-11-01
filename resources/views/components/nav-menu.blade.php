@@ -12,19 +12,26 @@
             {{ "Eventos" }}
         </a>
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item btn rounded-0" href="{{ route('manageEvents')}}">
+                {{"Gerenciar"}}
+            </a>
             <a class="dropdown-item btn rounded-0" href="{{ route('createEvent')}}">
                 {{"Criar evento"}}
             </a>
-            <a class="dropdown-item btn rounded-0" href="{{ route('manageEvents')}}">
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            {{ "Submissões" }}
+        </a>
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item btn rounded-0" href="{{ route('manageDocuments')}}">
                 {{"Gerenciar"}}
             </a>
             <a class="dropdown-item btn rounded-0" href="{{ route('indexSubType')}}">
                 {{"Tipos de submissão"}}
             </a>
         </div>
-    </li>
-    <li class="nav-item my-auto">
-        <a href="{{route('manageDocuments')}}" class="nav-link">Submissões</a>
     </li>
     <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

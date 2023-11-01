@@ -18,7 +18,8 @@ class Submission extends Model
         'document_id',
         'user_id',
         'status',
-        'reviewed_at'
+        'reviewed_at',
+        'score'
     ];
 
     protected $sortable = [
@@ -29,7 +30,8 @@ class Submission extends Model
         'status',
         'reviewed_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'score'
     ];
 
     public const STATUSES = [
@@ -78,6 +80,19 @@ class Submission extends Model
         {
             return('Invalid date');
         }
+    }
+
+    /**
+     * Returns the score
+     */
+    public function getScore()
+    {
+        $score = $this->score;
+
+        if($score !== null)
+            return number_format($score, 2);
+        else
+            return "Aguardando avaliação";
     }
 
     /**

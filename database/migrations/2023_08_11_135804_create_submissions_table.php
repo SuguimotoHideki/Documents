@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status');
             $table->dateTime('reviewed_at')->nullable();
+            $table->float('score')->nullable();
 
             $table->foreign('event_id')
             ->references('id')

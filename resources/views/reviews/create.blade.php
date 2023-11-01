@@ -47,7 +47,7 @@
                                         </colgroup>
                                         <thead class="table-light">
                                             <tr class="align-middle">
-                                                <th id="label"></th>
+                                                <th id="label">Critérios</th>
                                                 @for ($header = 0; $header < 11; $header++)
                                                     <th id="t{{$header}}">{{$header}}</th>
                                                 @endfor

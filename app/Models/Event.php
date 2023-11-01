@@ -110,21 +110,20 @@ class Event extends Model
      */
     public function getStatusID()
     {
-        $status = self::STATUSES[$this->attributes['status']];
+        $status = self::STATUSES[$this->status];
         return array_search($status, self::STATUSES);
     }
 
     public function getStatusValue()
     {
-        return self::STATUSES[$this->attributes['status']];
+        return self::STATUSES[$this->status];
     }
 
-    public function setStatus()
+    public function setStatus($status)
     {
-        $statusID = self::getStatusID();
-        if($statusID)
+        if(in_array($status, self::STATUSES))
         {
-            $this->attributes['status'] = $statusID;
+            $this->attributes['status'] = $status;
         }
     }
 
@@ -198,7 +197,7 @@ class Event extends Model
     }
 
     /**
-     * Returns a given user's submission to a given event
+     * Checks if an user is a moderator of the given event
      */
     public function isMod(User $user)
     {
@@ -208,7 +207,7 @@ class Event extends Model
     }
 
     /**
-     * Returns the number of subscribers in an event
+     * Returns the number of subscribers of an event
      */
     public function subscriptionCount()
     {

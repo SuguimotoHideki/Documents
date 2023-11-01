@@ -28,25 +28,26 @@ class CompleteReview
     {
         $submission = $event->submission;
 
-        $reviewers = $submission->document->users()->count();
-        $reviews = $submission->document->review()->count();
+        $reviewers = $submission->document->users();
+        $reviews = $submission->document->review();
 
-        if($reviewers === $reviews)
+        if($reviewers->count() === $reviews->count())
         {
-            $recommendations = array_count_values($submission->document->review()->pluck('recommendation')->toArray());
+            $recommendations = array_count_values($reviews->pluck('recommendation')->toArray());
             arsort($recommendations);
             $scoreKey = key($recommendations);
-
             $scoreFirst = current($recommendations);
             $scoreSecond = next($recommendations);
 
             if ($scoreFirst > $scoreSecond)
             {
                 //dump($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
+                $scoreArray = $reviews->pluck('score')->toArray();
                 $submission->setStatus($scoreKey);
                 if($submission->getStatusId() !== 3)
                 {
                     $submission->reviewed_at = now();
+                    $submission->score = array_sum($scoreArray)/count($scoreArray);
                     $submission->save();
                 }
             }
@@ -54,6 +55,7 @@ class CompleteReview
             {
                 $submission->setStatus(3);
                 $submission->reviewed_at = null;
+                $submission->score = null;
                 $submission->save();
 
                 $user = User::role('admin')->get();

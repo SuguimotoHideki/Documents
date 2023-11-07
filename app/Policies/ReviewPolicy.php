@@ -36,9 +36,22 @@ class ReviewPolicy
      */
     public function createReview(User $user, Document $document)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $document->users->contains($user)))
-        ? Response::allow()
-        : Response::deny('Você não ter permissão para avaliar essa submissão.');
+        if($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $document->users->contains($user)))
+        {
+            $review = $document->review()->where('user_id', $user->id)->first();
+            if($review === null)
+            {
+                return Response::allow();
+            }
+            else
+            {
+                return Response::deny('Você já avaliou essa submissão.');
+            }
+        }
+        else
+        {
+            return Response::deny('Você não ter permissão para avaliar essa submissão.');
+        }
     }
 
     /**

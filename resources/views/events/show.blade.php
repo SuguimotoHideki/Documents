@@ -15,7 +15,9 @@
         @endif
                         <div class="row">
                             <div class="col-md-4">
-                                <img class="logo mb-3" src="{{asset('storage/'.$event->logo)}}" alt="Logo do evento" width="100%"/>
+                                <div class="event-logo-container mb-3">
+                                    <img class="img-thumbnail" src="{{asset('storage/'.$event->logo)}}" alt="Logo do evento"/>
+                                </div>
                                 <div class="mb-3">
                                     <div class="text-muted">{{"Organizador: $event->organizer"}}</div>
                                     <div class="text-muted">

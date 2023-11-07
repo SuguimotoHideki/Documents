@@ -96,6 +96,28 @@ class Submission extends Model
     }
 
     /**
+     * Sets submission as reviewed
+     */
+    public function setReview($status, $score, $timestamp)
+    {
+        $this->attributes['status'] = $status;
+        $this->attributes['score'] = $score;
+        $this->attributes['reviewed_at'] = $timestamp;
+        $this->save();
+    }
+
+    /**
+     * Sets submission as not reviewed
+     */
+    public function unsetReview()
+    {
+        $this->attributes['status'] = 3;
+        $this->attributes['score'] = null;
+        $this->attributes['reviewed_at'] = null;
+        $this->save();
+    }
+
+    /**
      * Defines many-to-many relationship with User
      */
     public function user(): BelongsTo

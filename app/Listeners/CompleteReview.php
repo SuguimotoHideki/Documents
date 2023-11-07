@@ -35,34 +35,25 @@ class CompleteReview
         {
             $recommendations = array_count_values($reviews->pluck('recommendation')->toArray());
             arsort($recommendations);
-            $scoreKey = key($recommendations);
             $scoreFirst = current($recommendations);
             $scoreSecond = next($recommendations);
 
             if ($scoreFirst > $scoreSecond)
             {
+                $scoreKey = key($recommendations);
                 //dump($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
                 $scoreArray = $reviews->pluck('score')->toArray();
-                $submission->setStatus($scoreKey);
-                if($submission->getStatusId() !== 3)
+                if($scoreKey !== 3)
                 {
-                    $submission->reviewed_at = now();
-                    $submission->score = array_sum($scoreArray)/count($scoreArray);
-                    $submission->save();
+                    $submission->setReview($scoreKey, array_sum($scoreArray)/count($scoreArray), now());
                 }
             }
             else 
             {
-                $submission->setStatus(3);
-                $submission->reviewed_at = null;
-                $submission->score = null;
-                $submission->save();
-
+                $submission->unsetReview();
                 $user = User::role('admin')->get();
-
                 if($event->changed)
                 {
-                    //dump($submission->document->title. ' ' . 'sent');
                     Notification::send($user, new ReviewNotification($submission));
                 }
             }
@@ -71,9 +62,7 @@ class CompleteReview
         {
             if($submission->getStatusID() !== 3)
             {
-                $submission->setStatus(3);
-                $submission->reviewed_at = null;
-                $submission->save();
+                $submission->unsetReview();
             }
         }
     }

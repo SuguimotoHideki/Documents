@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1 class='fs-2'>Eventos em andamento</h1>
+            <div class="row mb-2">
+                <h1 class='fs-2'>Eventos em andamento</h1>
+            </div>
             <div class="list-group list-group-flush shadow-sm p-3 bg-white">
                 <form action="{{route('indexEvents')}}" method="GET">
                     <div class="row">

@@ -119,31 +119,14 @@ class ReviewController extends Controller
             $formFields['attachment'] = $request->file('attachment')->store('review_attachments', 'public');
         }
 
-        try
-        {
-            DB::transaction(function() use ($formFields, &$review, $action){
-                $reviewValues = $action->handle($formFields);
+        DB::transaction(function() use ($formFields, &$review, $action){
+            $reviewValues = $action->handle($formFields);
+            $formFields['score'] = $reviewValues[1];
+            $review = Review::create($formFields);
+            $review->reviewFields()->sync($reviewValues[0]);
+        });
 
-                $formFields['score'] = $reviewValues[1];
-
-                $review = Review::create($formFields);
-
-                $review->reviewFields()->sync($reviewValues[0]);
-            });
-        }
-        catch(QueryException $error)
-        {
-            if($error->getCode() === '23000')
-            {
-                return redirect()->back()->with('error', 'Você já avaliou a submissão ' . $document->title . '.');
-            }
-            else {
-                // Other database-related error occurred
-                return redirect()->back()->with('error', 'Ocorreu um erro ao criar a avaliação.');
-            }
-        }
-
-        event (new ReviewCreated($document->submission, true));
+        ReviewCreated::dispatch($document->submission, true);
 
         return redirect()->route('showReview', [$document, $review])->with('success', "Avaliação submetida.");
     }
@@ -182,7 +165,6 @@ class ReviewController extends Controller
         ]);
 
         $reviewValues = $action->handle($formFields);
-
         $formFields['score'] = $reviewValues[1];
 
         if($request->hasFile('attachment'))
@@ -191,12 +173,9 @@ class ReviewController extends Controller
         }
 
         $review->update($formFields);
-
         $review->reviewFields()->sync($reviewValues[0]);
-
         $changed = $review->wasChanged('recommendation');
-
-        event (new ReviewCreated($document->submission, $changed));
+        ReviewCreated::dispatch($document->submission, $changed);
 
         return redirect()->route('showReview', ['review' => $review, 'document' => $document])->with('success', "Avaliação atualizada.");
     }
@@ -211,9 +190,8 @@ class ReviewController extends Controller
         if($response->allowed())
         {
             $review->delete();
-
-            event (new ReviewCreated($document->submission, true));
-
+            ReviewCreated::dispatch($document->submission, true);
+            //event (new ReviewCreated($document->submission, true));
             return redirect()->back()->with('success', 'Avaliação de ' . $document->title . ' removida.');
         }
 

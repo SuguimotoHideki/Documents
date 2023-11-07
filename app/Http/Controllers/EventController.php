@@ -62,7 +62,6 @@ class EventController extends Controller
         {
             $events = Event::sortable();
         }
-
         if(!empty($request->input('search')))
         {
             $searchQuery = $request->get('search');

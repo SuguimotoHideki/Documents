@@ -90,7 +90,8 @@ class DatabaseSeeder extends Seeder
                     'user_id' => $reviewer->id,
                     'document_id' => $review->id,
                 ]);
-                event (new ReviewCreated($review->submission, true));
+                ReviewCreated::dispatch($review->submission, true);
+                //event (new ReviewCreated($review->submission, true));
             }
         }
     }

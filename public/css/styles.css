@@ -58,6 +58,21 @@ a:hover:not(.btn){
     font-size:0.7rem;
 }
 
+.event-logo-container {
+    position: relative;
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.event-logo-container .img-thumbnail
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 @media (max-width: 1399px) {
     .table col {
       width: 135px;

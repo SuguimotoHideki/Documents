@@ -40,7 +40,7 @@ class CompleteReview
 
             if ($scoreFirst > $scoreSecond)
             {
-                $scoreKey = key($recommendations);
+                $scoreKey = array_key_first($recommendations);
                 //dump($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
                 $scoreArray = $reviews->pluck('score')->toArray();
                 if($scoreKey !== 3)

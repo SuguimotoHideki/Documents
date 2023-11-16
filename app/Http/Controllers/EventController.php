@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidateEventRequest;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\SubmissionType;
@@ -9,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Database\QueryException;
 use Carbon\Carbon;
 
 class EventController extends Controller
@@ -88,37 +88,19 @@ class EventController extends Controller
         ]);
     }
 
-    public function update(Request $request, Event $event)
+    public function update(ValidateEventRequest $request, Event $event)
     {
         $this->authorize('update', $event);
 
-        $formFields = $request->validate([
-            'name' => ['required', 'string', Rule::unique('events', 'name')->ignore($event, 'id')],
-            'website' => ['required', 'string'],
-            'information' => ['required', 'string'],
-            'email' => ['required', 'string'],
-            'submission_type' => ['required', 'array'],
-            'published' => ['required'],
-            'organizer' => ['required', 'string'],
-            'organizer_email' => ['required', 'string'],
-            'organizer_website' => ['required', 'string'],
-            'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
-            'subscription_deadline' => ['required', 'date_format:Y-m-d', 'before:submission_start'],
-            'submission_start' => ['required', 'date_format:Y-m-d', 'before:submission_deadline'],
-            'submission_deadline' => ['required', 'date_format:Y-m-d'],
-        ]);
-
         if($request->hasFile('logo'))
-            $formFields['logo'] = $request->file('logo')->store('event_logos', 'public');
+        {
+            $fields = array_merge($request->validated(), ['logo' => $request->file('logo')->store('event_logos', 'public')]);
+            $event->update($fields);
+        }
+        else
+            $event->update($request->validated());
 
-        $formFields['subscription_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['subscription_start'] . ' ' . "00:00:00");
-        $formFields['subscription_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['subscription_deadline'] . ' ' . "23:59:59");
-        $formFields['submission_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_start'] . ' ' . "00:00:00");
-        $formFields['submission_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_deadline'] . ' ' . "23:59:59");
-
-        $event->update($formFields);
-
-        $event->submissionTypes()->sync($formFields['submission_type']);
+        $event->submissionTypes()->sync($request->validated()['submission_type']);
 
         return redirect()->route('showEvent', $event->id)->with('success', 'Evento ' . $event->name . ' atualizado.');
     }
@@ -135,40 +117,29 @@ class EventController extends Controller
     }
 
     //Store event
-    public function store(Request $request)
+    public function store(ValidateEventRequest $request)
     {
         $this->authorize('create', Event::class);
-
-        $formFields = $request->validate([
-            'name' => ['required', 'string', Rule::unique('events', 'name')],
-            'website' => ['required', 'string'],
-            'information' => ['required', 'string'],
-            'email' => ['required', 'string'],
-            'submission_type' => ['required', 'array'],
-            'organizer' => ['required', 'string'],
-            'organizer_email' => ['required', 'string'],
-            'organizer_website' => ['required', 'string'],
-            'subscription_start' => ['required', 'date_format:Y-m-d', 'before:subscription_deadline'],
-            'subscription_deadline' => ['required', 'date_format:Y-m-d', 'before:submission_start'],
-            'submission_start' => ['required', 'date_format:Y-m-d', 'before:submission_deadline'],
-            'submission_deadline' => ['required', 'date_format:Y-m-d'],
-        ]);
-
+        $event = null;
+        $fields = null;
         if($request->hasFile('logo'))
         {
-            $formFields['logo'] = $request->file('logo')->store('event_logos', 'public');
+            $fields = array_merge($request->validated(), [
+                'logo' => $request->file('logo')->store('event_logos', 'public'),
+                'published' => false,
+                'status' => 0
+            ]);
         }
+        else
+        {
+            $fields = array_merge($request->validated(), [
+                'published' => false,
+                'status' => 0
+            ]);
+        }
+        $event = Event::create($fields);
 
-        $formFields['published'] = false;
-        $formFields['status'] = 0;
-
-        $formFields['subscription_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['subscription_start'] . ' ' . "00:00:00");
-        $formFields['subscription_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['subscription_deadline'] . ' ' . "23:59:59");
-        $formFields['submission_start'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_start'] . ' ' . "00:00:00");
-        $formFields['submission_deadline'] = Carbon::createFromFormat('Y-m-d H:i:s', $formFields['submission_deadline'] . ' ' . "23:59:59");
-
-        $event = Event::create($formFields);
-        $event->submissionTypes()->sync($formFields['submission_type']);
+        $event->submissionTypes()->sync($request->validated()['submission_type']);
 
         return redirect()->route('manageEvents')->with('success', 'Evento ' . $event->name . ' criado.');
     }

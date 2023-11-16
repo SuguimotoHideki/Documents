@@ -91,4 +91,53 @@ class Document extends Model
     {
         return $this->belongsTo(SubmissionType::class);
     }
+
+    /**
+     * Queries document models by title, id or author's name
+     */
+    public function scopegetAllDocuments($query, $search)
+    {
+        if($search !== null)
+        {
+            return $query->where('title', 'LIKE', '%' . $search . '%')
+            ->orWhere('id', $search)
+            ->orWhereHas('submission', function($submissionQuery) use($search){
+                $submissionQuery->WhereHas('user', function($userQuery) use($search){
+                    $userQuery->where('user_name', 'LIKE', '%' . $search . '%');
+                });
+            });
+        }
+        else
+            return Document::sortable();
+    }
+
+    /**
+     * Queries document models by title or id for reviewer users
+     */
+    public function scopegetReviewerDocuments($query, $search, $user)
+    {
+        $doc = $user->documents()->sortable();
+        if($search !== null)
+            $doc = $doc->where('title', 'LIKE', '%' . $search . '%')
+            ->orWhere('document_id', $search);
+        return $doc;
+    }
+
+    public function scopegetModeratedDocuments($query, $search, $user)
+    {
+        if($search !== null)
+        {
+            return $query->join('submissions', 'submissions.document_id', '=', 'documents.id')
+            ->join('users', 'users.id', '=', 'submissions.user_id')
+            ->where('title', 'LIKE', '%' . $search . '%')
+            ->orWhere('documents.id', $search)
+            ->orWhere('users.user_name', 'LIKE', '%' . $search . '%')->select('documents.*')
+            ->whereHas('Submission.Event.Moderators', function($query) use ($user){
+                $query->where('user_id', $user->id);
+            });
+        }
+        return $query->whereHas('Submission.Event.Moderators', function($query) use ($user){
+            $query->where('user_id', $user->id);
+        })->select('documents.*');
+    }
 }

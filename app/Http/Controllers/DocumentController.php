@@ -9,6 +9,7 @@ use App\Actions\CreateCoAuthor;
 use App\Actions\UpdateCoAuthor;
 use Illuminate\Validation\Rule;
 use App\Actions\CreateSubmission;
+use App\Http\Requests\ValidateDocumentRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -19,41 +20,24 @@ class DocumentController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
         $response = Gate::inspect('indexDocument', Document::class);
-
         if($response->allowed())
         {
-            if($user->hasRole(['admin', 'event moderator']))
+            $documents = null;
+            $searchQuery = $request->get('search');
+            if($user->hasRole(['admin']))
             {
-                $documents = Document::sortable();
-                if(!empty($request->input('search')))
-                {
-                    $searchQuery = $request->get('search');
-    
-                    $documents = $documents->where('title', 'LIKE', '%' . $searchQuery . '%')
-                    ->orWhere('id', $searchQuery)
-                    ->orWhereHas('submission', function($submissionQuery) use($searchQuery){
-                        $submissionQuery->WhereHas('user', function($userQuery) use($searchQuery){
-                            $userQuery->where('user_name', 'LIKE', '%' . $searchQuery . '%');
-                        });
-                    });
-                }
+                $documents = Document::getAllDocuments($searchQuery);
+            }
+            elseif($user->hasRole('event moderator'))
+            {
+                $documents = Document::getModeratedDocuments($searchQuery, $user);
             }
             elseif($user->hasRole('reviewer'))
             {
-                $documents = $user->documents()->sortable();
-                if(!empty($request->input('search')))
-                {
-                    $searchQuery = $request->get('search');
-    
-                    $documents = $documents->where('title', 'LIKE', '%' . $searchQuery . '%')
-                    ->orWhere('document_id', $searchQuery);
-                }
+                $documents = Document::getReviewerDocuments($searchQuery, $user);
             }
-
             $documents = $documents->paginate(15)->withQueryString();
-
             return view('documents.index', [
                 'documents' => $documents,
             ]);
@@ -86,47 +70,33 @@ class DocumentController extends Controller
     }
 
     //Stores document
-    public function store(Request $request, CreateCoAuthor $coAction, CreateSubmission $subAction)
+    public function store(ValidateDocumentRequest $request, CreateCoAuthor $createCoAuthor, CreateSubmission $createSub)
     {
-        $validationRules = [
-            'title' => ['required', 'string', Rule::unique('documents', 'title')],
-            'keyword' => ['required', 'string'],
-            'institution' => ['required', 'string'],
-            'submission_type_id' => ['required', 'numeric'],
-            'attachment_author' => ['required'],
-            'attachment_no_author' => ['required']
-        ];
-
-        $formFields = $request->validate($validationRules);
-
-        //dd($request, $formFields);
-
-        $formFields['attachment_author'] = $request->file('attachment_author')->store('submission_attachments', 'public');
-        $formFields['attachment_no_author'] = $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public');
-
-        //Retrieves the current user and the event
-        $redirect = null;
-        $user = Auth::user();
-        $event = Event::findOrFail($request['event_id']);
+        $fields =$request->validated();
+        if($fields->hasFile('attachment_author'))
+        {
+            $fields = array_merge($fields, [
+                'attachment_author' => $request->file('attachment_author')->store('submission_attachments', 'public')
+            ]);
+        }
+        if($fields->hasFile('attachment_no_author'))
+        {
+            $fields = array_merge($fields, [
+                'attachment_no_author' => $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public')
+            ]);
+        }
 
         //Creates new document instance, co-authors and submission instance.
         //Creates entries in the pivot tables between users, events, documents, and co-authors
-        DB::transaction(function() use ($coAction, $subAction, $request, $formFields, $event, $user, &$redirect){
-            $document = Document::create([
-                'title' => $formFields['title'],
-                'keyword' => $formFields['keyword'],
-                'institution' => $formFields['institution'],
-                'submission_type_id' => $formFields['submission_type_id'],
-                'attachment_author' => $formFields['attachment_author'],
-                'attachment_no_author' => $formFields['attachment_no_author'],
-            ]);
-
-            $subAction->handle($document, $event, $user);
-
-            $redirect = $coAction->handle($request, $document, $user, $event);
+        DB::transaction(function() use ($createCoAuthor, $createSub, $request, $fields, &$redirect){
+            $document = Document::create($fields);
+            $user = Auth::user();
+            $event = Event::findOrFail($request['event_id']);
+            $createSub->handle($document, $event, $user);
+            $createCoAuthor->handle($request, $document, $user, $event);
         });
 
-        return $redirect;
+        return redirect()->route('indexSubmissions', ['user' => Auth::user()])->with('success', 'Submissão enviada.');
     }
 
     //Show document edit form
@@ -142,43 +112,27 @@ class DocumentController extends Controller
         return redirect()->back()->with('error', $response->message());
     }
 
-    //Uodate document fields
-    public function update(Request $request, Document $document, UpdateCoAuthor $action)
+    //Update document fields
+    public function update(ValidateDocumentRequest $request, Document $document, UpdateCoAuthor $updateCoAuthor)
     {
-
-        $formFields = $request->validate([
-            'title' => ['required', 'string', Rule::unique('documents', 'title')->ignore($document->id)],
-            'keyword' => ['required', 'string'],
-            'institution' => ['required', 'string'],
-            'submission_type_id' => ['required', 'numeric']
-        ]);
-
+        $fields =$request->validated();
         if($request->hasFile('attachment_author'))
         {
-            $formFields['attachment_author'] = $request->file('attachment_author')->store('submission_attachments', 'public');
-            $document->update($formFields);
+            $fields = array_merge($fields, [
+                'attachment_author' => $request->file('attachment_author')->store('submission_attachments', 'public')
+            ]);
         }
-        else
-        {
-            $document->update($request->except('attachment_author'));
-        }
-
         if($request->hasFile('attachment_no_author'))
         {
-            $formFields['attachment_no_author'] = $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public');
-            $document->update($formFields);
+            $fields = array_merge($fields, [
+                'attachment_no_author' => $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public')
+            ]);
         }
-        else
-        {
-            $document->update($request->except('attachment_no_author'));
-        }
-
+        $document->update($fields);
+        
         if($document->wasChanged())
-        {
             $document->submission->touch();
-        }
-
-        return $action->handle($request, $document);
+        return $updateCoAuthor->handle($request, $document);
     }
 
     public function destroy(Document $document)

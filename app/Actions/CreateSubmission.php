@@ -14,7 +14,6 @@ Class CreateSubmission extends Controller
 {
     public function handle(Document $document, Event $event, User $user)
     {
-        //dd($document, $event, $user);
         try
         {
             Submission::create([

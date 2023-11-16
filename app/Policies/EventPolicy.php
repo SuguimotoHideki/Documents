@@ -23,11 +23,11 @@ class EventPolicy
 
     public function update(User $user, Event $event)
     {
-        if($user->hasRole('event moderator') && $event->isMod($user))
+        if($user->hasRole('admin') || $user->id === 1)
         {
             return true;
         }
-        elseif($user->hasRole('admin') || $user->id === 1)
+        elseif($user->hasRole('event moderator') && $event->isMod($user))
         {
             return true;
         }

@@ -245,4 +245,47 @@ class Event extends Model
     {
         return $this->belongsToMany(SubmissionType::class, 'event_submission_type', 'event_id', 'submission_type_id');
     }
+
+    //Query methods
+    public function scopesearchDashboard($query, $search)
+    {
+        if($search !== null)
+        {
+            return $query->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                      ->orWhere('organizer', 'LIKE', '%' . $search . '%');
+            })->sortable();
+        }
+        else
+        {
+            return Event::sortable();
+        }
+    }
+    public function scopesearchModerated($query, $search, $user)
+    {
+        $events = $user->eventsModerated()->sortable();
+        if($search !== null)
+        {
+            $events = $events->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                      ->orWhere('organizer', 'LIKE', '%' . $search . '%');
+            })->sortable();
+        }
+        return $events;
+    }
+    public function scopesearchIndex($query, $search)
+    {
+        if($search !== null)
+        {
+            return $query->where('published', true)
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('organizer', 'LIKE', '%' . $search . '%');
+            })->sortable();
+        }
+        else
+        {
+            return Event::sortable()->where('published', true);
+        }
+    }
 }

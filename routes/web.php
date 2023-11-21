@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/manage/reviews/', [ReviewController::class, 'index'])->name('manageReviews');
     //Get reviews related to submission
     Route::get('/documents/{document}/reviews', [ReviewController::class, 'indexByDocument'])->name('indexByDocument');
-    //Show submission reviewer selection
+    //Show submission reviewer assignment
     Route::get('/documents/{document}/reviewers', [ReviewerController::class, 'create'])->name('assignReviewer');
     //Post submission reviewers
     Route::post('/manage/documents/{document}', [ReviewerController::class, 'store'])->name('storeReviewer');
@@ -143,6 +143,8 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/manage/events/{event}/moderators', [ModeratorController::class, 'create'])->name('createModerator');
     //Post event moderators
     Route::post('/manage/events/{event}', [ModeratorController::class, 'store'])->name('storeModerator');
+    //Post event moderators
+    Route::get('/users/{user}/events/moderated', [ModeratorController::class, 'indexModerated'])->name('indexModerated');
 
     //EVENT USER
     //Create relationship between event and logged user

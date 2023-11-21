@@ -8,11 +8,18 @@ use Illuminate\Http\Request;
 
 class ModeratorController extends Controller
 {
+    public function indexModerated(User $user, Request $request)
+    {
+        $searchQuery = $request->get('search');
+        $events = Event::searchModerated($searchQuery, $user)->paginate(15)->withQueryString();
+
+        return view('events.dashboard', compact('user','events'))->with(['title' => 'Eventos moderados por '.$user->user_name]);
+    }
     public function create(Event $event)
     {
         $this->authorize('manageModerator', Event::class);
 
-        $users = User::role('event moderator')->where('id', '!=', 1)->get();
+        $users = User::role('event moderator')->where('id', '!=', 1)->sortable()->get();
         return view('events.createModerator',[
             'event' => $event,
             'users' => $users

@@ -60,9 +60,6 @@
     <li class="nav-item my-auto">
         <a href="{{route('manageDocuments')}}" class="nav-link">Submissões</a>
     </li>
-    <li class="nav-item my-auto">
-        <a href="{{route('manageUsers')}}" class="nav-link">Usuários</a>
-    </li>
 @endif
 @role('reviewer')
     <li class="nav-item my-auto">

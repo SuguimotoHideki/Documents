@@ -127,13 +127,13 @@ class Document extends Model
     {
         if($search !== null)
         {
-            return $query->join('submissions', 'submissions.document_id', '=', 'documents.id')
-            ->join('users', 'users.id', '=', 'submissions.user_id')
-            ->where('title', 'LIKE', '%' . $search . '%')
-            ->orWhere('documents.id', $search)
-            ->orWhere('users.user_name', 'LIKE', '%' . $search . '%')->select('documents.*')
-            ->whereHas('Submission.Event.Moderators', function($query) use ($user){
-                $query->where('user_id', $user->id);
+            return $query->whereHas('Submission.Event.Moderators', function($modQuery) use ($user){
+                $modQuery->where('event_moderator.user_id', $user->id);
+            })
+            ->whereHas('Submission.User', function ($authorQuery) use ($search) {
+                $authorQuery->where('user_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('title', 'LIKE', '%'. $search . '%')
+                ->orWhere('documents.id', $search);
             });
         }
         return $query->whereHas('Submission.Event.Moderators', function($query) use ($user){

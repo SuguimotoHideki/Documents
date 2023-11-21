@@ -17,15 +17,8 @@ class EventController extends Controller
     //Returns all events
     public function index(Request $request)
     {
-        $eventQuery = Event::query();
         $searchQuery = $request->get('search');
-
-        $events = $eventQuery->where('published', true)
-        ->where(function ($query) use ($searchQuery) {
-            $query->where('name', 'LIKE', '%' . $searchQuery . '%')
-                ->orWhere('organizer', 'LIKE', '%' . $searchQuery . '%');
-        })
-        ->sortable()->paginate(15)->withQueryString();
+        $events = Event::searchIndex($searchQuery)->paginate(15)->withQueryString();
 
         return view('events.index', compact('events'));
     }
@@ -51,29 +44,22 @@ class EventController extends Controller
     public function dashboard(Request $request)
     {
         $user = Auth::user();
-
+        $events = null;
         $this->authorize('dashboard', Event::class);
-
+        $search = $request->get('search');
         if($user->hasRole('event moderator'))
         {
-            $events = $user->eventsModerated()->sortable();
-        }
-        elseif($user->hasRole('admin'))
-        {
-            $events = Event::sortable();
-        }
-        if(!empty($request->input('search')))
-        {
-            $searchQuery = $request->get('search');
-            
-            $events = $events->where('name', 'LIKE', '%' . $searchQuery . '%')
-            ->orWhere('organizer', 'LIKE', '%' . $searchQuery . '%')
-            ->paginate(15)->withQueryString();
+            $events = Event::searchModerated($search, $user);
         }
         else
-            $events = $events->paginate(15)->withQueryString();
-
-        return view('events.dashboard', compact('events'));
+        {
+            $events = Event::searchDashboard($search);
+        }
+        $events = $events->paginate(15)->withQueryString();
+        return view('events.dashboard', [
+            'events'=> $events,
+            'title' => "Gerenciar eventos"
+        ]);
     }
 
     //Returns event edit form

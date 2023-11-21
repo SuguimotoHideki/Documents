@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class='fs-2 col'>Gerenciar eventos</h1>
+                <h1 class='fs-2 col'>{{$title}}</h1>
                 @role('admin')
                     <div class="col">
                         <a href="{{route('createEvent')}}" class="btn btn-success float-end">Criar evento</a>
@@ -13,7 +13,11 @@
                 @endif
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 bg-white">
-                <form action="{{route('manageEvents')}}" method="GET">
+                @isset($user)
+                    <form action="{{route('indexModerated', $user)}}" method="GET">
+                @else
+                    <form action="{{route('manageEvents')}}" method="GET">
+                @endif
                     <div class="row">
                         <div class="col-md-10 mb-3">
                             <input name="search" class="form-control" type="text" placeholder="Buscar pelo nome do evento ou organizador" aria-label="Search">

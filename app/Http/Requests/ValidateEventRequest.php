@@ -49,6 +49,7 @@ class ValidateEventRequest extends FormRequest
                 'website' => ['required', 'string'],
                 'information' => ['required', 'string'],
                 'email' => ['required', 'string'],
+                'published' => ['boolean'],
                 'submission_type' => ['required', 'array'],
                 'organizer' => ['required', 'string'],
                 'organizer_email' => ['required', 'string'],

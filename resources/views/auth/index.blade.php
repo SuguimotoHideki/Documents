@@ -55,12 +55,6 @@
                                             Operações
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item btn rounded-0" href="{{ route('indexSubscribed', $user)}}">
-                                                Ver inscrições
-                                            </a>
-                                            <a class="dropdown-item btn rounded-0" href="{{ route('indexSubmissions', $user)}}">
-                                                Ver submissões
-                                            </a>
                                             <a class="dropdown-item btn rounded-0" href="{{ route('showUser', $user)}}">
                                                 Ver usuário
                                             </a>

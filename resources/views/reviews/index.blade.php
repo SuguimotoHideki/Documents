@@ -31,13 +31,13 @@
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
-                                <th id="t1">Título</th>
-                                <th id="t2">Avaliador</th>
+                                <th id="t1">@sortablelink('title', 'Título')</th>
+                                <th id="t2">@sortablelink('user.user_name', 'Avaliador')</th>
                                 <th id="t3">Submissão</th>
-                                <th id="t4">Pontuação</th>
+                                <th id="t4">@sortablelink('score', 'Pontuação')</th>
                                 <th id="t5">Recomendação</th>
-                                <th id="t6">Avaliado em</th>
-                                <th id="t7">Atualizado em</th>
+                                <th id="t6">@sortablelink('created_at', 'Avaliado em')</th>
+                                <th id="t7">@sortablelink('updated_at', 'Atualizado em')</th>
                                 <th id="t8">Operações</th>
                             </tr>
                         </thead>
@@ -48,7 +48,7 @@
                             @endphp
                             <tr class="align-middle" style="height:4rem">
                                 <td headers="t1"><a href="{{route('showReview', [$review->document, $review])}}">{{$review->title}}</a></td>
-                                <td headers="t2">{{$review->user->user_name}}</td>
+                                <td headers="t2"><a href="{{route('showUser', $review->user->id)}}">{{$review->user->user_name}}</a></td>
                                 <td headers="t3" class="text-truncate"><a href="{{ route('showDocument', $review->document)}}">{{$review->document->title}}</a></td>
                                 <td headers="t4">{{$review->score}}</td>
                                 <td headers="t5">

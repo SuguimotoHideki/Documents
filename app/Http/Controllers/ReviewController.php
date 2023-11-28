@@ -58,7 +58,7 @@ class ReviewController extends Controller
                 $review = $user->review();
             }
 
-            $review = $review->paginate(15)->withQueryString();
+            $review = $review->sortable()->paginate(15)->withQueryString();
 
             return view('reviews.index', ['reviews' => $review]);
         }

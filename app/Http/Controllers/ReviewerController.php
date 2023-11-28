@@ -46,7 +46,6 @@ class ReviewerController extends Controller
         $newReviewers = $document->users()->pluck('user_id')->toArray();
         $changed = ($reviewers !== $newReviewers);
         ReviewCreated::dispatch($document->submission, $changed);
-        //event (new ReviewCreated($document->submission, $changed));
 
         return back()->with('success', 'Permissões aplicadas.');
     }

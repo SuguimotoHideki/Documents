@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Document;
 use Illuminate\Http\Request;
@@ -9,10 +10,10 @@ use App\Actions\CreateCoAuthor;
 use App\Actions\UpdateCoAuthor;
 use Illuminate\Validation\Rule;
 use App\Actions\CreateSubmission;
-use App\Http\Requests\ValidateDocumentRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\ValidateDocumentRequest;
 
 class DocumentController extends Controller
 {
@@ -40,11 +41,22 @@ class DocumentController extends Controller
             $documents = $documents->paginate(15)->withQueryString();
             return view('documents.index', [
                 'documents' => $documents,
+                'title' => "Gerenciar submissões"
             ]);
         }
         return redirect()->back()->with('error', $response->message());
     }
     
+    public function indexReviewed(Request $request, User $user)
+    {
+        $searchQuery = $request->get('search');
+        $documents = Document::getReviewerDocuments($searchQuery, $user)->paginate(15)->withQueryString();
+        return view('documents.index', [
+            'documents' => $documents,
+            'title' => 'Submissões avaliadas por '.$user->user_name,
+            'user' => $user
+        ]);
+    }
     //Return single document
     public function show(Document $document)
     {

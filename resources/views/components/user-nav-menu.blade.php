@@ -6,19 +6,19 @@
             <a href="{{route('showUser', $user)}}">Perfil</a>
         </div>
         <ul class="nav flex-column mb-auto">
-            @if($user === Auth::user() || Auth::user()->hasRole('admin'))
-                @if($user->hasRole('user'))
-                    <li class="mb-2">
-                        <a href="{{route('indexSubscribed', $user)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
-                            <i class="fa-solid fa-table-list"></i> Inscrições
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{{route('indexSubmissions', $user)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
-                            <i class="fa-solid fa-file-lines"></i> Submissões
-                        </a>
-                    </li>
-                @elseif($user->hasRole('event moderator'))
+            @if($user->hasRole('user'))
+                <li class="mb-2">
+                    <a href="{{route('indexSubscribed', $user)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
+                        <i class="fa-solid fa-table-list"></i> Inscrições
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="{{route('indexSubmissions', $user)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
+                        <i class="fa-solid fa-file-lines"></i> Submissões
+                    </a>
+                </li>
+            @elseif(Auth::user()->hasRole('admin'))
+                @if($user->hasRole('event moderator'))
                     <li class="mb-2">
                         <a href="{{route('indexModerated', $user)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
                             <i class="fa-solid fa-table-list"></i> Eventos moderados
@@ -26,7 +26,7 @@
                     </li>
                 @elseif($user->hasRole('reviewer'))
                     <li class="mb-2">
-                        <a href="" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
+                        <a href="{{route('indexReviewed', $user)}}" class="btn btn-light w-100 py-2 text-start" aria-pressed="true">
                             <i class="fa-solid fa-table-list"></i> Submissões avaliadas
                         </a>
                     </li>

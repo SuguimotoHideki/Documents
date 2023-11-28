@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        @role('reviewer')
+        @if(Auth::user()->hasRole(['reviewer']) || (Auth::user()->hasRole(['admin']) && isset($user)))
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class='fs-2 col mb-2'>Avaliar submissões</h1>
+                <h1 class='fs-2 col mb-2'>{{$title}}</h1>
                 @if($documents->count() === 0 && !request()->has('search'))
                     <div class="text-center">
                         <p>Ainda não há submissões.</p>
@@ -14,7 +14,11 @@
                 @else
             </div>
             <div class="list-group list-group-flush shadow-sm p-3 bg-white">
-                <form action="{{route('manageDocuments')}}" method="GET">
+                @isset($user)
+                    <form action="{{route('indexReviewed', $user)}}" method="GET">
+                @else
+                    <form action="{{route('manageDocuments')}}" method="GET">
+                @endif
                     <div class="row">
                         <div class="col-md-10 mb-3">
                             <input name="search" class="form-control" type="text" placeholder="Buscar pelo ID ou título" aria-label="Search">
@@ -37,7 +41,7 @@
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
-                                <th id="t1">Submissão</th>
+                                <th id="t1">@sortablelink('title', 'Submissão')</th>
                                 <th id="t2">@sortablelink('type', 'Modalidade')</th>
                                 <th id="t3">@sortablelink('event', 'Evento')</th>
                                 <th id="t4">Pontuação</th>
@@ -49,7 +53,13 @@
                         <tbody>
                             @foreach($documents as $document)
                             @php
-                                $review = $document->review()->where('user_id', Auth::user()->id)->first();
+                                if(isset($user))
+                                {
+                                    $review = $document->review()->where('user_id', $user->id)->first();
+                                }
+                                else {
+                                    $review = $document->review()->where('user_id', Auth::user()->id)->first();
+                                }
                                 if($review !== null)
                                 {
                                     $status = $review->getStatusID();
@@ -141,7 +151,7 @@
         @else
         <div class="col-md-12">
             <div class="row mb-2">
-                <h1 class='fs-2 col mb-2'>Gerenciar submissões</h1>
+                <h1 class='fs-2 col mb-2'>{{$title}}</h1>
                 @if($documents->count() === 0 && !request()->has('search'))
                     <div class="text-center">
                         <p>Ainda não há submissões.</p>

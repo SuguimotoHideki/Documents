@@ -75,6 +75,8 @@ Route::group(['middleware' => ['auth']], function()
     Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('deleteDocument');
     //Get documents submitted by the user
     Route::get('/users/{user}/documents/submitted', [SubmissionController::class, 'index'])->name('indexSubmissions');
+    //Get documents reviewed by the user
+    Route::get('/users/{user}/documents/reviewed', [DocumentController::class, 'indexReviewed'])->name('indexReviewed');
 });
 
 //REVIEWS

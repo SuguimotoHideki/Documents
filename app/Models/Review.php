@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Review extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
     protected $fillable = [
         'title',
         'score',
@@ -26,6 +27,14 @@ class Review extends Model
         0 => 'Aprovado',
         1 => 'Revisão',
         2 => 'Reprovado',
+    ];
+
+    protected $sortable = [
+        'title',
+        'score',
+        'recommendation',
+        'created_at',
+        'updated_at'
     ];
 
     /**

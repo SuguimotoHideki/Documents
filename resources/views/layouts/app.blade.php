@@ -114,14 +114,25 @@
                                     {{ Auth::user()->user_name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item btn rounded-0" href="/users/{{Auth::user()->id}}">
+                                    @can('switch roles')
+                                        @role('reviewer')
+                                            <a class="dropdown-item btn rounded-0" href="{{route('switchRoles', Auth::user())}}">
+                                                Entrar como usuário
+                                            </a>
+                                        @elserole('user')
+                                            <a class="dropdown-item btn rounded-0" href="{{route('switchRoles', Auth::user())}}">
+                                                Entrar como avaliador
+                                            </a>
+                                        @endif
+                                    @endif
+                                    <a class="dropdown-item btn rounded-0" href="{{route('showUser', Auth::user())}}">
                                         Minha conta
                                     </a>
 
                                     <a class="dropdown-item btn rounded-0" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Sair') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

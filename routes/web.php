@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth', 'id_or_permission:manage any user']], fun
     Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword']);
     //Show single user
     Route::get('/users/{user}', [UserController::class, 'show'])->name('showUser');
+    //Switches between reviewer and user
+    Route::get('users/{user}/switch-role', [UserController::class, 'switchRoles'])->name('switchRoles');
 });
 //Show all users
 Route::get('/manage/users', [UserController::class, 'index'])->name('manageUsers')->middleware('auth', 'can:manage any user');

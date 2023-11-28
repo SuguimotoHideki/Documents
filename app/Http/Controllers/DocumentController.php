@@ -26,6 +26,7 @@ class DocumentController extends Controller
         {
             $documents = null;
             $searchQuery = $request->get('search');
+            $title = "Gerenciar submissões";
             if($user->hasRole(['admin']))
             {
                 $documents = Document::getAllDocuments($searchQuery);
@@ -37,11 +38,12 @@ class DocumentController extends Controller
             elseif($user->hasRole('reviewer'))
             {
                 $documents = Document::getReviewerDocuments($searchQuery, $user);
+                $title = 'Submissões para avaliação';
             }
             $documents = $documents->paginate(15)->withQueryString();
             return view('documents.index', [
                 'documents' => $documents,
-                'title' => "Gerenciar submissões"
+                'title' => $title
             ]);
         }
         return redirect()->back()->with('error', $response->message());
@@ -84,14 +86,14 @@ class DocumentController extends Controller
     //Stores document
     public function store(ValidateDocumentRequest $request, CreateCoAuthor $createCoAuthor, CreateSubmission $createSub)
     {
-        $fields =$request->validated();
-        if($fields->hasFile('attachment_author'))
+        $fields = $request->validated();
+        if($request->hasFile('attachment_author'))
         {
             $fields = array_merge($fields, [
                 'attachment_author' => $request->file('attachment_author')->store('submission_attachments', 'public')
             ]);
         }
-        if($fields->hasFile('attachment_no_author'))
+        if($request->hasFile('attachment_no_author'))
         {
             $fields = array_merge($fields, [
                 'attachment_no_author' => $request->file('attachment_no_author')->store('submission_attachments_no_author', 'public')
@@ -100,7 +102,7 @@ class DocumentController extends Controller
 
         //Creates new document instance, co-authors and submission instance.
         //Creates entries in the pivot tables between users, events, documents, and co-authors
-        DB::transaction(function() use ($createCoAuthor, $createSub, $request, $fields, &$redirect){
+        DB::transaction(function() use ($createCoAuthor, $createSub, $request, $fields){
             $document = Document::create($fields);
             $user = Auth::user();
             $event = Event::findOrFail($request['event_id']);

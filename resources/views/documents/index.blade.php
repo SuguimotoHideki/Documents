@@ -43,7 +43,7 @@
                             <tr class="align-middle">
                                 <th id="t1">@sortablelink('title', 'Submissão')</th>
                                 <th id="t2">@sortablelink('type', 'Modalidade')</th>
-                                <th id="t3">@sortablelink('event', 'Evento')</th>
+                                <th id="t3">Evento</th>
                                 <th id="t4">Pontuação</th>
                                 <th id="t5">Recomendação</th>
                                 <th id="t6">Avaliado em</th>
@@ -89,7 +89,11 @@
                                     <td headers="t6">{{$review->formatDate($review->created_at)}}</td>
                                 @else
                                     <td headers="t4">Aguardando avaliação</td>
-                                    <td headers="t5">Aguardando avaliação</td>
+                                    <td headers="t5">
+                                        <a href="{{route('createReview', $document)}}" class="btn btn-primary text-white mx-3 py-1 px-4 rounded-2 text-center">
+                                            Avaliar submissão
+                                        </a>
+                                    </td>
                                     <td headers="t6">Aguardando avaliação</td>
                                 @endif
                                 <td headers="t7">

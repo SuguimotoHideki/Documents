@@ -78,6 +78,7 @@ class DatabaseSeeder extends Seeder
         {
             $reviewDoc = $documents->random(rand(1, 30))->pluck('id')->toArray();
             $reviewer->documents()->attach($reviewDoc);
+            $reviewer->givePermissionTo('switch roles');
         }
 
         //Create reviews

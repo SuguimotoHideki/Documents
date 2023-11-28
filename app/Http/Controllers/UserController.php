@@ -44,7 +44,7 @@ class UserController extends Controller
     //Show edit form
     public function edit(User $user)
     {
-        $userRoles = $user->roles('id')->pluck('id');
+        $userRoles = $user->roles()->pluck('id');
         return view('auth.edit', [
             'user' => $user,
             'roles' => $userRoles
@@ -62,7 +62,6 @@ class UserController extends Controller
     //Update user data
     public function update(Request $request, User $user)
     {
-        //dd($request);
         $canManageUser = Auth::user()->hasPermissionTo('update any user');
 
         $request->validate([
@@ -75,10 +74,16 @@ class UserController extends Controller
             'user_phone_number' => ['required', 'string', 'digits:11', Rule::unique('users', 'user_phone_number')->ignore($user, 'id')],
             'role' => ['required']
         ]);
-
+        
         $user->update($request->except('current_password'));
 
         $user->syncRoles($request['role']);
+        if($request['role'] === '3')
+        {
+            $user->givePermissionTo('switch roles');
+        }
+        else
+            $user->revokePermissionTo('switch roles');
 
         return redirect()->route('showUser', $user)->with('success', 'Informações de perfil atualizadas.');
     }
@@ -97,5 +102,22 @@ class UserController extends Controller
         $user->update(['password' => Hash::make($passwordFields['password'])]);
 
         return redirect()->route('showUser', $user)->with('success', 'Senha atualizada.');
+    }
+
+    //Switch between user and reviewer
+    public function switchRoles(User $user)
+    {
+        $role = null;
+        if($user->hasRole('reviewer'))
+        {
+            $user->syncRoles('user');
+            $role = "Usuário";
+        }
+        else
+        {
+            $user->syncRoles('reviewer');
+            $role = "Avaliador";
+        }
+        return redirect()->route('home')->with('success', "Conectado como ".$role);
     }
 }

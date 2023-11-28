@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\User;
 use App\Models\Document;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class ReviewerController extends Controller
     {
         $this->authorize('assignReviewer', Review::class);
 
-        $users = User::role('reviewer')->where('id', '!=', 1)->get();
+        $users = User::permission('switch roles')->where('id', '!=', 1)->Where('id', '!=', $document->submission->user->id)->get();
         return view('reviews.assignReviewer',[
             'document' => $document,
             'users' => $users

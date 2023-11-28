@@ -21,6 +21,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'update any user']);
         Permission::create(['name' => 'create reviewer user']);
         Permission::create(['name' => 'create moderator user']);
+        Permission::create(['name' => 'switch roles']);
 
         //Related to documents
         Permission::create(['name' => 'submissions.*']);
@@ -32,7 +33,6 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'submissions.manage']);
         Permission::create(['name' => 'submissions.create']);
         Permission::create(['name' => 'submissions.index']);
-
 
         Permission::create(['name' => 'reviews.*']);
         Permission::create(['name' => 'reviews.edit.*']);

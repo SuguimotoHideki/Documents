@@ -78,6 +78,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <small class="form-text text-muted">{{"A nota final é a média dos critérios. A nota de corte deste evento é ".$document->submission->event->passing_grade."."}}</small>
                                 </div>
                             </div>
                         </div>

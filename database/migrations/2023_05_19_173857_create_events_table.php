@@ -25,6 +25,7 @@ return new class extends Migration
             //New fields
             $table->json('paper_topics')->nullable();
             $table->string('logo')->nullable();
+            $table->float('passing_grade', 10, 2, true);
             //
             $table->dateTime('subscription_start');
             $table->dateTime('subscription_deadline');

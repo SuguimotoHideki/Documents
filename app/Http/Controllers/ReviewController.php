@@ -132,7 +132,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Shows review edition form
+     * Shows review editing form
      */
     public function edit(Document $document, Review $review)
     {

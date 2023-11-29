@@ -31,23 +31,19 @@
                 <div class="table-responsive mb-2">
                     <table class="table table-bordered border-light table-hover bg-white table-fixed">
                         <colgroup>
-                            <col width="14%">
-                            <col width="14%">
-                            <col width="14%">
-                            <col width ="14%">
-                            <col width ="14%">
-                            <col width ="14%">
-                            <col width ="14%">
+                            <col width="30%">
+                            <col width="15%">
+                            <col width="20%">
+                            <col width ="20%">
+                            <col width ="15%">
                         </colgroup>
                         <thead class="table-light">
                             <tr class="align-middle">
                                 <th id="t1">@sortablelink('title', 'Submissão')</th>
                                 <th id="t2">@sortablelink('type', 'Modalidade')</th>
                                 <th id="t3">Evento</th>
-                                <th id="t4">Pontuação</th>
-                                <th id="t5">Recomendação</th>
-                                <th id="t6">Avaliado em</th>
-                                <th id="t7">Operações</th>
+                                <th id="t4">Recomendação</th>
+                                <th id="t5">Operações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,25 +66,22 @@
                                 <td headers="t2">{{ucfirst($document->submissionType->name)}}</td>
                                 <td headers="t3"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->name}}</a></td>
                                 @if($review !== null)
-                                    <td headers="t4">{{$review->score}}</td>
-                                    <td headers="t5">
-                                        @if($status === 0)
-                                            <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
-                                                {{$review->getStatusValue()}}
-                                            </div>
-                                        @elseif($status === 1)
-                                            <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
-                                                {{$review->getStatusValue()}}
-                                            </div>
-                                        @elseif($status === 2)
-                                            <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
-                                                {{$review->getStatusValue()}}
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td headers="t6">{{$review->formatDate($review->created_at)}}</td>
+                                <td headers="t5">
+                                    @if($status === 0)
+                                        <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                            {{$review->getStatusValue()}}
+                                        </div>
+                                    @elseif($status === 1)
+                                        <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
+                                            {{$review->getStatusValue()}}
+                                        </div>
+                                    @elseif($status === 2)
+                                        <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
+                                            {{$review->getStatusValue()}}
+                                        </div>
+                                    @endif
+                                </td>
                                 @else
-                                    <td headers="t4">Aguardando avaliação</td>
                                     <td headers="t5">
                                         <a href="{{route('createReview', $document)}}" class="btn btn-primary text-white mx-3 py-1 px-4 rounded-2 text-center">
                                             Avaliar submissão

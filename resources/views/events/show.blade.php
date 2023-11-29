@@ -63,6 +63,7 @@
                                 </h1>
                                 <div class="text-muted">Inscrições: {{$event->getSubscriptionDates()}}</div>
                                 <div class="text-muted">Submissões: {{$event->getSubmissionDates()}}</div>
+                                <div class="text-muted">Nota de corte: {{$event->passing_grade}}</div>
                                 <div class="text-paragraph text-muted mt-2">{{$event->information}}</div>
                             </div>
                         </div>

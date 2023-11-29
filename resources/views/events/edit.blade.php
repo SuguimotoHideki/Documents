@@ -177,9 +177,10 @@
 
                         <div class="mx-5">
                             <div class="mb-3">
-                                <h2 class="fs-5 fw-bold">Tipos de submissão</h2>
-                                <p class="text-muted">Escolha os tipos de submissão do evento, mais de um tipo pode ser selecionado.</p>
+                                <h2 class="fs-5 fw-bold">Submissão</h2>
+                                <p class="text-muted">Escolha os tipos de submissão do evento e a nota de corte para aprovação.</p>
                             </div>
+                        
                             <div class="mb-3">
                                 <label for="submission_type">{{ __('Tipos de submissão') }}
                                     <span style="color: red">*</span>
@@ -197,6 +198,25 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="passing_grade">{{ __('Nota de corte') }}
+                                    <span style="color: red">*</span>
+                                </label>
+                                <div>
+                                    <input id="passing_grade" type="number" min="0" max="10" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" value="{{ old('passing_grade', $event->passing_grade) }}" required autofocus>
+                                    @error('passing_grade')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                @error('passing_grade')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <small class="form-text text-muted">A nota deve ser entre 0-10, as avaliações acima dessa nota serão aprovadas e as abaixo serão reprovadas.</small>
                             </div>
                         </div>
 

@@ -27,6 +27,7 @@ class EventFactory extends Factory
             'published' => true,
             'status' => 0,
             'logo' => 'event_logos/Placeholder.jpg',
+            'passing_grade' => fake()->numberBetween(4,8),
             'organizer' => fake()->company(),
             'organizer_email' => fake()->companyEmail(),
             'organizer_website' => fake()->url(),

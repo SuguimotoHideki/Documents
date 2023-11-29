@@ -22,6 +22,7 @@ class Event extends Model
         'status',
         'published',
         'logo',
+        'passing_grade',
         'organizer', 
         'organizer_email', 
         'organizer_website',

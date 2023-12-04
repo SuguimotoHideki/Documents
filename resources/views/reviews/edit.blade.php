@@ -114,21 +114,20 @@
                         <div class="row mb-3">
                             <label for="recommendation" class="col-md-2 col-form-label text-md-center text-break">
                                 {{ __('Recomendação') }}
-                                <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
                                 <select name="recommendation" id="recommendation" class="col-md-12 my-auto" required>
-                                    <option value="" disabled selected>Escolha uma opção</option>
-                                    <option value="0" {{$review->recommendation === 0 ? 'selected' : ''}} class="text-success">Aprovado</option>
+                                    <option value="-1" selected>Nenhuma</option>
                                     <option value="1" {{$review->recommendation === 1 ? 'selected' : ''}}>Revisão</option>
-                                    <option value="2" {{$review->recommendation === 2 ? 'selected' : ''}} class="text-danger">Reprovado</option>
                                 </select>
+                                <a href="#" class="col-md-2" data-bs-toggle="modal" data-bs-target="#recommendationHelpPrompt"><i class="fa-regular fa-circle-question"></i> Ajuda</a>
                             </div>
                             @error('recommendation')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                            
                         </div>
                         <div class="row mb-3">
                             <label for="attachment" class="col-md-2 col-form-label text-md-center">
@@ -137,12 +136,8 @@
                             <div class="col-md-9 my-auto">
                                 <div class="row">
                                     @if($review->attachment !== null)
-                                        <div class="col-md-3 my-auto">
-                                            <a href="/storage/{{$review->attachment}}" class="btn btn-primary">Visualizar anexo</a>
-                                        </div>
-                                        <div class="col-md-9 my-auto">
+                                        <div class="col-md-10 my-auto">
                                             <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
-                                            <small class="form-text text-muted">Anexe um arquivo contendo sugestões de correção.</small>
 
                                             @error('attachment')
                                                 <span class="invalid-feedback" role="alert">
@@ -150,10 +145,12 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        <div class="col-md-2 my-auto text-md-end">
+                                            <a href="/storage/{{$review->attachment}}" class="btn btn-primary">Ver anexo</a>
+                                        </div>
                                     @else
                                     <div class="col-md-12 my-auto">
                                         <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
-                                        <small class="form-text text-muted">Anexe um arquivo contendo sugestões de correção.</small>
 
                                         @error('attachment')
                                             <span class="invalid-feedback" role="alert">
@@ -163,6 +160,7 @@
                                     </div>
                                     @endif
                                 </div>
+                                <small class="form-text text-muted">Anexe um arquivo contendo sugestões de correção.</small>
                             </div>
                         </div>
                     </div>
@@ -204,6 +202,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="recommendationHelpPrompt" tabindex="-1" aria-labelledby="recommendationHelpPrompt" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content col-md-10">
+            <div class="modal-header">
+                <h5 class="modal-title">Recomendação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 class="fw-bold fs-5">Revisão</h1>
+                <p>
+                    Selecione a opção <strong>Revisão</strong> caso deseje que o autor corrija sua submissão para ser reavaliada.<br>
+                    A submissão será retornada caso a maioria dos avaliadores recomende a revisão. Caso contrário, a nota final será calculada fazendo a média das avaliações, independentemente da recomendação.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok, entendido!</button>
             </div>
         </div>
     </div>

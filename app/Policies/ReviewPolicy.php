@@ -60,15 +60,13 @@ class ReviewPolicy
     public function editReview(User $user, Review $review)
     {
         $document = $review->document;
-        $reviewers = $document->users()->count();
-        $reviews = $document->review()->count();
         if($user->hasRole('admin') || $user->id === 1)
         {
             return Response::allow();
         }
         else if($user->hasRole('reviewer') && $review->user->id === $user->id)
         {
-            if($reviewers === $reviews)
+            if($document->submission->isReviewed())
             {
                 return Response::deny('A avaliação já foi finalizada, não é mais possível fazer alterações.');
             }
@@ -101,9 +99,8 @@ class ReviewPolicy
         }
         else if($document->submission->user->id === $user->id)
         {
-            $reviewers = $document->users()->count();
             $reviews = $document->review()->count();
-            if($reviews === 0 || ($reviewers === $reviews && $document->submission->getStatusID() !== 3))
+            if($reviews === 0 || ($document->submission->isReviewed() && $document->submission->getStatusID() !== 3))
             {
                 return Response::allow();
             }
@@ -130,15 +127,13 @@ class ReviewPolicy
     public function deleteReview(User $user, Review $review)
     {
         $document = $review->document;
-        $reviewers = $document->users()->count();
-        $reviews = $document->review()->count();
         if($user->hasRole('admin') || $user->id === 1)
         {
             return Response::allow();
         }
         else if($user->hasRole('reviewer') && $review->user->id === $user->id)
         {
-            if($reviewers === $reviews)
+            if($document->submission->isReviewed())
             {
                 return Response::deny('A avaliação já foi finalizada, não é mais possível fazer alterações.');
             }

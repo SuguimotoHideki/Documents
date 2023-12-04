@@ -62,13 +62,13 @@
                     </div>
                 </div>
                 <div class="col-md text-break mt-3">
-                    <h2 class="fs-default fw-bold mb-1 text-start">Comentário:</h2>
-                    <div>{{$review->comment}}</div>
+                    <h2 class="fs-default fw-bold text-start">Comentário:</h2>
+                    <div class="text-paragraph mt-2">{{$review->comment}}</div>
                 </div>
                 @if(!Auth::user()->hasRole('user'))
                     <div class="col-md text-break mt-3">
-                        <h2 class="fs-default fw-bold mb-1 text-start">Comentário privado:</h2>
-                        <div>{{$review->moderator_comment}}</div>
+                        <h2 class="fs-default fw-bold text-start">Comentário privado:</h2>
+                        <div class="text-paragraph mt-2">{{$review->moderator_comment}}</div>
                     </div>
                 @endif
                 @if($review->attachment !== null)

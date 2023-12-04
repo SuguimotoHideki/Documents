@@ -30,32 +30,31 @@ class CompleteReview
 
         $reviewers = $submission->document->users();
         $reviews = $submission->document->review();
-
         if($reviewers->count() === $reviews->count())
         {
             $recommendations = array_count_values($reviews->pluck('recommendation')->toArray());
             arsort($recommendations);
             $scoreFirst = current($recommendations);
             $scoreSecond = next($recommendations);
-
+            $scoreArray = $reviews->pluck('score')->toArray();
             if ($scoreFirst > $scoreSecond)
             {
                 $scoreKey = array_key_first($recommendations);
-                //dump($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
-                $scoreArray = $reviews->pluck('score')->toArray();
-                if($scoreKey !== 3)
+                //dd($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
+                if($scoreKey === 1)
                 {
-                    $submission->setReview($scoreKey, array_sum($scoreArray)/count($scoreArray), now());
+                    $submission->setReview(true, 0, now());
+                }
+                else
+                {
+                    $finalScore = array_sum($scoreArray)/count($scoreArray);
+                    $submission->setReview(false, $finalScore, now());
                 }
             }
-            else 
+            else
             {
-                $submission->unsetReview();
-                $user = User::role('admin')->get();
-                if($event->changed)
-                {
-                    Notification::send($user, new ReviewNotification($submission));
-                }
+                $finalScore = array_sum($scoreArray)/count($scoreArray);
+                $submission->setReview(false, $finalScore, now());
             }
         }
         else

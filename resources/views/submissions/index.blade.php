@@ -77,7 +77,11 @@
                                         </div>
                                     @endif
                                 </td>
-                                <td headers="t5"><a href="{{ route('indexByDocument', $submission->document)}}">Ver avaliações</a></td>
+                                @if($submission->isReviewed())
+                                    <td headers="t5"><a href="{{ route('indexByDocument', $submission->document)}}">Ver avaliações</a></td>
+                                @else
+                                    <td headers="t5">Aguardando avaliação</td>
+                                @endif
                                 <td headers="t6"><a href="{{ route('showEvent', $submission->event)}}">{{$submission->event->name}}</a></td>
                                 <td headers="t7">
                                     <div class="nav-item dropdown">

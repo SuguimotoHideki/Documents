@@ -98,10 +98,21 @@ class Submission extends Model
     /**
      * Sets submission as reviewed
      */
-    public function setReview($status, $score, $timestamp)
+    public function setReview($revision, $score, $timestamp)
     {
-        $this->attributes['status'] = $status;
-        $this->attributes['score'] = $score;
+        if($revision)
+        {
+            $this->attributes['status'] = 1;
+            $this->attributes['score'] = 0;
+        }
+        else
+        {
+            if($score >= $this->event->passing_grade)
+                $this->attributes['status'] = 0;
+            else
+                $this->attributes['status'] = 2;
+            $this->attributes['score'] = $score;
+        }
         $this->attributes['reviewed_at'] = $timestamp;
         $this->save();
     }
@@ -115,6 +126,20 @@ class Submission extends Model
         $this->attributes['score'] = null;
         $this->attributes['reviewed_at'] = null;
         $this->save();
+    }
+
+    public function isReviewed()
+    {
+        $reviewers = $this->document->users()->count();
+        $reviews = $this->document->review()->count();
+        if($reviewers > 0)
+        {
+            if($reviewers === $reviews)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

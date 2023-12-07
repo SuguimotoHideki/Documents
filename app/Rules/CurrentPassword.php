@@ -16,14 +16,14 @@ class CurrentPassword implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
 
-        if($attribute === "password")
+        if($attribute == "password")
         {
             if(Hash::check($value, auth()->user()->password))
             {
                 $fail("The new password cannot be the same as the current one.");
             }
         }
-        if($attribute === "current_password")
+        if($attribute == "current_password")
         {
             if(!Hash::check($value, auth()->user()->password))
             {

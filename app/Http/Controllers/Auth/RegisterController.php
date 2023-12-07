@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'user_name' => ['required', 'string', 'max:255'],
             'cpf' => ['required', 'string', 'digits:11', 'unique:users', new Cpf],
             'user_email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:3', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
             'birth_date' => ['required', 'date'],
             'user_phone_number' => ['required', 'string', 'digits:11', 'unique:users'],
             'user_institution' => ['required', 'string', 'max:255'],

@@ -25,14 +25,14 @@ class SubmissionTypePolicy
      */
     public function accessTypes(User $user)
     {
-        return ($user->hasRole('admin') || $user->id === 1)
+        return ($user->hasRole('admin') || $user->id == 1)
         ? Response::allow()
         : Response::deny('Você não ter permissão para gerenciar tipos.');
     }
 
     public function manageTypes(User $user)
     {
-        if($user->hasRole('admin') || $user->id === 1)
+        if($user->hasRole('admin') || $user->id == 1)
         {
             return true;
         }

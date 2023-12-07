@@ -5,16 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                @if (Auth::user()->id === $user->id)
+                @if (Auth::user()->id == $user->id)
                     <h1 class='fs-2'>Minhas inscrições</h1>
                 @else
                     <h1 class='fs-2'>Inscrições de {{$user->user_name}}</h1>
                 @endif
             </div>
-            @if($user->events()->count() === 0)
+            @if($user->events()->count() == 0)
                 <div class="text-center">
                     <div class="row mb-2">
-                        @if (Auth::user()->id === $user->id)
+                        @if (Auth::user()->id == $user->id)
                             <p>Ainda não há inscrições realizadas.</p>
                             <a href="/">
                                 <button type="submit" class="btn btn-success bg-blue-600 mt-4">
@@ -162,7 +162,7 @@
                                             <div class="bg-secondary text-white mx-3 py-1 rounded-2">
                                                 Em breve
                                             </div>
-                                        @elseif($status === 3)
+                                        @elseif($status == 3)
                                             <div class="bg-success text-white mx-3 py-1 rounded-2">
                                                 Abertas
                                             </div>
@@ -176,7 +176,7 @@
                                     <td headers="t6" class="text-center">
                                         @if ($event->userSubmission($user) !== null)
                                             <a href="{{ route('showDocument', $event->userSubmission($user)->document)}}" class="btn btn-primary mx-3 py-1 rounded-2">Ver submissão</a>
-                                        @elseif($status === 3 && $event->userSubmission($user) === null)
+                                        @elseif($status == 3 && $event->userSubmission($user) == null)
                                             <a href="{{ route('createDocument', $event)}}" class="btn btn-success mx-3 py-1 rounded-2">Fazer submissão</a>
                                         @else
                                             <div class="btn btn-secondary mx-3 py-1 rounded-2 disabled">Pendente</div>

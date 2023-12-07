@@ -47,15 +47,15 @@
                                     $status = $document->submission->getStatusID();
                                 @endphp
                                 <h2 class="fs-default fw-bold mb-1">Status:</h2>
-                                @if($status === 0)
+                                @if($status == 0)
                                     <div class="bg-success text-white py-1 px-2 rounded-2 text-md-center w-25">
                                         {{$document->submission->getStatusValue()}}
                                     </div>
-                                @elseif($status === 1)
+                                @elseif($status == 1)
                                     <div class="bg-warning py-1 px-2 rounded-2 text-md-center w-25">
                                         {{$document->submission->getStatusValue()}}
                                     </div>
-                                @elseif($status === 2)
+                                @elseif($status == 2)
                                     <div class="bg-danger text-white py-1 px-2 rounded-2 text-md-center w-25">
                                         {{$document->submission->getStatusValue()}}
                                     </div>

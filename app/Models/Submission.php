@@ -72,7 +72,7 @@ class Submission extends Model
         {
             return Carbon::parse($date)->format('d/m/Y G:i:s');
         }
-        elseif($date === null)
+        elseif($date == null)
         {
             return('Aguardando avaliação');
         }
@@ -134,7 +134,7 @@ class Submission extends Model
         $reviews = $this->document->review()->count();
         if($reviewers > 0)
         {
-            if($reviewers === $reviews)
+            if($reviewers == $reviews)
             {
                 return true;
             }

@@ -29,7 +29,7 @@ class DocumentPolicy
     {
         return ($user->hasRole(['admin', 'event moderator']) ||
         ($user->hasRole('reviewer') && $document->users->contains($user)) ||
-        ($user->hasRole('user') && $document->submission->user->id === $user->id))
+        ($user->hasRole('user') && $document->submission->user->id == $user->id))
         ? Response::allow()
         : Response::deny('Você não ter permissão para ver essa submissão.');
     }
@@ -51,15 +51,15 @@ class DocumentPolicy
             }
             return Response::deny('Você não ter permissão para editar essa submissão.'); 
         }
-        else if($user->hasRole('user') && $document->submission->user->id === $user->id)
+        else if($user->hasRole('user') && $document->submission->user->id == $user->id)
         {
             $reviewers = $document->users()->count();
             $reviews = $document->review()->count();
             if($reviews > 0)
             {
-                if($reviewers === $reviews)
+                if($reviewers == $reviews)
                 {
-                    if($document->submission->getStatusID() === 1)
+                    if($document->submission->getStatusID() == 1)
                     {
                         return Response::allow();
                     }
@@ -84,7 +84,7 @@ class DocumentPolicy
     public function deleteDocument(User $user, Document $document)
     {
         return ($user->hasRole(['admin', 'event moderator']) ||
-        ($user->hasRole('user') && $document->submission->user->id === $user->id))
+        ($user->hasRole('user') && $document->submission->user->id == $user->id))
         ? Response::allow()
         : Response::deny('Você não ter permissão para deletar essa submissão.');
     }
@@ -100,7 +100,7 @@ class DocumentPolicy
         }
         elseif(($user->hasRole('user') && $event->users->contains($user)))
         {
-            if($event->userSubmission($user) === null)
+            if($event->userSubmission($user) == null)
             {
                 return Response::allow();
             }

@@ -60,7 +60,7 @@
                                                     <input type="hidden" name="score[{{$field->id}}]" value="-1">
                                                     @for ($row = 0; $row < 11; $row++)
                                                         <td headers="{{$row}}">
-                                                            <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ old("score.$field->id") === "$row" ? 'checked' : '' }}>
+                                                            <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ old("score.$field->id") == "$row" ? 'checked' : '' }}>
                                                         </td>
                                                     @endfor
                                                 </tr>
@@ -129,7 +129,7 @@
                                 {{ __('(Opcional) Anexo') }}
                             </label>
                             <div class="col-md-9 my-auto">
-                                <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ old('attachment') }}" autocomplete="attachment" autofocus>
+                                <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ old('attachment') }}" accept="application/pdf" autocomplete="attachment" autofocus>
                                 <small class="form-text text-muted">Anexe um arquivo contendo sugestões de correção.</small>
                                 @error('attachment')
                                     <span class="invalid-feedback" role="alert">

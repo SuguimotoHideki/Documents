@@ -25,7 +25,7 @@
                                 <select name="submission_type_id" id="submission_type_id" class="col-md-12 my-auto" required>
                                     <option value="" disabled selected>Escolha uma opção</option>
                                     @foreach ($event->submissionTypes as $type)
-                                        <option value="{{$type->id}}" @selected(old('submission_type_id') === $type->id)>{{ucfirst($type->name)}}</option>
+                                        <option value="{{$type->id}}" @selected(old('submission_type_id') == $type->id)>{{ucfirst($type->name)}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -126,7 +126,7 @@
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
-                                <input id="attachment_author" type="file" class="form-control @error('attachment_author') is-invalid @enderror" name="attachment_author" value="{{ old('attachment_author') }}" required>
+                                <input id="attachment_author" type="file" class="form-control @error('attachment_author') is-invalid @enderror" name="attachment_author" value="{{ old('attachment_author') }}" accept="application/pdf" required>
 
                                 @error('attachment_author')
                                     <span class="invalid-feedback" role="alert">
@@ -142,7 +142,7 @@
                                 <span style="color: red">*</span>
                             </label>
                             <div class="col-md-9 my-auto">
-                                <input id="attachment_no_author" type="file" class="form-control @error('attachment_no_author') is-invalid @enderror" name="attachment_no_author" value="{{ old('attachment_no_author') }}" required>
+                                <input id="attachment_no_author" type="file" class="form-control @error('attachment_no_author') is-invalid @enderror" name="attachment_no_author" value="{{ old('attachment_no_author') }}" accept="application/pdf" required>
 
                                 @error('attachment_no_author')
                                     <span class="invalid-feedback" role="alert">

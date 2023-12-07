@@ -47,15 +47,15 @@
                                 <td headers="t3"><a href="{{ route('showUser', $submission->user)}}">{{$submission->user->user_name}}</a></td>
                                 <td headers="t4">{{ucfirst($submission->document->submissionType->name)}}</td>
                                 <td headers="t5">
-                                    @if($status === 0)
+                                    @if($status == 0)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             {{$submission->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 1)
+                                    @elseif($status == 1)
                                         <div class="bg-warning mx-3 py-1 rounded-2 text-center">
                                             {{$submission->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 2)
+                                    @elseif($status == 2)
                                         <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             {{$submission->getStatusValue()}}
                                         </div>

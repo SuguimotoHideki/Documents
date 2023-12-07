@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleAndPermissionSeeder::class);
         $this->call(AdminSeeder::class);
-        $this->call(SubmissionTypeSeeder::class);
+        /*$this->call(SubmissionTypeSeeder::class);
 
         \App\Models\User::factory(45)->create();
         \App\Models\Event::factory(45)->create();
@@ -94,6 +94,6 @@ class DatabaseSeeder extends Seeder
                 ReviewCreated::dispatch($review->submission, true);
                 //event (new ReviewCreated($review->submission, true));
             }
-        }
+        }*/
     }
 }

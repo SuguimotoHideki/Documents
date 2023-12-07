@@ -31,7 +31,7 @@ class ReviewerController extends Controller
         foreach($parameters as $userId => $permissions)
         {
             $user = User::find($userId);
-            if($permissions[0] === '1')
+            if($permissions[0] == 1)
             {
                 if(!$document->users->contains($user))
                 {

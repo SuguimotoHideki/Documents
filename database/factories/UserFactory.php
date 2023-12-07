@@ -39,9 +39,9 @@ class UserFactory extends Factory
             $randomNumber = rand(0, 2);
 
             // Assign roles based on the random number
-            if ($randomNumber === 0) {
+            if ($randomNumber == 0) {
                 $user->assignRole('user');
-            } elseif($randomNumber === 1) {
+            } elseif($randomNumber == 1) {
                 $user->assignRole(['event moderator']);
             }else{
                 $user->assignRole(['reviewer']);

@@ -72,7 +72,7 @@ class SubscriptionController extends Controller
             }
             catch(QueryException $error)
             {
-                if($error->getCode() === '23000')
+                if($error->getCode() == '23000')
                 {
                     return redirect()->back()->with('error', 'Você já está inscrito no evento ' . $event->name . '.');
                 }

@@ -30,7 +30,7 @@ class CompleteReview
 
         $reviewers = $submission->document->users();
         $reviews = $submission->document->review();
-        if($reviewers->count() === $reviews->count())
+        if($reviewers->count() == $reviews->count())
         {
             $recommendations = array_count_values($reviews->pluck('recommendation')->toArray());
             arsort($recommendations);
@@ -41,7 +41,7 @@ class CompleteReview
             {
                 $scoreKey = array_key_first($recommendations);
                 //dd($submission->document->title, $recommendations, $scoreKey, $scoreFirst, $scoreSecond, '--------------');
-                if($scoreKey === 1)
+                if($scoreKey == 1)
                 {
                     $submission->setReview(true, 0, now());
                 }

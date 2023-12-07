@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             'cpf' => '03698481103',
             'user_institution' => 'Fiocruz MS',
             'user_email' => 'admin@email.com',
-            'password' => Hash::make('P0rt4l*05_set_2022#'),
+            'password' => Hash::make('123@senha'),
         ]);
 
         $admin->assignRole('admin');

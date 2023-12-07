@@ -70,7 +70,7 @@ class UserController extends Controller
             'user_email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'user_email')->ignore($user, 'id')],
             'user_institution' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
-            'current_password' => $canManageUser ? [] : ['required', 'string', 'min:3', new CurrentPassword],
+            'current_password' => $canManageUser ? [] : ['required', 'string', 'min:6', new CurrentPassword],
             'user_phone_number' => ['required', 'string', 'digits:11', Rule::unique('users', 'user_phone_number')->ignore($user, 'id')],
             'role' => ['required']
         ]);
@@ -78,7 +78,7 @@ class UserController extends Controller
         $user->update($request->except('current_password'));
 
         $user->syncRoles($request['role']);
-        if($request['role'] === '3')
+        if($request['role'] == 3)
         {
             $user->givePermissionTo('switch roles');
         }
@@ -95,7 +95,7 @@ class UserController extends Controller
 
         $passwordFields = $request->validate([
             'current_password' => $canManageUser ? [] : ['required', 'string', new CurrentPassword],
-            'password' => ['required', 'string', 'min:3', 'confirmed', new CurrentPassword]
+            'password' => ['required', 'string', 'min:6', 'confirmed', new CurrentPassword]
         ]);
 
         

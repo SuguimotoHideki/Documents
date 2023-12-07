@@ -49,11 +49,11 @@
                                 <td headers="t5" class="text-truncate">{{$event->email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
                                 <td headers="t4">
-                                    @if($event->getStatusID() === 0)
+                                    @if($event->getStatusID() == 0)
                                         <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
-                                    @elseif($event->getStatusID() === 1)
+                                    @elseif($event->getStatusID() == 1)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>
@@ -69,7 +69,7 @@
                                         <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
-                                    @elseif($event->getStatusID() === 3)
+                                    @elseif($event->getStatusID() == 3)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>

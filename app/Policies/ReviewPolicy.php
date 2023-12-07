@@ -26,7 +26,7 @@ class ReviewPolicy
      */
     public function assignReviewer(User $user)
     {
-        return ($user->hasRole('admin') || $user->id === 1 || $user->hasRole('event moderator'))
+        return ($user->hasRole('admin') || $user->id == 1 || $user->hasRole('event moderator'))
         ? Response::allow()
         : Response::deny('Você não ter permissão para escolher avaliadores.');
     }
@@ -36,10 +36,10 @@ class ReviewPolicy
      */
     public function createReview(User $user, Document $document)
     {
-        if($user->hasRole('admin') || $user->id === 1 || ($user->hasRole('reviewer') && $document->users->contains($user)))
+        if($user->hasRole('admin') || $user->id == 1 || ($user->hasRole('reviewer') && $document->users->contains($user)))
         {
             $review = $document->review()->where('user_id', $user->id)->first();
-            if($review === null)
+            if($review == null)
             {
                 return Response::allow();
             }
@@ -60,11 +60,11 @@ class ReviewPolicy
     public function editReview(User $user, Review $review)
     {
         $document = $review->document;
-        if($user->hasRole('admin') || $user->id === 1)
+        if($user->hasRole('admin') || $user->id == 1)
         {
             return Response::allow();
         }
-        else if($user->hasRole('reviewer') && $review->user->id === $user->id)
+        else if($user->hasRole('reviewer') && $review->user->id == $user->id)
         {
             if($document->submission->isReviewed())
             {
@@ -97,10 +97,10 @@ class ReviewPolicy
         {
             return Response::allow();
         }
-        else if($document->submission->user->id === $user->id)
+        else if($document->submission->user->id == $user->id)
         {
             $reviews = $document->review()->count();
-            if($reviews === 0 || ($document->submission->isReviewed() && $document->submission->getStatusID() !== 3))
+            if($reviews == 0 || ($document->submission->isReviewed() && $document->submission->getStatusID() !== 3))
             {
                 return Response::allow();
             }
@@ -118,8 +118,8 @@ class ReviewPolicy
     public function showReview(User $user, Review $review)
     {
         return ($user->hasRole(['admin', 'event moderator']) ||
-        ($user->hasRole('reviewer') && $review->user->id === $user->id) ||
-        ($user->hasRole('user') && $review->document->submission->user->id === $user->id))
+        ($user->hasRole('reviewer') && $review->user->id == $user->id) ||
+        ($user->hasRole('user') && $review->document->submission->user->id == $user->id))
         ? Response::allow()
         : Response::deny('Você não ter permissão para ver essa avaliação.');
     }
@@ -127,11 +127,11 @@ class ReviewPolicy
     public function deleteReview(User $user, Review $review)
     {
         $document = $review->document;
-        if($user->hasRole('admin') || $user->id === 1)
+        if($user->hasRole('admin') || $user->id == 1)
         {
             return Response::allow();
         }
-        else if($user->hasRole('reviewer') && $review->user->id === $user->id)
+        else if($user->hasRole('reviewer') && $review->user->id == $user->id)
         {
             if($document->submission->isReviewed())
             {

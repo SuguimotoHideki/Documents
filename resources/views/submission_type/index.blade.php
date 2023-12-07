@@ -87,41 +87,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal fade" id="typeCreatePrompt" tabindex="-1" aria-labelledby="typeCreatePromptLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <form action="{{ route('createSubType')}}" method="POST">
-                                                @csrf
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Criar tipo de submissão</h5>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row my-2">
-                                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Tipo de submissão') }}
-                                                                <span style="color: red">*</span>
-                                                            </label>
-                                
-                                                            <div class="col-md-6 my-auto">
-                                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name">
-                                
-                                                                @error('name')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                        <button type="submit" class="btn btn-success">
-                                                            {{ __('Criar') }}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="modal fade" id="typeEditPrompt{{$type->id}}" tabindex="-1" aria-labelledby="typeEditPromptLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <form action="{{ route('updateSubType', $type)}}" method="POST">
@@ -166,6 +131,41 @@
                 </div> 
             </div>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="typeCreatePrompt" tabindex="-1" aria-labelledby="typeCreatePromptLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{ route('createSubType')}}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Criar tipo de submissão</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row my-2">
+                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Tipo de submissão') }}
+                            <span style="color: red">*</span>
+                        </label>
+
+                        <div class="col-md-6 my-auto">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name">
+
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">
+                        {{ __('Criar') }}
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

@@ -5,16 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mb-2">
-                @if (Auth::user()->id === $user->id)
+                @if (Auth::user()->id == $user->id)
                     <h1 class='fs-2 col'>Minhas submissões</h1>
                 @else
                     <h1 class='fs-2'>Submissões de {{$user->user_name}}</h1>
                 @endif
             </div>
-            @if($submissions->count() === 0)
+            @if($submissions->count() == 0)
                 <div class="text-center">
                     <div class="row mb-2">
-                        @if (Auth::user()->id === $user->id)
+                        @if (Auth::user()->id == $user->id)
                             <p>Ainda não há submissões. Inscreva-se em um evento para fazer uma submissão.</p>
                             <a href="/">
                                 <button type="submit" class="btn btn-success bg-blue-600 mt-4">
@@ -59,15 +59,15 @@
                                 <td headers="t2">{{ucfirst($submission->document->submissionType->name)}}</td>
                                 <td headers="t3" class="text-truncate"><a href="{{ route('showDocument', $submission->document)}}">{{$submission->document->title}}</a></td>
                                 <td headers="t4">
-                                    @if($status === 0)
+                                    @if($status == 0)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             {{$submission->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 1)
+                                    @elseif($status == 1)
                                         <div class="bg-warning mx-3 py-1 rounded-2 text-center">
                                             {{$submission->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 2)
+                                    @elseif($status == 2)
                                         <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             {{$submission->getStatusValue()}}
                                         </div>

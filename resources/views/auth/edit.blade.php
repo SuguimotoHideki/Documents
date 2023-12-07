@@ -114,10 +114,10 @@
                                 <div class="col-md-6 my-auto">
                                     <select name="role" id="role" class="col-md-12 my-auto" required>
                                         <option value="" disabled selected>Escolha uma opção</option>
-                                        <option value="1" {{$roles[0] === 1 ? 'selected' : ''}}>Administrador</option>
-                                        <option value="2" {{$roles[0] === 2 ? 'selected' : ''}}>Moderador</option>
-                                        <option value="3" {{$roles[0] === 3 ? 'selected' : ''}}>Avaliador</option>
-                                        <option value="4" {{$roles[0] === 4 ? 'selected' : ''}}>Usuário</option>
+                                        <option value="1" {{$roles[0] == 1 ? 'selected' : ''}}>Administrador</option>
+                                        <option value="2" {{$roles[0] == 2 ? 'selected' : ''}}>Moderador</option>
+                                        <option value="3" {{$roles[0] == 3 ? 'selected' : ''}}>Avaliador</option>
+                                        <option value="4" {{$roles[0] == 4 ? 'selected' : ''}}>Usuário</option>
                                     </select>
 
                                     @error('user_institution')

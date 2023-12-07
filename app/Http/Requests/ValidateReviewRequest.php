@@ -22,7 +22,7 @@ class ValidateReviewRequest extends FormRequest
     public function rules(): array
     {
         $review = $this->route('review');
-        if($review === null)
+        if($review == null)
         {
             return [
                 'title' => ['required', 'string'],

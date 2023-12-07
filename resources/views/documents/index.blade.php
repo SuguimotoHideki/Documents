@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="row mb-2">
                 <h1 class='fs-2 col mb-2'>{{$title}}</h1>
-                @if($documents->count() === 0 && !request()->has('search'))
+                @if($documents->count() == 0 && !request()->has('search'))
                     <div class="text-center">
                         <p>Ainda não há submissões.</p>
                     </div>
@@ -67,15 +67,15 @@
                                 <td headers="t3"><a href="{{route('showEvent', $document->submission->event)}}">{{$document->submission->event->name}}</a></td>
                                 @if($review !== null)
                                 <td headers="t5">
-                                    @if($status === 0)
+                                    @if($status == 0)
                                         <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
                                             {{$review->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 1)
+                                    @elseif($status == 1)
                                         <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
                                             {{$review->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 2)
+                                    @elseif($status == 2)
                                         <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
                                             {{$review->getStatusValue()}}
                                         </div>
@@ -149,7 +149,7 @@
         <div class="col-md-12">
             <div class="row mb-2">
                 <h1 class='fs-2 col mb-2'>{{$title}}</h1>
-                @if($documents->count() === 0 && !request()->has('search'))
+                @if($documents->count() == 0 && !request()->has('search'))
                     <div class="text-center">
                         <p>Ainda não há submissões.</p>
                     </div>
@@ -203,15 +203,15 @@
                                 <td headers="t3"><a href="{{ route('showUser', $document->submission->user)}}">{{$document->submission->user->user_name}}</a></td>
                                 <td headers="t4">{{ucfirst($document->submissionType->name)}}</td>
                                 <td headers="t5">
-                                    @if($status === 0)
+                                    @if($status == 0)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             {{$document->submission->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 1)
+                                    @elseif($status == 1)
                                         <div class="bg-warning mx-3 py-1 rounded-2 text-center">
                                             {{$document->submission->getStatusValue()}}
                                         </div>
-                                    @elseif($status === 2)
+                                    @elseif($status == 2)
                                         <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             {{$document->submission->getStatusValue()}}
                                         </div>

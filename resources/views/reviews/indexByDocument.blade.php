@@ -40,15 +40,15 @@
                                     <td headers="t2">{{$review->user->user_name}}</td>
                                     <td headers="t3">{{$review->score}}</td>
                                     <td headers="t4">
-                                        @if($status === 0)
+                                        @if($status == 0)
                                             <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
                                                 {{$review->getStatusValue()}}
                                             </div>
-                                        @elseif($status === 1)
+                                        @elseif($status == 1)
                                             <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
                                                 {{$review->getStatusValue()}}
                                             </div>
-                                        @elseif($status === 2)
+                                        @elseif($status == 2)
                                             <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
                                                 {{$review->getStatusValue()}}
                                             </div>
@@ -124,15 +124,15 @@
                                     <td headers="t1"><a href="{{route('showReview', [$document, $review])}}">{{$review->title}}</a></td>
                                     <td headers="t2">{{$review->score}}</td>
                                     <td headers="t3">
-                                        @if($status === 0)
+                                        @if($status == 0)
                                             <div class="bg-success text-white mx-3 py-1 px-2 rounded-2 text-center">
                                                 {{$review->getStatusValue()}}
                                             </div>
-                                        @elseif($status === 1)
+                                        @elseif($status == 1)
                                             <div class="bg-warning mx-3 py-1 px-2 rounded-2 text-center">
                                                 {{$review->getStatusValue()}}
                                             </div>
-                                        @elseif($status === 2)
+                                        @elseif($status == 2)
                                             <div class="bg-danger text-white mx-3 py-1 px-2 rounded-2 text-center">
                                                 {{$review->getStatusValue()}}
                                             </div>

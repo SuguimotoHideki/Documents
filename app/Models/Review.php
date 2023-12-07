@@ -69,7 +69,7 @@ class Review extends Model
         {
             return Carbon::parse($date)->format('d/m/Y G:i:s');
         }
-        elseif($date === null)
+        elseif($date == null)
         {
             return('Aguardando avaliação');
         }

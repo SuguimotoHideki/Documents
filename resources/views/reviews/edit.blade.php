@@ -63,9 +63,9 @@
                                                     @for ($row = 0; $row < 11; $row++)
                                                         <td headers="{{$row}}">
                                                             @if($review->reviewFields->contains($field))
-                                                                <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ $row === $review->getScore($field) ? 'checked' : '' }}>
+                                                                <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ $row == $review->getScore($field) ? 'checked' : '' }}>
                                                             @else
-                                                                <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ old("score.$field->id") === "$row" ? 'checked' : '' }}>
+                                                                <input type="radio" name="score[{{$field->id}}]" value="{{$row}}" {{ old("score.$field->id") == "$row" ? 'checked' : '' }}>
                                                             @endif
                                                         </td>
                                                     @endfor
@@ -118,7 +118,7 @@
                             <div class="col-md-9 my-auto">
                                 <select name="recommendation" id="recommendation" class="col-md-12 my-auto" required>
                                     <option value="-1" selected>Nenhuma</option>
-                                    <option value="1" {{$review->recommendation === 1 ? 'selected' : ''}}>Revisão</option>
+                                    <option value="1" {{$review->recommendation == 1 ? 'selected' : ''}}>Revisão</option>
                                 </select>
                                 <a href="#" class="col-md-2" data-bs-toggle="modal" data-bs-target="#recommendationHelpPrompt"><i class="fa-regular fa-circle-question"></i> Ajuda</a>
                             </div>
@@ -137,7 +137,7 @@
                                 <div class="row">
                                     @if($review->attachment !== null)
                                         <div class="col-md-10 my-auto">
-                                            <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
+                                            <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" accept="application/pdf" autocomplete="attachment" autofocus>
 
                                             @error('attachment')
                                                 <span class="invalid-feedback" role="alert">
@@ -150,7 +150,7 @@
                                         </div>
                                     @else
                                     <div class="col-md-12 my-auto">
-                                        <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" autocomplete="attachment" autofocus>
+                                        <input id="attachment" type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="{{ $review->attachment }}" accept="application/pdf" autocomplete="attachment" autofocus>
 
                                         @error('attachment')
                                             <span class="invalid-feedback" role="alert">

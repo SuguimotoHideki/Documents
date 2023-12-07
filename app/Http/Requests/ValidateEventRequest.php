@@ -25,7 +25,7 @@ class ValidateEventRequest extends FormRequest
     public function rules()
     {
         $event = $this->route('event');
-        if($event === null)
+        if($event == null)
         {
              return [
                 'name' => ['required', 'string', Rule::unique('events', 'name')],

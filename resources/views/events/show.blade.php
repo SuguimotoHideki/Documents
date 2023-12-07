@@ -48,7 +48,7 @@
                                         @else
                                             @if($eventStatus < 3)
                                                 <a class="btn btn-primary width-100 mb-3 disabled">Submissões em breve</a>
-                                            @elseif($eventStatus === 3)
+                                            @elseif($eventStatus == 3)
                                                 <a href="{{route('createDocument', $event)}}" class="btn btn-primary width-100 mb-3">Submissão</a>
                                             @else
                                                 <a class="btn btn-primary width-100 mb-3 disabled">Submissões encerradas</a>

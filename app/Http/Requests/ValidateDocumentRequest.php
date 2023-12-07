@@ -23,7 +23,7 @@ class ValidateDocumentRequest extends FormRequest
     public function rules(): array
     {
         $document = $this->route('document');
-        if($document === null)
+        if($document == null)
         {
             return [
                 'title' => ['required', 'string', Rule::unique('documents', 'title')],

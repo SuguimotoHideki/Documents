@@ -34,7 +34,7 @@ class ModeratorController extends Controller
         foreach($parameters as $userId => $permissions)
         {
             $user = User::find($userId);
-            if($permissions[0] === '1')
+            if($permissions[0] == 1)
             {
                 if(!$event->isMod($user))
                 {

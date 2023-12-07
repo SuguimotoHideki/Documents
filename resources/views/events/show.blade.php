@@ -31,13 +31,14 @@
                                     @php
                                         $isSubscribed = $event->hasUser(Auth::user());
                                         $hasSubmission = Auth::user()->submission()->where('event_id', $event->id)->exists();
-                                        $eventStatus = $event->getStatusID();
                                     @endphp
                                     @can('events.subscribe')
                                         @if($isSubscribed)
                                             <button type="button" class="btn btn-dark width-100 mb-3" disabled>Inscrito</button>
                                         @else
-                                            @if($eventStatus > 2)
+                                            @if($event->subscriptionStatus() == 0)
+                                                <button type="button" class="btn btn-dark width-100 mb-3" disabled>Inscrições em breve</button>
+                                            @elseif($event->subscriptionStatus() == 2)
                                                 <button type="button" class="btn btn-dark width-100 mb-3" disabled>Inscrições encerradas</button>
                                             @else
                                                 <button type="button" class="btn btn-primary width-100 mb-3" data-bs-toggle="modal" data-bs-target="#subscriptionPrompt">Inscrever-se</button>
@@ -46,12 +47,12 @@
                                         @if ($hasSubmission)
                                             <a href="{{route('showDocument', $event->userSubmission(Auth::user())->document)}}" class="btn btn-primary width-100 mb-3">Ver submissão</a>
                                         @else
-                                            @if($eventStatus < 3)
+                                            @if($event->submissionStatus() == 0)
                                                 <a class="btn btn-primary width-100 mb-3 disabled">Submissões em breve</a>
-                                            @elseif($eventStatus == 3)
-                                                <a href="{{route('createDocument', $event)}}" class="btn btn-primary width-100 mb-3">Submissão</a>
-                                            @else
+                                            @elseif($event->submissionStatus() == 2)
                                                 <a class="btn btn-primary width-100 mb-3 disabled">Submissões encerradas</a>
+                                            @else
+                                                <a href="{{route('createDocument', $event)}}" class="btn btn-primary width-100 mb-3">Submissão</a>
                                             @endif
                                         @endif
                                     @endcan

@@ -37,10 +37,10 @@ class ValidateEventRequest extends FormRequest
                 'organizer' => ['required', 'string'],
                 'organizer_email' => ['required', 'string'],
                 'organizer_website' => ['required', 'string'],
-                'subscription_start' => ['required', 'date_format:Y-m-d H:i:s', 'before:subscription_deadline'],
-                'subscription_deadline' => ['required', 'date_format:Y-m-d H:i:s', 'before:submission_start'],
-                'submission_start' => ['required', 'date_format:Y-m-d H:i:s', 'before:submission_deadline'],
-                'submission_deadline' => ['required', 'date_format:Y-m-d H:i:s'],
+                'subscription_start' => ['required', 'date_format:Y-m-d H:i:s'],
+                'subscription_deadline' => ['required', 'date_format:Y-m-d H:i:s', 'after:subscription_start'],
+                'submission_start' => ['required', 'date_format:Y-m-d H:i:s'],
+                'submission_deadline' => ['required', 'date_format:Y-m-d H:i:s', 'after:submission_start'],
             ];
         }
         else
@@ -56,10 +56,10 @@ class ValidateEventRequest extends FormRequest
                 'organizer' => ['required', 'string'],
                 'organizer_email' => ['required', 'string'],
                 'organizer_website' => ['required', 'string'],
-                'subscription_start' => ['required', 'date_format:Y-m-d H:i:s', 'before:subscription_deadline'],
-                'subscription_deadline' => ['required', 'date_format:Y-m-d H:i:s', 'before:submission_start'],
-                'submission_start' => ['required', 'date_format:Y-m-d H:i:s', 'before:submission_deadline'],
-                'submission_deadline' => ['required', 'date_format:Y-m-d H:i:s'],
+                'subscription_start' => ['required', 'date_format:Y-m-d H:i:s'],
+                'subscription_deadline' => ['required', 'date_format:Y-m-d H:i:s', 'after:subscription_start'],
+                'submission_start' => ['required', 'date_format:Y-m-d H:i:s'],
+                'submission_deadline' => ['required', 'date_format:Y-m-d H:i:s', 'after:submission_start'],
             ];
         }
 

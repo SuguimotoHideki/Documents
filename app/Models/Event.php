@@ -51,14 +51,6 @@ class Event extends Model
         'submission_deadline',
     ];
 
-    public const STATUSES = [
-        0 => 'Em breve',
-        1 => 'Inscrições abertas',
-        2 => 'Inscrições encerradas',
-        3 => 'Submissões abertas',
-        4 => 'Submissões encerradas',
-    ];
-
     /**
      * Returns formated date to d/m/Y
      */
@@ -107,72 +99,12 @@ class Event extends Model
     }
 
     /**
-     * Status getters and setters
-     */
-    public function getStatusID()
-    {
-        $status = self::STATUSES[$this->status];
-        return array_search($status, self::STATUSES);
-    }
-
-    public function getStatusValue()
-    {
-        return self::STATUSES[$this->status];
-    }
-
-    public function setStatus($status)
-    {
-        if(in_array($status, self::STATUSES))
-        {
-            $this->attributes['status'] = $status;
-        }
-    }
-
-    /**
      * Returns list of submission types
      */
     public function getSubmissionTypes()
     {
         $types = explode(",", $this->submission_types);
         //dd($types);
-    }
-
-    /**
-     * Updates the status depending on the set dates (MUST OVERHAUL LATER)
-     */
-    public function updateStatus()
-    {
-        $today = Carbon::today();
-        if($today < $this->submission_start)
-        {
-            if($today < $this->subscription_start)
-            {
-                $this->status = 0;
-            }
-            else if($today >= $this->subscription_start && $today <= $this->subscription_deadline)
-            {
-                $this->status = 1;
-            }
-            else if($today > $this->subscription_deadline)
-            {
-                $this->status = 2;
-            }
-        }
-        else
-        {
-            if($today >= $this->submission_start && $today <= $this->submission_deadline)
-            {
-                $this->status = 3;
-            }
-            else if($today > $this->submission_deadline)
-            {
-                $this->status = 4;
-            }
-        }
-        
-        $this->save();
-        
-        return $this->getStatusId();
     }
 
     /**
@@ -247,6 +179,39 @@ class Event extends Model
         return $this->belongsToMany(SubmissionType::class, 'event_submission_type', 'event_id', 'submission_type_id');
     }
 
+    //Checks the subscription status of an event
+    public function subscriptionStatus()
+    {
+        if(Carbon::parse($this->subscription_start)->isFuture())
+        {
+            return 0;
+        }
+        elseif(Carbon::parse($this->subscription_start)->isPast() && Carbon::parse($this->subscription_deadline)->isFuture())
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+    }
+    //Checks the submission status of an event
+    //Checks the subscription status of an event
+    public function submissionStatus()
+    {
+        if(Carbon::parse($this->submission_start)->isFuture())
+        {
+            return 0;
+        }
+        elseif(Carbon::parse($this->submission_start)->isPast() && Carbon::parse($this->submission_deadline)->isFuture())
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+    }
     //Query methods
     public function scopesearchDashboard($query, $search)
     {

@@ -42,22 +42,22 @@
                         <tbody>
                             @foreach($events as $event)
                             @php
-                                $event->updateStatus();
+                                //$event->updateStatus();
                             @endphp
                             <tr class="align-middle" style="height:4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->name}}</a></td>
                                 <td headers="t5" class="text-truncate">{{$event->email}}</td>
                                 <td headers="t3">{{$event->organizer}}</td>
                                 <td headers="t4">
-                                    @if($event->getStatusID() == 0)
+                                    @if($event->subscriptionStatus() == 0)
                                         <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
-                                    @elseif($event->getStatusID() == 1)
+                                    @elseif($event->subscriptionStatus() == 1)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>
-                                    @else
+                                    @elseif($event->subscriptionStatus() == 2)
                                         <div class="bg-danger text-white mx-3 py-1 rounded-2 text-center">
                                             Encerradas
                                         </div>
@@ -65,11 +65,11 @@
                                 </td>
 
                                 <td headers="t5">
-                                    @if($event->getStatusID() < 3)
+                                    @if($event->submissionStatus() == 0)
                                         <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
-                                    @elseif($event->getStatusID() == 3)
+                                    @elseif($event->submissionStatus() == 1)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>

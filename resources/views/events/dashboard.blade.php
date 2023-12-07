@@ -54,7 +54,7 @@
                         <tbody>
                             @foreach($events as $event)
                             @php
-                                $event->updateStatus()
+                                //$event->updateStatus()
                             @endphp
                             <tr class="align-middle" style="height: 4rem">
                                 <td headers="t1"><a href="{{route('showEvent', $event)}}">{{$event->id}}</td>
@@ -73,11 +73,11 @@
                                     @endif
                                 </td>
                                 <td headers="t6">
-                                    @if($event->getStatusID() == 0)
+                                    @if($event->subscriptionStatus() == 0)
                                         <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
-                                    @elseif($event->getStatusID() == 1)
+                                    @elseif($event->subscriptionStatus() == 1)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>
@@ -89,11 +89,11 @@
                                 </td>
 
                                 <td headers="t7">
-                                    @if($event->getStatusID() < 3)
+                                    @if($event->submissionStatus() == 0)
                                         <div class="bg-secondary text-white mx-3 py-1 rounded-2 text-center">
                                             Em breve
                                         </div>
-                                    @elseif($event->getStatusID() == 3)
+                                    @elseif($event->submissionStatus() == 1)
                                         <div class="bg-success text-white mx-3 py-1 rounded-2 text-center">
                                             Abertas
                                         </div>

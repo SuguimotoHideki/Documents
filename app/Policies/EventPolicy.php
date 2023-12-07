@@ -96,7 +96,7 @@ class EventPolicy
     {
         if($user->can('events.subscribe'))
         {
-            if($event->getStatusID() == 1 && $event->published == 1)
+            if($event->subscriptionStatus() == 1 && $event->published == 1)
             {
                 return Response::allow();
             }
